@@ -29,7 +29,13 @@ function computeNextReview(difficulty) {
   return d.toISOString();
 }
 
-// ── Text-to-speech ─────────────────────────────────────────────────────────
+// ── Level computation ──────────────────────────────────────────────────────
+function computeLevel(learntCount) {
+  if (learntCount >= 3000) return "B2";
+  if (learntCount >= 2000) return "B1";
+  if (learntCount >= 800)  return "A2";
+  return "A1";
+}
 function speakFrench(text) {
   if (!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
@@ -73,12 +79,24 @@ function FrenchVoiceHint() {
   );
 }
 
+function SpeakBtn({ text, style }) {
+  return (
+    <button onClick={e => { e.stopPropagation(); speakFrench(text); }}
+      title="Listen"
+      style={{ background:"none", border:"none", cursor:"pointer", padding:"0 4px", fontSize:15, lineHeight:1, color:"var(--accent2)", opacity:0.8, transition:"opacity 0.15s", ...style }}
+      onMouseEnter={e => e.currentTarget.style.opacity=1}
+      onMouseLeave={e => e.currentTarget.style.opacity=0.8}>
+      🔊
+    </button>
+  );
+}
+
 
 
 
 const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","Shopping","Work","Body & Health","Nature","Home","Emotions","Verbs","Adjectives","Colors","Numbers","General"];
 const LEVELS = ["All","A1","A2","B1","B2"];
-const PAIR_MODES = ["FR → EN","EN → FR"];
+const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/refs/heads/main/french-vocab.csv";
 
@@ -197,12 +215,13 @@ function App() {
     });
   }
 
-  const dueWords = words.filter(w => isDue({ ...w, ...progress[w.id] }));
-  const newWords  = words.filter(w => !progress[w.id]);
-  const introducedCount = words.filter(w => progress[w.id]).length; // seen at least once in New Words
-  const learntCount = words.filter(w => (progress[w.id]?.easyCount || 0) >= 3).length; // Easy 3x total
-  const learnedCount = learntCount; // keep alias for other uses
-  const streak = 7; // placeholder
+  const newWords       = words.filter(w => !progress[w.id]);                                    // never seen
+  const introducedWords = words.filter(w => progress[w.id]);                                   // seen in New Words
+  const introducedCount = introducedWords.length;
+  const learntCount    = words.filter(w => (progress[w.id]?.easyCount || 0) >= 3).length;
+  const learnedCount   = learntCount;
+  const userLevel      = computeLevel(learntCount);
+  const streak         = 7; // placeholder
 
   const [isOnline, setIsOnline] = useState(() => navigator.onLine);
   useEffect(() => {
@@ -236,7 +255,7 @@ function App() {
 
       <div style={{ display:"flex", flexDirection:"column", flex:1, minHeight:0 }}>
         <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0" }}>
-          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} learntCount={learntCount} streak={streak}
+          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} learntCount={learntCount} streak={streak} userLevel={userLevel}
             userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))} />
           <div style={{ flex:1, minWidth:0, paddingLeft:20 }}>
             {view==="dashboard"  && words.length === 0 && (
@@ -247,8 +266,8 @@ function App() {
               <button onClick={() => setView("upload")} style={{ padding:"11px 28px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:10, fontSize:14, fontWeight:600 }}>Go to Settings</button>
             </div>
           )}
-          {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} dueWords={dueWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
-            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} setView={setView} />}
+          {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
+            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} setView={setView} introducedWords={introducedWords} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
@@ -260,7 +279,7 @@ function App() {
 }
 
 // ── Sidebar ────────────────────────────────────────────────────────────────
-function Sidebar({ view, setView, words, progress, introducedCount, learntCount, streak, userName, onUserNameChange }) {
+function Sidebar({ view, setView, words, progress, introducedCount, learntCount, streak, userName, onUserNameChange, userLevel }) {
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState(userName);
   const nameInputRef = useRef(null);
@@ -322,7 +341,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, learntCount,
               {userName} <span style={{ fontSize:10, opacity:0.5 }}>✎</span>
             </div>
           )}
-          <div style={{ color:"var(--sidebar-text)", fontSize:10 }}>Level A2</div>
+          <div style={{ color:"var(--sidebar-text)", fontSize:10 }}>Level {userLevel}</div>
         </div>
       </div>
 
@@ -352,7 +371,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, learntCount,
 }
 
 // ── Dashboard ──────────────────────────────────────────────────────────────
-function Dashboard({ words, progress, settings, setSettings, dueWords, newWords, learnedCount, streak, setView, userName }) {
+function Dashboard({ words, progress, settings, setSettings, introducedWords, newWords, learnedCount, streak, setView, userName }) {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
@@ -565,27 +584,79 @@ function WordCountPicker({ value, onChange }) {
   );
 }
 
+// ── DifficultyButtons ──────────────────────────────────────────────────────
+function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty }) {
+  const [localDiff, setLocalDiff] = useState("Default");
+  const activeDiff = isLearn ? localDiff : savedDiff;
+
+  return (
+    <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:10, alignItems:"center" }}>
+      <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
+      {["Easy","Default","Hard"].map(d => (
+        <button key={d} onClick={() => {
+          if (isLearn) {
+            setLocalDiff(d);
+            setDifficulty(wordId, d);
+          } else {
+            setDifficulty(wordId, d);
+          }
+        }} style={{
+          padding:"7px 16px", borderRadius:8, fontSize:13, fontWeight:600,
+          border:`2px solid ${diffColor[d]}`,
+          background: activeDiff===d ? diffColor[d] : "transparent",
+          color: activeDiff===d ? "#fff" : diffColor[d],
+          transition:"all 0.15s"
+        }}>{d}</button>
+      ))}
+    </div>
+  );
+}
+
 // ── Flashcards ─────────────────────────────────────────────────────────────
-function Flashcards({ words, progress, settings, setDifficulty, setView }) {
-  const [queue] = useState(() => buildQueue(words, progress, settings));
+function Flashcards({ words, progress, settings, setDifficulty, setView, introducedWords }) {
+  const isReview = settings.sessionType === "review";
+  const isWriting = settings.activeSessionMode === "writing";
+
+  function buildQueue() {
+    const isRev = settings.sessionType === "review";
+    const fm = isRev ? settings.reviewFilterMode : settings.learnFilterMode;
+    const fc = isRev ? settings.reviewFilterCategory : settings.learnFilterCategory;
+    const cnt = isRev ? settings.reviewCount : settings.sessionCount;
+
+    // Pool: review = introduced only, learn = unseen only
+    let pool = isRev
+      ? [...introducedWords]
+      : words.filter(w => !progress[w.id]);
+
+    if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
+
+    if (isRev) {
+      // Sort by due first, then by last seen
+      pool.sort((a, b) => {
+        const aDue = isDue({...a, ...progress[a.id]}) ? 0 : 1;
+        const bDue = isDue({...b, ...progress[b.id]}) ? 0 : 1;
+        return aDue - bDue || Math.random() - 0.5;
+      });
+    } else {
+      // Shuffle new words
+      pool.sort(() => Math.random() - 0.5);
+    }
+
+    return pool.slice(0, cnt);
+  }
+
+  const [queue] = useState(() => buildQueue());
+  const [tooFewWarning] = useState(() => {
+    if (settings.sessionType === "review") {
+      const cnt = settings.reviewCount;
+      const avail = introducedWords.length;
+      return cnt > avail ? avail : null;
+    }
+    return null;
+  });
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
-  const isWriting = settings.activeSessionMode === "writing";
-
-  function buildQueue(words, progress, settings) {
-    let filtered = [...words];
-    const fm = settings.sessionType==="review" ? settings.reviewFilterMode : settings.learnFilterMode;
-    const fc = settings.sessionType==="review" ? settings.reviewFilterCategory : settings.learnFilterCategory;
-    if (fm==="topic" && fc!=="All") filtered = filtered.filter(w => w.category===fc);
-    filtered.sort((a,b) => {
-      const aDue = isDue({...a,...progress[a.id]}) ? 0 : 1;
-      const bDue = isDue({...b,...progress[b.id]}) ? 0 : 1;
-      return aDue-bDue || Math.random()-0.5;
-    });
-    const cnt = settings.sessionType==="review" ? settings.reviewCount : settings.sessionCount;
-    return filtered.slice(0, cnt);
-  }
 
   const word = queue[idx];
   const prog = word ? progress[word.id]||{} : {};
@@ -593,6 +664,8 @@ function Flashcards({ words, progress, settings, setDifficulty, setView }) {
   const isFR_first = pm==="FR → EN";
   const diffColor = { Hard:"var(--hard)", Default:"var(--default)", Easy:"var(--easy)" };
   const curDiff = prog.difficulty||"Default";
+  const sessionLabel = isReview ? "Review" : "New Words";
+  const sessionIcon = isReview ? "↺" : "✦";
 
   if (done||!word) return (
     <div style={{ textAlign:"center", padding:"80px 20px" }}>
@@ -616,13 +689,21 @@ function Flashcards({ words, progress, settings, setDifficulty, setView }) {
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
       onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty}
-      isLearn={settings.sessionType !== "review"} />
+      isLearn={!isReview} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} />
   );
 
   return (
     <div style={{ maxWidth:620, margin:"0 auto" }}>
+      {/* Warning */}
+      {tooFewWarning && idx === 0 && (
+        <div style={{ background:"#fffbea", border:"1px solid var(--accent2)", borderRadius:8, padding:"8px 14px", fontSize:13, color:"var(--text2)", marginBottom:16 }}>
+          ⚠️ Only {tooFewWarning} words have been introduced. Session will include all of them.
+        </div>
+      )}
+      {/* Header */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {pm}</span>
         <div style={{ flex:1, height:4, background:"var(--border)", borderRadius:2 }}>
           <div style={{ height:"100%", background:"var(--accent)", borderRadius:2, width:`${((idx+1)/queue.length)*100}%`, transition:"width 0.3s" }} />
         </div>
@@ -667,24 +748,13 @@ function Flashcards({ words, progress, settings, setDifficulty, setView }) {
 
       {flipped && (
         <div style={{ marginTop:16 }}>
-          <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:10, alignItems:"center" }}>
-            <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
-            {["Easy","Default","Hard"].map(d => {
-              const isLearn = settings.sessionType !== "review";
-              // Learn: highlight Default unless user clicked something this card
-              // Review: highlight saved difficulty from progress
-              const activeDiff = isLearn ? "Default" : (progress[word.id]?.difficulty || "Default");
-              return (
-                <button key={d} onClick={() => setDifficulty(word.id, d)} style={{
-                  padding:"7px 16px", borderRadius:8, fontSize:13, fontWeight:600,
-                  border:`2px solid ${diffColor[d]}`,
-                  background: activeDiff===d ? diffColor[d] : "transparent",
-                  color: activeDiff===d ? "#fff" : diffColor[d],
-                  transition:"all 0.15s"
-                }}>{d}</button>
-              );
-            })}
-          </div>
+          <DifficultyButtons
+            isLearn={!isReview}
+            wordId={word.id}
+            savedDiff={progress[word.id]?.difficulty || "Default"}
+            diffColor={diffColor}
+            setDifficulty={setDifficulty}
+          />
           <button onClick={next} style={{
             width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
             background:"var(--accent)", color:"#fff", border:"none", letterSpacing:"0.02em"
@@ -700,7 +770,6 @@ function Dictionary({ words, progress, setDifficulty }) {
   const [search, setSearch] = useState("");
   const [filterCat, setFilterCat] = useState("All");
   const [filterLvl, setFilterLvl] = useState("All");
-  const diffColor = { Hard:"var(--hard)", Default:"var(--default)", Easy:"var(--easy)" };
 
   const filtered = words.filter(w => {
     const q = search.toLowerCase();
@@ -730,14 +799,13 @@ function Dictionary({ words, progress, setDifficulty }) {
         <table style={{ width:"100%", borderCollapse:"collapse", fontSize:14 }}>
           <thead>
             <tr style={{ background:"var(--surface2)", borderBottom:"2px solid var(--border)" }}>
-              {["FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category","Difficulty"].map(h => (
+              {["FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category"].map(h => (
                 <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((w,i) => {
-              const diff = progress[w.id]?.difficulty||"Default";
               return (
                 <tr key={w.id} style={{ borderBottom:"1px solid var(--border)", background: i%2===0?"var(--surface)":"var(--surface2)" }}>
                   <td style={{ padding:"10px 14px", fontWeight:600, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
@@ -752,18 +820,6 @@ function Dictionary({ words, progress, setDifficulty }) {
                   <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.frSentence}</td>
                   <td style={{ padding:"10px 14px" }}><span style={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:4, padding:"2px 8px", fontSize:11 }}>{w.level}</span></td>
                   <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:13 }}>{w.category}</td>
-                  <td style={{ padding:"10px 14px" }}>
-                    <div style={{ display:"flex", gap:3 }}>
-                      {["Easy","Default","Hard"].map(d => (
-                        <button key={d} onClick={() => setDifficulty(w.id,d)} style={{
-                          padding:"2px 7px", fontSize:11, borderRadius:4,
-                          border:`1px solid ${diffColor[d]}`,
-                          background: diff===d ? diffColor[d] : "transparent",
-                          color: diff===d ? "#fff" : diffColor[d]
-                        }}>{d}</button>
-                      ))}
-                    </div>
-                  </td>
                 </tr>
               );
             })}
@@ -836,7 +892,7 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
-function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, isLearn }) {
+function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning }) {
   const [input, setInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
@@ -870,9 +926,16 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
 
   return (
     <div style={{ maxWidth:620, margin:"0 auto" }}>
+      {/* Warning */}
+      {tooFewWarning && idx === 0 && (
+        <div style={{ background:"#fffbea", border:"1px solid var(--accent2)", borderRadius:8, padding:"8px 14px", fontSize:13, color:"var(--text2)", marginBottom:16 }}>
+          ⚠️ Only {tooFewWarning} words have been introduced. Session will include all of them.
+        </div>
+      )}
       {/* Progress bar */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={onBack} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {pairMode}</span>
         <div style={{ flex:1, height:4, background:"var(--border)", borderRadius:2 }}>
           <div style={{ height:"100%", background:"var(--accent)", borderRadius:2, width:`${((idx+1)/total)*100}%`, transition:"width 0.3s" }} />
         </div>
