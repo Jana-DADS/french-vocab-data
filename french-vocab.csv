@@ -1,0 +1,251 @@
+id,fr,pron,info,en,frSentence,enSentence,level,category,difficulty
+1,le,lə,art. m. sg.,the,Le chat est sur le tapis.,The cat is on the mat.,A1,General,2.5
+2,de,də,prep. / art.,of / from,Je viens de Paris.,I come from Paris.,A1,General,2.5
+3,un,œ̃,art. m. sg.,a / one,J'ai un frère.,I have a brother.,A1,General,2.5
+4,être,ɛtʀ,"v. — je suis, tu es, il est, nous sommes, vous êtes, ils sont",to be,Je suis étudiant.,I am a student.,A1,Verbs,2.5
+5,et,e,conj.,and,Il parle et écoute en même temps.,He speaks and listens at the same time.,A1,General,2.5
+6,en,ɑ̃,prep.,in / on / by,Elle habite en France.,She lives in France.,A1,General,2.5
+7,avoir,avwaʀ,"v. — j'ai, tu as, il a, nous avons, vous avez, ils ont",to have,J'ai deux enfants.,I have two children.,A1,Verbs,2.5
+8,que,kə,conj. / pron.,that / what / which,Je pense que c'est vrai.,I think that it's true.,A1,General,2.5
+9,il,il,pron. m. sg.,he / it,Il mange une pomme.,He is eating an apple.,A1,General,2.5
+10,se,sə,pron. réfl.,himself / herself / itself,Il se lève à sept heures.,He gets up at seven o'clock.,A1,General,2.5
+11,pas,pɑ,adv. (négation),not,Je ne parle pas espagnol.,I don't speak Spanish.,A1,General,2.5
+12,la,la,art. f. sg.,the (f.),La porte est ouverte.,The door is open.,A1,General,2.5
+13,les,le,art. pl.,the (pl.),Les enfants jouent dans le jardin.,The children play in the garden.,A1,General,2.5
+14,des,de,art. partitif pl.,some / of the,Je mange des fruits chaque matin.,I eat some fruit every morning.,A1,General,2.5
+15,je,ʒə,pron. 1re sg.,I,Je m'appelle Marie.,My name is Marie.,A1,General,2.5
+16,son,sɔ̃,adj. poss. m. sg.,his / her / its,Il aime son chien.,He loves his dog.,A1,General,2.5
+17,que,kə,conj.,than / as,Elle est plus grande que moi.,She is taller than me.,A1,General,2.5
+18,ce,sə,pron. dém.,this / that / it,Ce livre est intéressant.,This book is interesting.,A1,General,2.5
+19,on,ɔ̃,pron. indéf.,one / we / they,On parle français ici.,French is spoken here.,A1,General,2.5
+20,ne,nə,adv. (négation),not (ne...pas),Je ne sais pas.,I don't know.,A1,General,2.5
+21,mais,mɛ,conj.,but,"J'aime le café, mais pas le thé.","I like coffee, but not tea.",A1,General,2.5
+22,tout,tu,"adj./pron. — toute (f.), tous (m.pl.), toutes (f.pl.)",all / every / everything,Il mange tout.,He eats everything.,A1,General,2.5
+23,plus,ply,adv.,more / no more,Je veux plus de café.,I want more coffee.,A1,General,2.5
+24,par,paʀ,prep.,by / per / through,Je vais au travail par le bus.,I go to work by bus.,A1,General,2.5
+25,sur,syʀ,prep.,on / over / above,Le livre est sur la table.,The book is on the table.,A1,General,2.5
+26,faire,fɛʀ,"v. — je fais, tu fais, il fait, nous faisons, vous faites, ils font",to do / to make,Qu'est-ce que tu fais ce soir ?,What are you doing tonight?,A1,Verbs,2.5
+27,comme,kɔm,conj./prep.,like / as / how,Il chante comme un oiseau.,He sings like a bird.,A1,General,2.5
+28,avec,avɛk,prep.,with,Je viens avec toi.,I'm coming with you.,A1,General,2.5
+29,vous,vu,pron. 2e pl./politesse,you (formal/pl.),Comment vous appelez-vous ?,What is your name?,A1,General,2.5
+30,nous,nu,pron. 1re pl.,we / us,Nous habitons à Lyon.,We live in Lyon.,A1,General,2.5
+31,aller,ale,"v. — je vais, tu vas, il va, nous allons, vous allez, ils vont",to go,Je vais au supermarché.,I'm going to the supermarket.,A1,Verbs,2.5
+32,dire,diʀ,"v. — je dis, tu dis, il dit, nous disons, vous dites, ils disent",to say / to tell,Qu'est-ce qu'il dit ?,What is he saying?,A1,Verbs,2.5
+33,aussi,osi,adv.,also / too / as,J'aime aussi la musique.,I also like music.,A1,General,2.5
+34,tout,tu,adv.,very / quite / all,C'est tout près d'ici.,It's very close to here.,A1,General,2.5
+35,ou,u,conj.,or,Tu veux du thé ou du café ?,Do you want tea or coffee?,A1,General,2.5
+36,pour,puʀ,prep.,for / in order to,C'est un cadeau pour toi.,It's a gift for you.,A1,General,2.5
+37,dans,dɑ̃,prep.,in / inside,Les clés sont dans le tiroir.,The keys are in the drawer.,A1,General,2.5
+38,pouvoir,puvwaʀ,"v. — je peux, tu peux, il peut, nous pouvons, vous pouvez, ils peuvent",to be able to / can,Peux-tu m'aider ?,Can you help me?,A1,Verbs,2.5
+39,lui,lɥi,pron. 3e sg.,him / her / to him,Je lui ai donné le livre.,I gave him the book.,A1,General,2.5
+40,même,mɛm,adj./adv.,same / even,Nous avons le même âge.,We are the same age.,A1,General,2.5
+41,si,si,conj./adv.,if / so / yes,"Si tu veux, on peut partir.","If you want, we can leave.",A1,General,2.5
+42,leur,lœʀ,pron./adj. poss.,their / them,C'est leur maison.,It's their house.,A1,General,2.5
+43,vouloir,vulwaʀ,"v. — je veux, tu veux, il veut, nous voulons, vous voulez, ils veulent",to want,"Je veux un café, s'il vous plaît.","I want a coffee, please.",A1,Verbs,2.5
+44,venir,vəniʀ,"v. — je viens, tu viens, il vient, nous venons, vous venez, ils viennent",to come,Tu viens avec nous ?,Are you coming with us?,A1,Verbs,2.5
+45,quand,kɑ̃,conj./adv.,when,Quand est-ce que tu arrives ?,When are you arriving?,A1,Time,2.5
+46,grand,ɡʀɑ̃,adj. — grande (f.),big / tall / great,C'est une grande ville.,It's a big city.,A1,Adjectives,2.5
+47,prendre,pʀɑ̃dʀ,"v. — je prends, tu prends, il prend, nous prenons, vous prenez, ils prennent",to take,Je prends le bus.,I take the bus.,A1,Verbs,2.5
+48,bien,bjɛ̃,adv./adj.,well / good,Il parle très bien français.,He speaks French very well.,A1,Adjectives,2.5
+49,savoir,savwaʀ,"v. — je sais, tu sais, il sait, nous savons, vous savez, ils savent",to know,Tu sais nager ?,Do you know how to swim?,A1,Verbs,2.5
+50,voir,vwaʀ,"v. — je vois, tu vois, il voit, nous voyons, vous voyez, ils voient",to see,Je vois la mer depuis ma fenêtre.,I can see the sea from my window.,A1,Verbs,2.5
+51,encore,ɑ̃kɔʀ,adv.,again / still / yet,Tu veux encore du gâteau ?,Do you want more cake?,A1,General,2.5
+52,quoi,kwa,pron. interr.,what,De quoi parles-tu ?,What are you talking about?,A1,General,2.5
+53,déjà,deʒa,adv.,already,Tu as déjà mangé ?,Have you already eaten?,A1,Time,2.5
+54,parler,paʀle,"v. — je parle, tu parles, il parle",to speak / to talk,Je parle un peu français.,I speak a little French.,A1,Verbs,2.5
+55,très,tʀɛ,adv.,very,C'est très bon !,It's very good!,A1,General,2.5
+56,moi,mwa,pron. tonique,me / I,C'est moi qui ai appelé.,It was me who called.,A1,General,2.5
+57,alors,alɔʀ,adv./conj.,so / then / well,"Alors, qu'est-ce qu'on fait ?","So, what do we do?",A1,General,2.5
+58,monde,mɔ̃d,n.m.,world / people,Il y a beaucoup de monde ici.,There are a lot of people here.,A1,General,2.5
+59,après,apʀɛ,prep./adv.,after / afterwards,On se voit après le travail ?,Shall we meet after work?,A1,Time,2.5
+60,trouver,tʀuve,"v. — je trouve, tu trouves, il trouve",to find,Je ne trouve pas mes clés.,I can't find my keys.,A1,Verbs,2.5
+61,ici,isi,adv.,here,"Viens ici, s'il te plaît.","Come here, please.",A1,General,2.5
+62,donner,dɔne,"v. — je donne, tu donnes, il donne",to give,Donne-moi ton numéro.,Give me your number.,A1,Verbs,2.5
+63,point,pwɛ̃,n.m.,point / dot / full stop,C'est le point le plus important.,That is the most important point.,A1,General,2.5
+64,aimer,eme,"v. — j'aime, tu aimes, il aime",to like / to love,J'aime beaucoup la musique classique.,I really like classical music.,A1,Verbs,2.5
+65,peu,pø,adv.,a little / few,Je parle un peu anglais.,I speak a little English.,A1,General,2.5
+66,avant,avɑ̃,prep./adv.,before,Lave-toi les mains avant de manger.,Wash your hands before eating.,A1,Time,2.5
+67,non,nɔ̃,adv./n.m.,no,"Non, merci, je n'ai pas faim.","No, thank you, I'm not hungry.",A1,General,2.5
+68,oui,wi,adv.,yes,"Oui, je suis d'accord avec toi.","Yes, I agree with you.",A1,General,2.5
+69,chose,ʃoz,n.f.,thing,J'ai quelque chose à te dire.,I have something to tell you.,A1,General,2.5
+70,heure,œʀ,n.f.,hour / time / o'clock,Il est quelle heure ?,What time is it?,A1,Time,2.5
+71,deux,dø,adj. num.,two,J'ai deux billets pour le concert.,I have two tickets for the concert.,A1,Numbers,2.5
+72,homme,ɔm,n.m.,man,C'est un homme très gentil.,He is a very kind man.,A1,Family,2.5
+73,new,ny,adj. — nouvelle (f.),new,J'ai une nouvelle voiture.,I have a new car.,A1,Adjectives,2.5
+74,passer,pase,"v. — je passe, tu passes, il passe",to pass / to spend (time),On passe une bonne soirée.,We're having a good evening.,A1,Verbs,2.5
+75,bonjour,bɔ̃ʒuʀ,-,hello / good morning,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,2.5
+76,merci,mɛʀsi,-,thank you,Merci beaucoup pour votre aide.,Thank you very much for your help.,A1,Greetings,2.5
+77,jour,ʒuʀ,n.m.,day,Quel beau jour pour se promener !,What a beautiful day for a walk!,A1,Time,2.5
+78,an,ɑ̃,n.m.,year,Il a dix ans.,He is ten years old.,A1,Time,2.5
+79,femme,fam,n.f.,woman / wife,C'est la femme du directeur.,She is the director's wife.,A1,Family,2.5
+80,enfant,ɑ̃fɑ̃,n.m./f.,child,Les enfants jouent dans le parc.,The children play in the park.,A1,Family,2.5
+81,petit,pəti,adj. — petite (f.),small / little,Elle a un petit appartement.,She has a small apartment.,A1,Adjectives,2.5
+82,rester,ʀɛste,"v. — je reste, tu restes, il reste",to stay / to remain,Je reste à la maison ce soir.,I'm staying home tonight.,A1,Verbs,2.5
+83,ami,ami,n.m. — amie (f.),friend,C'est mon meilleur ami.,He is my best friend.,A1,Family,2.5
+84,pays,pei,n.m.,country,Quel est ton pays d'origine ?,What is your country of origin?,A1,Travel,2.5
+85,maison,mɛzɔ̃,n.f.,house / home,Bienvenue dans ma maison !,Welcome to my house!,A1,Home,2.5
+86,là,la,adv.,there,Regarde là-bas !,Look over there!,A1,General,2.5
+87,temps,tɑ̃,n.m.,time / weather,Il fait beau temps aujourd'hui.,The weather is nice today.,A1,Time,2.5
+88,manger,mɑ̃ʒe,"v. — je mange, tu manges, il mange",to eat,On mange à quelle heure ?,What time do we eat?,A1,Food & Drink,2.5
+89,toujours,tuʒuʀ,adv.,always / still,Il est toujours en retard.,He is always late.,A1,General,2.5
+90,toi,twa,pron. tonique,you (informal),C'est pour toi.,It's for you.,A1,General,2.5
+91,tu,ty,pron. 2e sg.,you (informal),Tu parles bien français.,You speak French well.,A1,General,2.5
+92,vie,vi,n.f.,life,La vie est belle !,Life is beautiful!,A1,General,2.5
+93,qui,ki,pron. rel./interr.,who / which / that,Qui est à la porte ?,Who is at the door?,A1,General,2.5
+94,où,u,adv./pron. rel.,where,Où est la gare ?,Where is the train station?,A1,Travel,2.5
+95,eau,o,n.f.,water,"Un verre d'eau, s'il vous plaît.","A glass of water, please.",A1,Food & Drink,2.5
+96,saison,sɛzɔ̃,n.f.,season,Ma saison préférée est le printemps.,My favourite season is spring.,A1,Nature,2.5
+97,boire,bwaʀ,"v. — je bois, tu bois, il boit, nous buvons, vous buvez, ils boivent",to drink,Elle boit du café le matin.,She drinks coffee in the morning.,A1,Food & Drink,2.5
+98,voiture,vwatyʀ,n.f.,car,Ma voiture est en panne.,My car has broken down.,A1,Travel,2.5
+99,rue,ʀy,n.f.,street,J'habite dans cette rue.,I live on this street.,A1,Travel,2.5
+100,école,ekɔl,n.f.,school,Les enfants vont à l'école à pied.,The children walk to school.,A1,Work,2.5
+101,partir,paʀtiʀ,"v. — je pars, tu pars, il part, nous partons, vous partez, ils partent",to leave / to go,À quelle heure pars-tu ?,What time are you leaving?,A1,Verbs,2.5
+102,haut,o,adj./adv. — haute (f.),high / tall / up,La tour Eiffel est très haute.,The Eiffel Tower is very tall.,A1,Adjectives,2.5
+103,père,pɛʀ,n.m.,father / dad,Mon père travaille tous les jours.,My father works every day.,A1,Family,2.5
+104,mère,mɛʀ,n.f.,mother / mum,Ma mère fait la cuisine.,My mother does the cooking.,A1,Family,2.5
+105,soir,swaʀ,n.m.,evening,On se retrouve ce soir ?,Shall we meet this evening?,A1,Time,2.5
+106,matin,matɛ̃,n.m.,morning,Je me lève tôt le matin.,I get up early in the morning.,A1,Time,2.5
+107,travailler,tʀavaje,"v. — je travaille, tu travailles, il travaille",to work,Elle travaille dans un hôpital.,She works in a hospital.,A1,Work,2.5
+108,comment,kɔmɑ̃,adv. interr.,how,Comment ça va ?,How are you?,A1,Greetings,2.5
+109,quel,kɛl,adj. interr. — quelle (f.),which / what,Quel est ton prénom ?,What is your first name?,A1,General,2.5
+110,pourquoi,puʀkwa,adv. interr.,why,Pourquoi tu es en retard ?,Why are you late?,A1,General,2.5
+111,combien,kɔ̃bjɛ̃,adv. interr.,how much / how many,Combien ça coûte ?,How much does it cost?,A1,Shopping,2.5
+112,nuit,nɥi,n.f.,night,"Bonne nuit, dors bien !","Good night, sleep well!",A1,Time,2.5
+113,semaine,səmɛn,n.f.,week,Je pars en vacances la semaine prochaine.,I'm going on holiday next week.,A1,Time,2.5
+114,lire,liʀ,"v. — je lis, tu lis, il lit, nous lisons, vous lisez, ils lisent",to read,J'aime lire le soir.,I like reading in the evening.,A1,Verbs,2.5
+115,écrire,ekʀiʀ,"v. — j'écris, tu écris, il écrit, nous écrivons",to write,Il écrit une lettre à sa famille.,He is writing a letter to his family.,A1,Verbs,2.5
+116,répondre,ʀepɔ̃dʀ,"v. — je réponds, tu réponds, il répond",to answer / to reply,Il ne répond pas au téléphone.,He doesn't answer the phone.,A1,Verbs,2.5
+117,demander,dəmɑ̃de,"v. — je demande, tu demandes, il demande",to ask,Je vais demander à mon professeur.,I'm going to ask my teacher.,A1,Verbs,2.5
+118,attendre,atɑ̃dʀ,"v. — j'attends, tu attends, il attend",to wait,J'attends le bus depuis vingt minutes.,I've been waiting for the bus for twenty minutes.,A1,Verbs,2.5
+119,ouvrir,uvʀiʀ,"v. — j'ouvre, tu ouvres, il ouvre",to open,"Ouvre la fenêtre, il fait chaud.","Open the window, it's hot.",A1,Verbs,2.5
+120,fermer,fɛʀme,"v. — je ferme, tu fermes, il ferme",to close / to shut,"Ferme la porte, s'il te plaît.","Close the door, please.",A1,Verbs,2.5
+121,acheter,aʃte,"v. — j'achète, tu achètes, il achète",to buy,Je vais acheter du pain.,I'm going to buy some bread.,A1,Shopping,2.5
+122,payer,peje,"v. — je paie, tu paies, il paie",to pay,Tu peux payer par carte ?,Can you pay by card?,A1,Shopping,2.5
+123,coûter,kute,v. — ça coûte,to cost,Ça coûte combien ?,How much does it cost?,A1,Shopping,2.5
+124,pain,pɛ̃,n.m.,bread,Je prends une baguette de pain.,I'll take a baguette.,A1,Food & Drink,2.5
+125,café,kafe,n.m.,coffee / café,"Un café et un croissant, s'il vous plaît.","A coffee and a croissant, please.",A1,Food & Drink,2.5
+126,lait,lɛ,n.m.,milk,Tu veux du lait dans ton thé ?,Do you want milk in your tea?,A1,Food & Drink,2.5
+127,thé,te,n.m.,tea,Je préfère le thé vert.,I prefer green tea.,A1,Food & Drink,2.5
+128,vin,vɛ̃,n.m.,wine,"Un verre de vin rouge, s'il vous plaît.","A glass of red wine, please.",A1,Food & Drink,2.5
+129,bière,bjɛʀ,n.f.,beer,Il boit une bière au café.,He is drinking a beer at the café.,A1,Food & Drink,2.5
+130,jus,ʒy,n.m.,juice,"Un jus d'orange, s'il vous plaît.","An orange juice, please.",A1,Food & Drink,2.5
+131,viande,vjɑ̃d,n.f.,meat,Je ne mange pas de viande.,I don't eat meat.,A1,Food & Drink,2.5
+132,poisson,pwasɔ̃,n.m.,fish,On mange du poisson le vendredi.,We eat fish on Fridays.,A1,Food & Drink,2.5
+133,fruit,fʀɥi,n.m.,fruit,Je mange un fruit après chaque repas.,I eat a piece of fruit after every meal.,A1,Food & Drink,2.5
+134,légume,leɡym,n.m.,vegetable,Il faut manger des légumes chaque jour.,You should eat vegetables every day.,A1,Food & Drink,2.5
+135,pomme,pɔm,n.f.,apple,Elle mange une pomme pour le goûter.,She eats an apple as a snack.,A1,Food & Drink,2.5
+136,fromage,fʀɔmaʒ,n.m.,cheese,La France est célèbre pour ses fromages.,France is famous for its cheeses.,A1,Food & Drink,2.5
+137,repas,ʀəpa,n.m.,meal,Le repas était délicieux.,The meal was delicious.,A1,Food & Drink,2.5
+138,mois,mwa,n.m.,month,Je pars en vacances le mois prochain.,I'm going on holiday next month.,A1,Time,2.5
+139,année,ane,n.f.,year,Bonne année !,Happy New Year!,A1,Time,2.5
+140,aujourd'hui,oʒuʀdɥi,adv.,today,"Aujourd'hui, il fait froid.",Today it is cold.,A1,Time,2.5
+141,demain,dəmɛ̃,adv.,tomorrow,À demain !,See you tomorrow!,A1,Time,2.5
+142,hier,jɛʀ,adv.,yesterday,"Hier, je suis allé au cinéma.",Yesterday I went to the cinema.,A1,Time,2.5
+143,maintenant,mɛ̃tnɑ̃,adv.,now,Qu'est-ce que tu fais maintenant ?,What are you doing now?,A1,Time,2.5
+144,lundi,lœ̃di,n.m.,Monday,On se retrouve lundi ?,Shall we meet on Monday?,A1,Time,2.5
+145,mardi,maʀdi,n.m.,Tuesday,J'ai un rendez-vous mardi matin.,I have an appointment on Tuesday morning.,A1,Time,2.5
+146,mercredi,mɛʀkʀədi,n.m.,Wednesday,Le marché a lieu le mercredi.,The market takes place on Wednesday.,A1,Time,2.5
+147,jeudi,ʒødi,n.m.,Thursday,Je joue au tennis le jeudi.,I play tennis on Thursdays.,A1,Time,2.5
+148,vendredi,vɑ̃dʀədi,n.m.,Friday,"Le vendredi soir, on sort.","On Friday evenings, we go out.",A1,Time,2.5
+149,samedi,samdi,n.m.,Saturday,"Le samedi, je fais les courses.",On Saturdays I do the shopping.,A1,Time,2.5
+150,dimanche,dimɑ̃ʃ,n.m.,Sunday,"Le dimanche, on se repose.",On Sundays we rest.,A1,Time,2.5
+151,janvier,ʒɑ̃vje,n.m.,January,Il neige souvent en janvier.,It often snows in January.,A1,Time,2.5
+152,février,fevʀije,n.m.,February,La Saint-Valentin est en février.,Valentine's Day is in February.,A1,Time,2.5
+153,mars,maʀs,n.m.,March,Le printemps commence en mars.,Spring begins in March.,A1,Time,2.5
+154,avril,avʀil,n.m.,April,"En avril, ne te découvre pas d'un fil.","In April, don't shed a layer.",A1,Time,2.5
+155,mai,mɛ,n.m.,May,Les fleurs éclosent en mai.,Flowers bloom in May.,A1,Time,2.5
+156,juin,ʒɥɛ̃,n.m.,June,Les examens ont lieu en juin.,Exams take place in June.,A1,Time,2.5
+157,juillet,ʒɥijɛ,n.m.,July,Le 14 juillet est la fête nationale.,14 July is the national holiday.,A1,Time,2.5
+158,août,u,n.m.,August,Beaucoup de Français partent en août.,Many French people go on holiday in August.,A1,Time,2.5
+159,septembre,sɛptɑ̃bʀ,n.m.,September,La rentrée scolaire est en septembre.,The start of school is in September.,A1,Time,2.5
+160,octobre,ɔktɔbʀ,n.m.,October,Les feuilles tombent en octobre.,Leaves fall in October.,A1,Time,2.5
+161,novembre,nɔvɑ̃bʀ,n.m.,November,Il pleut souvent en novembre.,It often rains in November.,A1,Time,2.5
+162,décembre,desɑ̃bʀ,n.m.,December,Noël est le 25 décembre.,Christmas is on 25 December.,A1,Time,2.5
+163,un,œ̃,adj. num.,one,J'ai un seul frère.,I have only one brother.,A1,Numbers,2.5
+164,trois,tʀwa,adj. num.,three,J'ai trois enfants.,I have three children.,A1,Numbers,2.5
+165,quatre,katʀ,adj. num.,four,Il y a quatre saisons.,There are four seasons.,A1,Numbers,2.5
+166,cinq,sɛ̃k,adj. num.,five,Elle a cinq ans.,She is five years old.,A1,Numbers,2.5
+167,six,sis,adj. num.,six,Il est six heures du matin.,It is six o'clock in the morning.,A1,Numbers,2.5
+168,sept,sɛt,adj. num.,seven,La semaine a sept jours.,The week has seven days.,A1,Numbers,2.5
+169,huit,ɥit,adj. num.,eight,Il est huit heures.,It is eight o'clock.,A1,Numbers,2.5
+170,neuf,nœf,adj. num.,nine,Il y a neuf joueurs dans l'équipe.,There are nine players on the team.,A1,Numbers,2.5
+171,dix,dis,adj. num.,ten,Compte jusqu'à dix.,Count to ten.,A1,Numbers,2.5
+172,vingt,vɛ̃,adj. num.,twenty,Il a vingt ans.,He is twenty years old.,A1,Numbers,2.5
+173,cent,sɑ̃,adj. num.,one hundred,Ce livre coûte cent euros.,This book costs one hundred euros.,A1,Numbers,2.5
+174,bleu,blø,adj. — bleue (f.),blue,Le ciel est bleu aujourd'hui.,The sky is blue today.,A1,Colors,2.5
+175,rouge,ʀuʒ,adj. invariable,red,Elle porte une robe rouge.,She is wearing a red dress.,A1,Colors,2.5
+176,vert,vɛʀ,adj. — verte (f.),green,L'herbe est verte.,The grass is green.,A1,Colors,2.5
+177,blanc,blɑ̃,adj. — blanche (f.),white,Il y a de la neige blanche.,There is white snow.,A1,Colors,2.5
+178,noir,nwaʀ,adj. — noire (f.),black,Il a un chat noir.,He has a black cat.,A1,Colors,2.5
+179,jaune,ʒon,adj. invariable,yellow,Le soleil est jaune.,The sun is yellow.,A1,Colors,2.5
+180,frère,fʀɛʀ,n.m.,brother,Mon frère habite à Bordeaux.,My brother lives in Bordeaux.,A1,Family,2.5
+181,sœur,sœʀ,n.f.,sister,J'ai deux sœurs.,I have two sisters.,A1,Family,2.5
+182,fils,fis,n.m.,son,C'est le fils de mon voisin.,He is my neighbour's son.,A1,Family,2.5
+183,fille,fij,n.f.,daughter / girl,Sa fille est très intelligente.,His daughter is very intelligent.,A1,Family,2.5
+184,mari,maʀi,n.m.,husband,Son mari est médecin.,Her husband is a doctor.,A1,Family,2.5
+185,bébé,bebe,n.m.,baby,Le bébé dort dans son lit.,The baby is sleeping in its cot.,A1,Family,2.5
+186,chat,ʃa,n.m.,cat,Le chat dort sur le canapé.,The cat is sleeping on the sofa.,A1,Nature,2.5
+187,chien,ʃjɛ̃,n.m.,dog,Le chien aboie dans le jardin.,The dog is barking in the garden.,A1,Nature,2.5
+188,oiseau,wazo,n.m.,bird,Les oiseaux chantent au printemps.,The birds sing in spring.,A1,Nature,2.5
+189,arbre,aʀbʀ,n.m.,tree,Il y a un grand arbre dans le jardin.,There is a big tree in the garden.,A1,Nature,2.5
+190,fleur,flœʀ,n.f.,flower,Elle a acheté des fleurs pour sa mère.,She bought flowers for her mother.,A1,Nature,2.5
+191,soleil,sɔlɛj,n.m.,sun,Le soleil se lève à l'est.,The sun rises in the east.,A1,Nature,2.5
+192,pluie,plɥi,n.f.,rain,Il y a de la pluie ce matin.,There is rain this morning.,A1,Nature,2.5
+193,neige,nɛʒ,n.f.,snow,Les enfants jouent dans la neige.,The children play in the snow.,A1,Nature,2.5
+194,mer,mɛʀ,n.f.,sea,On va à la mer cet été.,We're going to the sea this summer.,A1,Nature,2.5
+195,montagne,mɔ̃taɲ,n.f.,mountain,J'adore faire du ski à la montagne.,I love skiing in the mountains.,A1,Nature,2.5
+196,chambre,ʃɑ̃bʀ,n.f.,bedroom / room,Ma chambre est au premier étage.,My bedroom is on the first floor.,A1,Home,2.5
+197,cuisine,kɥizin,n.f.,kitchen / cooking,La cuisine est moderne et spacieuse.,The kitchen is modern and spacious.,A1,Home,2.5
+198,salle,sal,n.f.,room / hall,La salle de bains est au fond du couloir.,The bathroom is at the end of the corridor.,A1,Home,2.5
+199,jardin,ʒaʀdɛ̃,n.m.,garden,Je jardine le week-end.,I do gardening at the weekend.,A1,Home,2.5
+200,porte,pɔʀt,n.f.,door / gate,Ferme la porte derrière toi.,Close the door behind you.,A1,Home,2.5
+201,fenêtre,fənɛtʀ,n.f.,window,"Ouvre la fenêtre, il fait chaud.","Open the window, it's hot.",A1,Home,2.5
+202,table,tabl,n.f.,table,Mets la table pour le dîner.,Set the table for dinner.,A1,Home,2.5
+203,chaise,ʃɛz,n.f.,chair,Prends une chaise et assieds-toi.,Take a chair and sit down.,A1,Home,2.5
+204,lit,li,n.m.,bed,"Je vais me coucher, mon lit m'attend.","I'm going to bed, my bed is waiting for me.",A1,Home,2.5
+205,armoire,aʀmwaʀ,n.f.,wardrobe / cupboard,Mes vêtements sont dans l'armoire.,My clothes are in the wardrobe.,A1,Home,2.5
+206,téléphone,telefɔn,n.m.,telephone / phone,Mon téléphone est sur la table.,My phone is on the table.,A1,General,2.5
+207,ordinateur,ɔʀdinatœʀ,n.m.,computer,Je travaille sur mon ordinateur.,I work on my computer.,A1,Work,2.5
+208,livre,livʀ,n.m.,book,J'ai lu un livre très intéressant.,I read a very interesting book.,A1,General,2.5
+209,musique,myzik,n.f.,music,J'écoute de la musique en travaillant.,I listen to music while working.,A1,General,2.5
+210,cinéma,sinema,n.m.,cinema / film,On va au cinéma ce soir ?,Shall we go to the cinema tonight?,A1,General,2.5
+211,sport,spɔʀ,n.m.,sport,Je fais du sport trois fois par semaine.,I do sport three times a week.,A1,General,2.5
+212,football,futbɔl,n.m.,football / soccer,Il joue au football le samedi.,He plays football on Saturdays.,A1,General,2.5
+213,médecin,medsɛ̃,n.m.,doctor,Je dois voir le médecin.,I need to see the doctor.,A1,Body & Health,2.5
+214,hôpital,opital,n.m.,hospital,Il est hospitalisé depuis lundi.,He has been in hospital since Monday.,A1,Body & Health,2.5
+215,médicament,medikamɑ̃,n.m.,medicine / medication,Prends ce médicament trois fois par jour.,Take this medicine three times a day.,A1,Body & Health,2.5
+216,malade,malad,adj./n.,ill / sick,"Je suis malade, je reste au lit.","I'm ill, I'm staying in bed.",A1,Body & Health,2.5
+217,mal,mal,n.m./adv.,pain / badly,J'ai mal à la tête.,I have a headache.,A1,Body & Health,2.5
+218,tête,tɛt,n.f.,head,J'ai mal à la tête.,I have a headache.,A1,Body & Health,2.5
+219,main,mɛ̃,n.f.,hand,Lève la main si tu sais la réponse.,Raise your hand if you know the answer.,A1,Body & Health,2.5
+220,yeux,jø,n.m.pl. (sing. œil),eyes,Elle a les yeux bleus.,She has blue eyes.,A1,Body & Health,2.5
+221,bouche,buʃ,n.f.,mouth,Ouvre la bouche.,Open your mouth.,A1,Body & Health,2.5
+222,heureux,øʀø,adj. — heureuse (f.),happy,Je suis très heureux de te voir.,I'm very happy to see you.,A1,Emotions,2.5
+223,triste,tʀist,adj. invariable,sad,Elle semble triste aujourd'hui.,She seems sad today.,A1,Emotions,2.5
+224,fatigué,fatiɡe,adj. — fatiguée (f.),tired,Je suis fatigué après le travail.,I'm tired after work.,A1,Emotions,2.5
+225,content,kɔ̃tɑ̃,adj. — contente (f.),pleased / happy,Je suis content de te revoir.,I'm pleased to see you again.,A1,Emotions,2.5
+226,fâché,faʃe,adj. — fâchée (f.),angry,Il est fâché contre moi.,He is angry with me.,A1,Emotions,2.5
+227,peur,pœʀ,n.f.,fear,J'ai peur du noir.,I'm afraid of the dark.,A1,Emotions,2.5
+228,gare,ɡaʀ,n.f.,train station,Le train part de la gare à midi.,The train leaves from the station at noon.,A1,Travel,2.5
+229,aéroport,aeʀɔpɔʀ,n.m.,airport,L'aéroport est à trente minutes.,The airport is thirty minutes away.,A1,Travel,2.5
+230,train,tʀɛ̃,n.m.,train,Je prends le train pour Paris.,I'm taking the train to Paris.,A1,Travel,2.5
+231,avion,avjɔ̃,n.m.,plane,L'avion décolle à dix heures.,The plane takes off at ten o'clock.,A1,Travel,2.5
+232,bus,bys,n.m.,bus,Je prends le bus tous les matins.,I take the bus every morning.,A1,Travel,2.5
+233,vélo,velo,n.m.,bicycle / bike,Je vais au travail à vélo.,I cycle to work.,A1,Travel,2.5
+234,billet,bijɛ,n.m.,ticket / banknote,J'ai acheté un billet aller-retour.,I bought a return ticket.,A1,Travel,2.5
+235,hôtel,otɛl,n.m.,hotel,Nous logeons dans un hôtel près de la plage.,We are staying in a hotel near the beach.,A1,Travel,2.5
+236,plage,plaʒ,n.f.,beach,On va à la plage demain.,We're going to the beach tomorrow.,A1,Travel,2.5
+237,vacances,vakɑ̃s,n.f.pl.,holiday / vacation,Je pars en vacances en juillet.,I'm going on holiday in July.,A1,Travel,2.5
+238,magasin,maɡazɛ̃,n.m.,shop / store,Le magasin ouvre à neuf heures.,The shop opens at nine o'clock.,A1,Shopping,2.5
+239,marché,maʀʃe,n.m.,market,Je fais mes courses au marché.,I do my shopping at the market.,A1,Shopping,2.5
+240,argent,aʀʒɑ̃,n.m.,money / silver,Je n'ai pas assez d'argent.,I don't have enough money.,A1,Shopping,2.5
+241,euro,øʀo,n.m.,euro,Ce livre coûte douze euros.,This book costs twelve euros.,A1,Shopping,2.5
+242,prix,pʀi,n.m.,price / prize,Quel est le prix de ce manteau ?,What is the price of this coat?,A1,Shopping,2.5
+243,vêtement,vɛtmɑ̃,n.m.,clothing / garment,J'achète des vêtements en solde.,I buy clothes on sale.,A1,Shopping,2.5
+244,chaussure,ʃosyʀ,n.f.,shoe,Ces chaussures sont trop petites.,These shoes are too small.,A1,Shopping,2.5
+245,bureau,byʀo,n.m.,office / desk,Mon bureau est au deuxième étage.,My office is on the second floor.,A1,Work,2.5
+246,réunion,ʀeynjɔ̃,n.f.,meeting,J'ai une réunion à quatorze heures.,I have a meeting at two o'clock.,A1,Work,2.5
+247,collègue,kɔlɛɡ,n.m./f.,colleague,Mon collègue est très sympa.,My colleague is very nice.,A1,Work,2.5
+248,patron,patʀɔ̃,n.m. — patronne (f.),boss / employer,Mon patron est très exigeant.,My boss is very demanding.,A1,Work,2.5
+249,salaire,salɛʀ,n.m.,salary / wage,Mon salaire est versé le premier du mois.,My salary is paid on the first of the month.,A1,Work,2.5
+250,réservation,ʀezɛʀvasjɔ̃,n.f.,reservation / booking,J'ai fait une réservation pour deux personnes.,I made a reservation for two people.,A1,Travel,2.5
