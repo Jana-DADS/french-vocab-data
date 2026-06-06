@@ -7,13 +7,25 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <style>
-    body { margin: 0; padding: 0; }
-    #root { height: 100vh; display: flex; flex-direction: column; }
+    body { margin: 0; padding: 0; background: #f4f6f8; font-family: sans-serif; }
+    #root { height: 100vh; }
+    #debug { position: fixed; bottom: 0; left: 0; right: 0; background: #333; color: #fff; padding: 8px; font-size: 12px; z-index: 9999; }
   </style>
 </head>
 <body>
   <div id="root"></div>
+  <div id="debug">Loading...</div>
   <script>
+    window.onerror = function(msg, src, line, col, err) {
+      document.getElementById('debug').innerHTML = 'ERROR: ' + msg + ' (line ' + line + ')';
+      document.getElementById('debug').style.background = 'red';
+    };
+    document.getElementById('debug').innerHTML = 'React loaded: ' + (typeof React !== "undefined") + ', ReactDOM: ' + (typeof ReactDOM !== "undefined");
+  </script>
+  <script>
+try {
+"use strict";
+
 var useState = React.useState;
 var useEffect = React.useEffect;
 var useRef = React.useRef;
@@ -2392,6 +2404,12 @@ var domNode = document.getElementById('root');
 var root = ReactDOM.createRoot(domNode);
 root.render(React.createElement(App));
 
+  document.getElementById('debug').innerHTML = 'App rendered OK';
+  document.getElementById('debug').style.background = 'green';
+} catch(e) {
+  document.getElementById('debug').innerHTML = 'CATCH ERROR: ' + e.message + ' | ' + e.stack.split("\n")[0];
+  document.getElementById('debug').style.background = 'red';
+}
   </script>
 </body>
 </html>
