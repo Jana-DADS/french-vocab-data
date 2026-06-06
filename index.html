@@ -626,8 +626,8 @@ function Flashcards({ words, progress, settings, setDifficulty, setView, introdu
         return aDue - bDue || Math.random() - 0.5;
       });
     } else {
-      // Shuffle new words
-      pool.sort(() => Math.random() - 0.5);
+      // Sort new words by ID (frequency order)
+      pool.sort((a, b) => a.id - b.id);
     }
 
     return pool.slice(0, cnt);
@@ -909,6 +909,10 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
 
   function handleNext(diff) {
     if (diff) setDifficulty(word.id, diff);
+    else if (!isLearn) {
+      // In review mode, always save the current difficulty selection (even if unchanged)
+      setDifficulty(word.id, curDiffLocal);
+    }
     onNext();
   }
 
@@ -967,12 +971,12 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             color:"var(--text)", fontFamily:"'Lora',serif", transition:"border 0.2s, background 0.2s"
           }} />
 
-        {/* FR character buttons */}
-        {!isFR_first && (
+        {/* FR character buttons — show when typing French */}
+        {(!isFR_first || isLearn) && (
           <div style={{ display:"flex", gap:4, flexWrap:"wrap", marginTop:10 }}>
             {FR_CHARS.map(c => (
               <button key={c} onClick={() => { setInput(v => v + c); inputRef.current?.focus(); }}
-                disabled={checked}
+                disabled={checked && !isLearn}
                 style={{ padding:"3px 9px", fontSize:14, borderRadius:6, border:"1px solid var(--border)", background:"var(--surface2)", color:"var(--text)", fontFamily:"serif" }}>{c}</button>
             ))}
           </div>
@@ -986,7 +990,17 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             ) : (
               <div>
                 <div style={{ color:"var(--hard)", fontWeight:600, fontSize:15, marginBottom:4 }}>✗ Not quite</div>
-                <div style={{ fontSize:15, color:"var(--text)" }}>Correct answer: <strong style={{ fontFamily:"'Lora',serif" }}>{answerText}</strong></div>
+                <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:15, color:"var(--text)" }}>
+                  Correct answer: <strong style={{ fontFamily:"'Lora',serif" }}>{answerText}</strong>
+                  {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
+                </div>
+                {!isFR_first && <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>[{word.pron}]</div>}
+              </div>
+            )}
+            {correct && !isFR_first && (
+              <div style={{ display:"flex", alignItems:"center", gap:6, marginTop:4 }}>
+                <span style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic" }}>[{word.pron}]</span>
+                <SpeakBtn text={answerText} style={{ fontSize:14 }} />
               </div>
             )}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
@@ -1062,7 +1076,7 @@ function ChatPanel({ userName }) {
       const history = messages.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "anthropic-dangerous-direct-browser-ipc": "true" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
@@ -1073,6 +1087,7 @@ If the user writes in French, respond in French and gently correct any mistakes.
           messages: [...history, { role: "user", content: userText }]
         })
       });
+      if (!res.ok) throw new Error(`API error ${res.status}`);
       const data = await res.json();
       const reply = data.content?.map(c => c.text || "").join("") || "Sorry, I couldn't get a response.";
       setMessages(m => [...m, { role: "assistant", text: reply }]);
