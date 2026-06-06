@@ -749,3 +749,854 @@ id,fr,pron,info,en,frSentence,enSentence,level,category,difficulty
 748,abondant,abɔ̃dɑ̃,adj. — abondante (f.),abundant / plentiful,La région est riche en ressources naturelles abondantes.,The region is rich in plentiful natural resources.,A1,Nature,2.5
 749,abstrait,abstʀɛ,adj. — abstraite (f.),abstract,Ce concept est trop abstrait pour être facilement compris.,This concept is too abstract to be easily understood.,A1,General,2.5
 750,actuel,aktɥɛl,adj. — actuelle (f.),current / present,La situation actuelle est préoccupante.,The current situation is worrying.,A1,General,2.5
+751,adéquat,adekwa,adj. — adéquate (f.),adequate / appropriate,Il faut trouver une solution adéquate à ce problème.,We need to find an adequate solution to this problem.,A1,General,2.5
+752,adjacent,adʒasɑ̃,adj. — adjacente (f.),adjacent / neighbouring,Les deux bureaux sont adjacents.,The two offices are adjacent.,A1,General,2.5
+753,adopter,adɔpte,"v. — j'adopte, nous adoptons",to adopt,Le conseil a adopté une nouvelle politique.,The council adopted a new policy.,A1,General,2.5
+754,affaire,afɛʀ,n.f.,matter / business / affair,C'est une affaire très complexe.,It is a very complex matter.,A1,Work,2.5
+755,agence,aʒɑ̃s,n.f.,agency,Elle travaille dans une agence de publicité.,She works in an advertising agency.,A1,Work,2.5
+756,agenda,aʒɑ̃da,n.m.,diary / agenda,J'ai noté le rendez-vous dans mon agenda.,I noted the appointment in my diary.,A1,Work,2.5
+757,aide,ɛd,n.f.,help / assistance,Merci pour votre aide précieuse.,Thank you for your precious help.,A1,General,2.5
+758,aimer mieux,ɛme mjø,v.,to prefer,J'aime mieux le café que le thé.,I prefer coffee to tea.,A1,General,2.5
+759,ainsi,ɛ̃si,adv.,thus / so / in this way,Ainsi nous avons résolu le problème.,Thus we solved the problem.,A1,General,2.5
+760,air,ɛʀ,n.m.,air / appearance / tune,L'air de la campagne est très pur.,The country air is very pure.,A1,Nature,2.5
+761,album,albɔm,n.m.,album,Elle a sorti un nouvel album de photos.,She released a new photo album.,A1,General,2.5
+762,alimentation,alimɑ̃tasjɔ̃,n.f.,food / diet / nutrition,Une bonne alimentation est essentielle à la santé.,A good diet is essential for health.,A1,Food & Drink,2.5
+763,allumer,alyme,"v. — j'allume, nous allumons",to switch on / to light,Allume la lumière s'il te plaît.,Switch the light on please.,A1,Home,2.5
+764,ambiance,ɑ̃bjɑ̃s,n.f.,atmosphere / mood,L'ambiance de ce café est très agréable.,The atmosphere of this café is very pleasant.,A1,General,2.5
+765,amener,amne,"v. — j'amène, nous amenons",to bring / to take (person),Peux-tu amener les enfants à l'école ?,Can you take the children to school?,A1,General,2.5
+766,amour,amuʀ,n.m.,love,L'amour est le sentiment le plus puissant.,Love is the most powerful feeling.,A1,Emotions,2.5
+767,amusant,amyzɑ̃,adj. — amusante (f.),funny / amusing,Ce film est très amusant.,This film is very amusing.,A1,Adjectives,2.5
+768,animal,animal,n.m. — animaux (pl.),animal,Mon animal préféré est le chien.,My favourite animal is the dog.,A1,Nature,2.5
+769,appel,apɛl,n.m.,call / appeal,J'ai reçu un appel téléphonique ce matin.,I received a phone call this morning.,A1,General,2.5
+770,apporter,apɔʀte,"v. — j'apporte, nous apportons",to bring (thing),Peux-tu apporter du pain s'il te plaît ?,Can you bring some bread please?,A1,General,2.5
+771,apprécier,apʀesje,"v. — j'apprécie, nous apprécions",to appreciate / to enjoy,J'apprécie vraiment votre aide.,I really appreciate your help.,A1,Emotions,2.5
+772,arrêter,aʀɛte,"v. — j'arrête, nous arrêtons",to stop / to arrest,Arrête de parler et écoute-moi !,Stop talking and listen to me!,A1,Verbs,2.5
+773,arriver,aʀive,"v. — j'arrive, nous arrivons",to arrive / to happen,À quelle heure arrives-tu ?,What time are you arriving?,A1,Verbs,2.5
+774,article,aʀtikl,n.m.,article / item,J'ai lu un article intéressant dans le journal.,I read an interesting article in the newspaper.,A1,General,2.5
+775,assurer,asyʀe,"v. — j'assure, nous assurons",to ensure / to insure,Je t'assure que tout va bien.,I assure you that everything is fine.,A1,General,2.5
+776,atelier,atəlje,n.m.,workshop / studio,Il travaille dans son atelier tous les matins.,He works in his studio every morning.,A1,Work,2.5
+777,atterrir,ateʀiʀ,"v. — j'atterris, nous atterrissons",to land,L'avion a atterri avec vingt minutes de retard.,The plane landed twenty minutes late.,A1,Travel,2.5
+778,au lieu de,o ljø də,prep.,instead of,Prends le bus au lieu de la voiture.,Take the bus instead of the car.,A1,General,2.5
+779,au milieu de,o miljø də,prep.,in the middle of,La table est au milieu de la pièce.,The table is in the middle of the room.,A1,General,2.5
+780,au-dessus,odəsy,adv./prep.,above / on top of,Le tableau est au-dessus du canapé.,The painting is above the sofa.,A1,General,2.5
+781,au-dessous,odəsu,adv./prep.,below / under,La cave est au-dessous du rez-de-chaussée.,The cellar is below the ground floor.,A1,General,2.5
+782,autour de,otuʀ də,prep.,around,Il y a des arbres autour de la maison.,There are trees around the house.,A1,General,2.5
+783,avancer,avɑ̃se,"v. — j'avance, nous avançons",to move forward / to advance,Le projet avance bien.,The project is moving forward well.,A1,Verbs,2.5
+784,avec plaisir,avɛk plɛziʀ,expr.,with pleasure,Je viendrai avec plaisir !,I will come with pleasure!,A1,Greetings,2.5
+785,avertir,avɛʀtiʀ,"v. — j'avertis, nous avertissons",to warn / to notify,Il faut avertir les passagers du retard.,We need to warn the passengers of the delay.,A1,General,2.5
+786,aveugle,avøɡl,adj./n.,blind,Il est devenu aveugle après l'accident.,He became blind after the accident.,A1,Body & Health,2.5
+787,bagage,baɡaʒ,n.m.,luggage / baggage,Mes bagages sont trop lourds.,My luggage is too heavy.,A1,Travel,2.5
+788,balcon,balkɔ̃,n.m.,balcony,L'appartement a un grand balcon.,The apartment has a large balcony.,A1,Home,2.5
+789,bande,bɑ̃d,n.f.,band / strip / gang,Ils forment un groupe de musiciens.,They form a group of musicians.,A1,General,2.5
+790,banque,bɑ̃k,n.f.,bank,Je dois aller à la banque cet après-midi.,I need to go to the bank this afternoon.,A1,Shopping,2.5
+791,bas,bɑ,adj. — basse (f.),low,Le plafond est trop bas dans cette pièce.,The ceiling is too low in this room.,A1,Adjectives,2.5
+792,bateau,bato,n.m.,boat / ship,Nous prenons le bateau pour aller en Corse.,We are taking the boat to go to Corsica.,A1,Travel,2.5
+793,battre,batʀ,"v. — je bats, nous battons",to beat / to hit,Le cœur bat plus vite quand on fait du sport.,The heart beats faster when we do sport.,A1,Verbs,2.5
+794,bavard,bavaʀ,adj. — bavarde (f.),talkative / chatty,Ma voisine est très bavarde.,My neighbour is very talkative.,A1,Adjectives,2.5
+795,besoin,bəzwɛ̃,n.m.,need,J'ai besoin d'aide pour ce projet.,I need help with this project.,A1,General,2.5
+796,bête,bɛt,adj.,stupid / silly,Ne sois pas si bête !,Don't be so silly!,A1,Adjectives,2.5
+797,bibliothèque,biblijɔtɛk,n.f.,library / bookcase,Je vais emprunter des livres à la bibliothèque.,I am going to borrow books from the library.,A1,General,2.5
+798,bien que,bjɛ̃ kə,conj.,although / even though,Bien qu'il soit fatigué il continue à travailler.,Although he is tired he continues to work.,A1,General,2.5
+799,billet,bijɛ,n.m.,ticket / banknote,J'ai acheté deux billets pour le concert.,I bought two tickets for the concert.,A1,Shopping,2.5
+800,blesser,blɛse,"v. — je blesse, nous blessons",to hurt / to injure / to offend,Il s'est blessé en jouant au foot.,He hurt himself playing football.,A1,Body & Health,2.5
+801,boire,bwaʀ,"v. — je bois, nous buvons",to drink,Tu veux boire quelque chose de chaud ?,Do you want to drink something hot?,A2,Food & Drink,2.5
+802,boîte,bwat,n.f.,box / tin / nightclub,Mets les restes dans une boîte au frigo.,Put the leftovers in a box in the fridge.,A2,Home,2.5
+803,bouger,buʒe,"v. — je bouge, nous bougeons",to move,Ne bouge pas j'arrive dans deux minutes.,Don't move I'll be there in two minutes.,A2,Verbs,2.5
+804,briller,bʀije,"v. — je brille, nous brillons",to shine / to sparkle,Le soleil brille aujourd'hui.,The sun is shining today.,A2,Nature,2.5
+805,brûler,bʀyle,"v. — je brûle, nous brûlons",to burn,Fais attention de ne pas te brûler.,Be careful not to burn yourself.,A2,Verbs,2.5
+806,bruit,bʀɥi,n.m.,noise / sound,Il y a trop de bruit dans cet appartement.,There is too much noise in this apartment.,A2,General,2.5
+807,bureau,byʀo,n.m.,office / desk,Mon bureau est au troisième étage.,My office is on the third floor.,A2,Work,2.5
+808,but,byt,n.m.,goal / aim / purpose,Quel est le but de cette réunion ?,What is the goal of this meeting?,A2,General,2.5
+809,câble,kabl,n.m.,cable / wire,Le câble internet est débranché.,The internet cable is unplugged.,A2,General,2.5
+810,cacher,kaʃe,"v. — je cache, nous cachons",to hide,Il a caché le cadeau sous le lit.,He hid the present under the bed.,A2,Verbs,2.5
+811,calculer,kalkyle,"v. — je calcule, nous calculons",to calculate,Peux-tu calculer le total s'il te plaît ?,Can you calculate the total please?,A2,General,2.5
+812,calme,kalm,adj.,calm / quiet,La mer est calme ce matin.,The sea is calm this morning.,A2,Adjectives,2.5
+813,campagne,kɑ̃paɲ,n.f.,countryside / campaign,Ils habitent à la campagne depuis dix ans.,They have lived in the countryside for ten years.,A2,Nature,2.5
+814,carte,kaʀt,n.f.,card / map / menu,As-tu une carte de la ville ?,Do you have a map of the city?,A2,Travel,2.5
+815,casser,kase,"v. — je casse, nous cassons",to break,J'ai cassé mon téléphone en le faisant tomber.,I broke my phone by dropping it.,A2,Verbs,2.5
+816,cause,koz,n.f.,cause / reason,Quelle est la cause de ce problème ?,What is the cause of this problem?,A2,General,2.5
+817,célèbre,selɛbʀ,adj.,famous / celebrated,La tour Eiffel est un monument célèbre.,The Eiffel Tower is a famous monument.,A2,Adjectives,2.5
+818,certain,sɛʀtɛ̃,adj. — certaine (f.),certain / sure / some,Je suis certain qu'il viendra.,I am certain he will come.,A2,Adjectives,2.5
+819,chanter,ʃɑ̃te,"v. — je chante, nous chantons",to sing,Elle chante dans une chorale depuis cinq ans.,She has been singing in a choir for five years.,A2,General,2.5
+820,chargé,ʃaʀʒe,adj. — chargée (f.),busy / loaded / charged,Mon agenda est très chargé cette semaine.,My diary is very busy this week.,A2,Adjectives,2.5
+821,chasser,ʃase,"v. — je chasse, nous chassons",to hunt / to chase away,Il faut chasser les mauvaises idées.,We must chase away bad ideas.,A2,Verbs,2.5
+822,chauffage,ʃofaʒ,n.m.,heating,Le chauffage est en panne depuis ce matin.,The heating has been broken since this morning.,A2,Home,2.5
+823,chaussette,ʃosɛt,n.f.,sock,J'ai perdu une chaussette dans la machine.,I lost a sock in the washing machine.,A2,General,2.5
+824,chef,ʃɛf,n.m.,chief / head / chef,Le chef de l'équipe organise la réunion.,The team leader is organising the meeting.,A2,Work,2.5
+825,chercher,ʃɛʀʃe,"v. — je cherche, nous cherchons",to look for / to fetch,Je cherche mes lunettes depuis une heure.,I have been looking for my glasses for an hour.,A2,Verbs,2.5
+826,choisir,ʃwaziʀ,"v. — je choisis, nous choisissons",to choose,Tu as choisi quel plat ?,Which dish did you choose?,A2,Verbs,2.5
+827,clair,klɛʀ,adj. — claire (f.),clear / light / bright,L'explication est très claire.,The explanation is very clear.,A2,Adjectives,2.5
+828,classer,klase,"v. — je classe, nous classons",to classify / to file,Il faut classer ces documents par ordre alphabétique.,We need to file these documents alphabetically.,A2,Work,2.5
+829,clavier,klavje,n.m.,keyboard,Mon clavier d'ordinateur est cassé.,My computer keyboard is broken.,A2,Work,2.5
+830,climatisation,klimatizasjɔ̃,n.f.,air conditioning,La climatisation est indispensable en été.,Air conditioning is indispensable in summer.,A2,Home,2.5
+831,coiffeur,kwafœʀ,n.m. — coiffeuse (f.),hairdresser,Je vais chez le coiffeur samedi.,I am going to the hairdresser on Saturday.,A2,General,2.5
+832,colère,kolɛʀ,n.f.,anger,Il est entré dans une grande colère.,He flew into a great anger.,A2,Emotions,2.5
+833,commencer,kɔmɑ̃se,"v. — je commence, nous commençons",to begin / to start,Le cours commence à neuf heures.,The class begins at nine o'clock.,A2,Verbs,2.5
+834,complet,kɔ̃plɛ,adj. — complète (f.),full / complete,L'hôtel est complet ce week-end.,The hotel is full this weekend.,A2,Adjectives,2.5
+835,conduire,kɔ̃dɥiʀ,"v. — je conduis, nous conduisons",to drive / to lead,Il conduit depuis l'âge de dix-huit ans.,He has been driving since the age of eighteen.,A2,Travel,2.5
+836,confus,kɔ̃fy,adj. — confuse (f.),confused / embarrassed,Je suis un peu confus par cette situation.,I am a little confused by this situation.,A2,Emotions,2.5
+837,conserver,kɔ̃sɛʀve,"v. — je conserve, nous conservons",to keep / to preserve,Conservez ce document dans un endroit sûr.,Keep this document in a safe place.,A2,General,2.5
+838,continuer,kɔ̃tinɥe,"v. — je continue, nous continuons",to continue,Continuez tout droit pendant deux kilomètres.,Continue straight on for two kilometres.,A2,Verbs,2.5
+839,copain,kopɛ̃,n.m. — copine (f.),friend / boyfriend / girlfriend,Mon copain et moi allons au cinéma ce soir.,My boyfriend and I are going to the cinema tonight.,A2,Family,2.5
+840,corps,kɔʀ,n.m.,body,Il faut prendre soin de son corps.,We must take care of our body.,A2,Body & Health,2.5
+841,côté,kote,n.m.,side,Il habite de l'autre côté de la rue.,He lives on the other side of the street.,A2,General,2.5
+842,coucher,kuʃe,"v. — je me couche, nous nous couchons",to go to bed / to lay down,Je me couche toujours avant minuit.,I always go to bed before midnight.,A2,General,2.5
+843,couleur,kulœʀ,n.f.,colour,Quelle est ta couleur préférée ?,What is your favourite colour?,A2,Colors,2.5
+844,coup,ku,n.m.,blow / hit / shot,D'un seul coup tout a changé.,All at once everything changed.,A2,General,2.5
+845,couper,kupe,"v. — je coupe, nous coupons",to cut,Coupe le pain en tranches s'il te plaît.,Cut the bread into slices please.,A2,Food & Drink,2.5
+846,courage,kuʀaʒ,n.m.,courage / bravery,Il faut du courage pour changer de vie.,It takes courage to change your life.,A2,Emotions,2.5
+847,courant,kuʀɑ̃,adj. — courante (f.),common / current / everyday,C'est une erreur très courante.,It is a very common mistake.,A2,Adjectives,2.5
+848,couvrir,kuvʀiʀ,"v. — je couvre, nous couvrons",to cover,Couvre-toi bien il fait froid dehors.,Cover yourself well it is cold outside.,A2,Verbs,2.5
+849,craindre,kʀɛ̃dʀ,"v. — je crains, nous craignons",to fear / to be afraid of,Je crains qu'il ne soit trop tard.,I fear it may be too late.,A2,Emotions,2.5
+850,créatif,kʀeatif,adj. — créative (f.),creative,Elle est très créative dans son travail.,She is very creative in her work.,A2,Adjectives,2.5
+851,crier,kʀije,"v. — je crie, nous crions",to shout / to cry out,Ne crie pas s'il te plaît !,Please don't shout!,A2,Verbs,2.5
+852,cuisine,kɥizin,n.f.,kitchen / cooking,J'adore cuisiner des plats italiens.,I love cooking Italian dishes.,A2,Food & Drink,2.5
+853,curieux,kyʀjø,adj. — curieuse (f.),curious / strange,Elle est très curieuse de nature.,She is very curious by nature.,A2,Adjectives,2.5
+854,danger,dɑ̃ʒe,n.m.,danger,Il y a un panneau de danger sur cette route.,There is a danger sign on this road.,A2,General,2.5
+855,dangereux,dɑ̃ʒəʀø,adj. — dangereuse (f.),dangerous,Cette route est très dangereuse en hiver.,This road is very dangerous in winter.,A2,Adjectives,2.5
+856,danser,dɑ̃se,"v. — je danse, nous dansons",to dance,Elle danse le tango depuis dix ans.,She has been dancing the tango for ten years.,A2,General,2.5
+857,davantage,davɑ̃taʒ,adv.,more / further,Il faudrait travailler davantage.,We would need to work more.,A2,General,2.5
+858,déçu,desy,adj. — déçue (f.),disappointed,Je suis très déçu par ce résultat.,I am very disappointed by this result.,A2,Emotions,2.5
+859,dehors,dəɔʀ,adv.,outside / outdoors,Les enfants jouent dehors malgré le froid.,The children are playing outside despite the cold.,A2,General,2.5
+860,déjeuner,deʒøne,v./n.m.,to have lunch / lunch,On déjeune ensemble demain ?,Shall we have lunch together tomorrow?,A2,Food & Drink,2.5
+861,délicieux,delisjø,adj. — délicieuse (f.),delicious,Ce gâteau est absolument délicieux.,This cake is absolutely delicious.,A2,Food & Drink,2.5
+862,dépenser,depɑ̃se,"v. — je dépense, nous dépensons",to spend (money),Il dépense trop d'argent en vêtements.,He spends too much money on clothes.,A2,Shopping,2.5
+863,déranger,deʀɑ̃ʒe,"v. — je dérange, nous dérangeons",to disturb / to bother,Je suis désolé de vous déranger.,I am sorry to disturb you.,A2,General,2.5
+864,dernier,dɛʀnje,adj. — dernière (f.),last / latest,C'est la dernière fois que je le fais.,It is the last time I do this.,A2,Adjectives,2.5
+865,désirer,deziʀe,"v. — je désire, nous désirons",to wish / to desire,Que désirez-vous comme dessert ?,What would you like for dessert?,A2,General,2.5
+866,dessin,desɛ̃,n.m.,drawing / design,Il fait un dessin très détaillé.,He is making a very detailed drawing.,A2,General,2.5
+867,destination,dɛstinasjɔ̃,n.f.,destination,Quelle est votre destination finale ?,What is your final destination?,A2,Travel,2.5
+868,détester,detɛste,"v. — je déteste, nous détestons",to hate / to detest,Je déteste me lever tôt le matin.,I hate getting up early in the morning.,A2,Emotions,2.5
+869,devant,dəvɑ̃,prep.,in front of / before,Attends-moi devant l'entrée du cinéma.,Wait for me in front of the cinema entrance.,A2,General,2.5
+870,devoir,dəvwaʀ,n.m.,homework / duty,Il n'a pas fait ses devoirs ce soir.,He has not done his homework tonight.,A2,General,2.5
+871,d'habitude,dabityd,adv.,usually / normally,D'habitude je prends le bus pour aller au travail.,Usually I take the bus to go to work.,A2,General,2.5
+872,différemment,diferamɑ̃,adv.,differently,Il faut aborder ce problème différemment.,We need to approach this problem differently.,A2,General,2.5
+873,dîner,dine,v./n.m.,to have dinner / dinner,Nous dînons toujours en famille le dimanche.,We always have dinner as a family on Sundays.,A2,Food & Drink,2.5
+874,discours,diskuʀ,n.m.,speech / discourse,Le président a prononcé un long discours.,The president gave a long speech.,A2,General,2.5
+875,disponible,disponibl,adj.,available,Est-ce que tu es disponible demain matin ?,Are you available tomorrow morning?,A2,General,2.5
+876,divers,divɛʀ,adj. — diverse (f.),various / diverse,Il y a divers problèmes à résoudre.,There are various problems to solve.,A2,General,2.5
+877,documenter,dɔkymɑ̃te,v. — je me documente,to document / to research,Il faut bien se documenter avant d'écrire.,We need to research thoroughly before writing.,A2,General,2.5
+878,dommage,dɔmaʒ,n.m.,pity / shame / damage,C'est dommage qu'il ne soit pas venu.,It is a pity he did not come.,A2,Emotions,2.5
+879,douceur,dusœʀ,n.f.,gentleness / softness / sweetness,Elle parle toujours avec beaucoup de douceur.,She always speaks with great gentleness.,A2,Emotions,2.5
+880,doué,dwe,adj. — douée (f.),gifted / talented,Il est très doué pour les langues.,He is very gifted at languages.,A2,Adjectives,2.5
+881,doux,du,adj. — douce (f.),soft / gentle / mild,Le temps est doux pour la saison.,The weather is mild for the season.,A2,Adjectives,2.5
+882,droite,dʀwat,n.f.,right (direction),Tournez à droite au prochain carrefour.,Turn right at the next crossroads.,A2,Travel,2.5
+883,dur,dyʀ,adj. — dure (f.),hard / tough / difficult,La vie est dure parfois.,Life is tough sometimes.,A2,Adjectives,2.5
+884,eau minérale,o mineʀal,n.f.,mineral water,Je voudrais une eau minérale gazeuse s'il vous plaît.,I would like a sparkling mineral water please.,A2,Food & Drink,2.5
+885,écran,ekʀɑ̃,n.m.,screen,L'écran de mon téléphone est cassé.,The screen of my phone is broken.,A2,General,2.5
+886,efficace,efikas,adj.,effective / efficient,Ce médicament est très efficace.,This medicine is very effective.,A2,Adjectives,2.5
+887,élève,elɛv,n.m./f.,pupil / student,Les élèves ont passé un examen difficile.,The pupils took a difficult exam.,A2,Work,2.5
+888,empêcher,ɑ̃pɛʃe,"v. — j'empêche, nous empêchons",to prevent / to stop,Rien ne m'empêchera de réussir.,Nothing will prevent me from succeeding.,A2,Verbs,2.5
+889,enceinte,ɑ̃sɛ̃t,adj.,pregnant,Elle est enceinte de six mois.,She is six months pregnant.,A2,Body & Health,2.5
+890,endroit,ɑ̃dʀwa,n.m.,place / spot,C'est un endroit magnifique pour se marier.,It is a magnificent place to get married.,A2,General,2.5
+891,énerver,eneʀve,"v. — je m'énerve, nous nous énervons",to annoy / to irritate,Ce bruit constant m'énerve vraiment.,This constant noise really irritates me.,A2,Emotions,2.5
+892,enregistrer,ɑ̃ʀəʒistʀe,"v. — j'enregistre, nous enregistrons",to record / to register / to check in,Il faut enregistrer vos bagages deux heures avant.,You need to check in your luggage two hours before.,A2,Travel,2.5
+893,ensemble,ɑ̃sɑ̃bl,adv.,together,Nous travaillons ensemble depuis cinq ans.,We have been working together for five years.,A2,General,2.5
+894,ensuite,ɑ̃sɥit,adv.,then / afterwards / next,Mange ta soupe ensuite tu auras ton dessert.,Eat your soup then you will have your dessert.,A2,General,2.5
+895,entendre,ɑ̃tɑ̃dʀ,"v. — j'entends, nous entendons",to hear,J'entends de la musique venant du jardin.,I can hear music coming from the garden.,A2,Verbs,2.5
+896,environ,ɑ̃viʀɔ̃,adv.,approximately / about,Il faut environ deux heures pour y aller.,It takes approximately two hours to get there.,A2,General,2.5
+897,envoyer,ɑ̃vwaje,"v. — j'envoie, nous envoyons",to send,J'ai envoyé un message à ma mère.,I sent a message to my mother.,A2,Verbs,2.5
+898,épicerie,episʀi,n.f.,grocery store,Il y a une épicerie ouverte le dimanche.,There is a grocery store open on Sundays.,A2,Shopping,2.5
+899,erreur,eʀœʀ,n.f.,error / mistake,J'ai fait une erreur dans mon calcul.,I made an error in my calculation.,A2,General,2.5
+900,escalier,ɛskalje,n.m.,staircase / stairs,Prends l'escalier c'est plus rapide.,Take the stairs it is quicker.,A2,Home,2.5
+901,espérer,ɛspeʀe,"v. — j'espère, nous espérons",to hope,J'espère que tu vas bien.,I hope you are well.,A2,Emotions,2.5
+902,essayer,eseje,"v. — j'essaie, nous essayons",to try,Essaie cette veste elle te va bien.,Try this jacket it suits you.,A2,Verbs,2.5
+903,essentiel,esɑ̃sjɛl,adj. — essentielle (f.),essential / key,La communication est essentielle dans un couple.,Communication is essential in a couple.,A2,Adjectives,2.5
+904,étudiant,etydjɑ̃,n.m. — étudiante (f.),student,Les étudiants passent leurs examens en juin.,Students sit their exams in June.,A2,Work,2.5
+905,étudier,etydʒe,"v. — j'étudie, nous étudions",to study,Elle étudie la médecine à Paris.,She is studying medicine in Paris.,A2,Work,2.5
+906,événement,evɛnmɑ̃,n.m.,event,C'est un événement important pour toute la famille.,It is an important event for the whole family.,A2,General,2.5
+907,exactement,ɛɡzaktəmɑ̃,adv.,exactly / precisely,C'est exactement ce que je cherchais.,That is exactly what I was looking for.,A2,General,2.5
+908,examen,ɛɡzamɛ̃,n.m.,exam / examination,Il a réussi son examen avec une excellente note.,He passed his exam with an excellent mark.,A2,Work,2.5
+909,excellent,ɛkselɑ̃,adj. — excellente (f.),excellent,Le repas était vraiment excellent.,The meal was truly excellent.,A2,Adjectives,2.5
+910,excuser,ɛkskyze,"v. — je m'excuse, nous nous excusons",to excuse / to apologise,Excusez-moi je suis en retard.,Excuse me I am late.,A2,Greetings,2.5
+911,exercice,ɛɡzɛʀsis,n.m.,exercise,Faire de l'exercice régulièrement est bon pour la santé.,Doing exercise regularly is good for health.,A2,Body & Health,2.5
+912,exprès,ɛkspʀɛ,adv.,on purpose / deliberately,Il l'a fait exprès pour m'énerver.,He did it on purpose to annoy me.,A2,General,2.5
+913,extérieur,ɛksteʀjœʀ,n.m./adj.,outside / exterior / outdoor,Les travaux extérieurs seront terminés demain.,The outdoor work will be finished tomorrow.,A2,General,2.5
+914,faim,fɛ̃,n.f.,hunger,J'ai très faim je n'ai pas mangé depuis ce matin.,I am very hungry I have not eaten since this morning.,A2,Body & Health,2.5
+915,faux,fo,adj. — fausse (f.),false / wrong / fake,Cette information est complètement fausse.,This information is completely false.,A2,Adjectives,2.5
+916,félicitations,felisitasjɔ̃,n.f.pl.,congratulations,Félicitations pour ta promotion !,Congratulations on your promotion!,A2,Greetings,2.5
+917,fenêtre,fənɛtʀ,n.f.,window,Ouvre la fenêtre il fait trop chaud.,Open the window it is too hot.,A2,Home,2.5
+918,finalement,finalmɑ̃,adv.,finally / in the end,Finalement il a accepté notre proposition.,Finally he accepted our proposal.,A2,General,2.5
+919,finir,finiʀ,"v. — je finis, nous finissons",to finish / to end,Il faut finir ce rapport avant vendredi.,We need to finish this report before Friday.,A2,Verbs,2.5
+920,fois,fwa,n.f.,time / occasion,C'est la première fois que je visite Paris.,It is the first time I visit Paris.,A2,Time,2.5
+921,fonctionner,fɔ̃ksjɔne,"v. — je fonctionne, nous fonctionnons",to work / to function,Est-ce que l'imprimante fonctionne ?,Is the printer working?,A2,General,2.5
+922,formation,fɔʀmasjɔ̃,n.f.,training / qualification,Il suit une formation en ligne.,He is doing an online training course.,A2,Work,2.5
+923,forêt,fɔʀɛ,n.f.,forest,Nous nous promenons souvent dans la forêt.,We often go for walks in the forest.,A2,Nature,2.5
+924,forme,fɔʀm,n.f.,shape / form / fitness,Je suis en pleine forme aujourd'hui.,I am in great shape today.,A2,Body & Health,2.5
+925,formidable,fɔʀmidabl,adj.,wonderful / fantastic / great,C'est une idée formidable !,It is a wonderful idea!,A2,Adjectives,2.5
+926,fournir,fuʀniʀ,"v. — je fournis, nous fournissons",to provide / to supply,Pouvez-vous fournir un justificatif de domicile ?,Can you provide proof of address?,A2,General,2.5
+927,frais,fʀɛ,adj. — fraîche (f.),fresh / cool,Le pain est frais ce matin.,The bread is fresh this morning.,A2,Food & Drink,2.5
+928,franchement,fʀɑ̃ʃmɑ̃,adv.,frankly / honestly,Franchement je ne sais pas quoi faire.,Frankly I do not know what to do.,A2,General,2.5
+929,fréquent,fʀekɑ̃,adj. — fréquente (f.),frequent / common,Les retards sont fréquents sur cette ligne.,Delays are frequent on this line.,A2,Adjectives,2.5
+930,froid,fʀwa,n.m.,cold,Il fait un froid terrible ce matin.,It is terribly cold this morning.,A2,Nature,2.5
+931,fumée,fyme,n.f.,smoke,Il y a de la fumée qui sort de la cheminée.,There is smoke coming out of the chimney.,A2,Nature,2.5
+932,fumer,fyme,"v. — je fume, nous fumons",to smoke,Il a arrêté de fumer il y a trois ans.,He stopped smoking three years ago.,A2,Body & Health,2.5
+933,gagner,ɡaɲe,"v. — je gagne, nous gagnons",to win / to earn,Elle gagne bien sa vie comme médecin.,She earns a good living as a doctor.,A2,Work,2.5
+934,garder,ɡaʀde,"v. — je garde, nous gardons",to keep / to look after,Garde ce secret pour toi s'il te plaît.,Keep this secret to yourself please.,A2,Verbs,2.5
+935,gâteau,ɡato,n.m.,cake,Ma mère a fait un gâteau au chocolat.,My mother made a chocolate cake.,A2,Food & Drink,2.5
+936,gauche,ɡoʃ,n.f./adj.,left / clumsy,Tournez à gauche après le feu rouge.,Turn left after the traffic light.,A2,Travel,2.5
+937,généreux,ʒeneʀø,adj. — généreuse (f.),generous,Il est très généreux avec ses amis.,He is very generous with his friends.,A2,Adjectives,2.5
+938,gentillesse,ʒɑ̃tijɛs,n.f.,kindness,Je vous remercie de votre gentillesse.,I thank you for your kindness.,A2,Emotions,2.5
+939,glace,ɡlas,n.f.,ice / ice cream / mirror,Je voudrais une glace à la vanille.,I would like a vanilla ice cream.,A2,Food & Drink,2.5
+940,gorge,ɡɔʀʒ,n.f.,throat / gorge,J'ai mal à la gorge depuis deux jours.,I have had a sore throat for two days.,A2,Body & Health,2.5
+941,goût,ɡu,n.m.,taste / flavour,Ce plat a un goût délicieux.,This dish has a delicious flavour.,A2,Food & Drink,2.5
+942,gouverner,ɡuvɛʀne,"v. — je gouverne, nous gouvernons",to govern / to rule,Le parti gouverne depuis cinq ans.,The party has been governing for five years.,A2,General,2.5
+943,grâce à,ɡʀas a,prep.,thanks to,Grâce à toi j'ai réussi mon examen.,Thanks to you I passed my exam.,A2,General,2.5
+944,gratuit,ɡʀatɥi,adj. — gratuite (f.),free (of charge),L'entrée est gratuite pour les moins de douze ans.,Entry is free for children under twelve.,A2,Shopping,2.5
+945,grave,ɡʀav,adj.,serious / severe / grave,Ce n'est pas grave ne t'inquiète pas.,It is not serious do not worry.,A2,Adjectives,2.5
+946,gros,ɡʀo,adj. — grosse (f.),big / fat / large,Il y a un gros problème à résoudre.,There is a big problem to solve.,A2,Adjectives,2.5
+947,groupe,ɡʀup,n.m.,group,Le groupe de touristes visite le musée.,The group of tourists is visiting the museum.,A2,General,2.5
+948,guérir,ɡeʀiʀ,"v. — je guéris, nous guérissons",to cure / to heal / to recover,Il a guéri rapidement grâce au traitement.,He recovered quickly thanks to the treatment.,A2,Body & Health,2.5
+949,habiller,abije,"v. — je m'habille, nous nous habillons",to dress / to get dressed,Les enfants s'habillent seuls maintenant.,The children get dressed by themselves now.,A2,General,2.5
+950,habiter,abite,"v. — j'habite, nous habitons",to live / to reside,J'habite dans le centre-ville depuis deux ans.,I have lived in the town centre for two years.,A2,General,2.5
+951,habituel,abitɥɛl,adj. — habituelle (f.),usual / habitual,Prenons notre chemin habituel.,Let us take our usual route.,A2,Adjectives,2.5
+952,hasard,azaʀ,n.m.,chance / coincidence,Par hasard j'ai rencontré mon ancien professeur.,By chance I met my former teacher.,A2,General,2.5
+953,hausse,os,n.f.,rise / increase,On observe une hausse des prix cette année.,We are seeing a rise in prices this year.,A2,General,2.5
+954,histoire,istwaʀ,n.f.,history / story,Il raconte toujours des histoires amusantes.,He always tells amusing stories.,A2,General,2.5
+955,honnête,ɔnɛt,adj.,honest,Il est toujours honnête même quand c'est difficile.,He is always honest even when it is difficult.,A2,Adjectives,2.5
+956,honte,ɔ̃t,n.f.,shame,Il n'a aucune honte de ses erreurs.,He has no shame about his mistakes.,A2,Emotions,2.5
+957,humeur,ymœʀ,n.f.,mood / humour,Il est de bonne humeur ce matin.,He is in a good mood this morning.,A2,Emotions,2.5
+958,idée,ide,n.f.,idea,J'ai eu une excellente idée pour le projet.,I had an excellent idea for the project.,A2,General,2.5
+959,imaginaire,imaʒinɛʀ,adj.,imaginary,Les enfants ont des amis imaginaires.,Children have imaginary friends.,A2,Adjectives,2.5
+960,imaginer,imaʒine,"v. — j'imagine, nous imaginons",to imagine,J'imagine que c'est difficile pour toi.,I imagine it is difficult for you.,A2,Verbs,2.5
+961,impatient,ɛ̃pasjɑ̃,adj. — impatiente (f.),impatient,Il est impatient de recevoir les résultats.,He is impatient to receive the results.,A2,Emotions,2.5
+962,impossible,ɛ̃posibl,adj.,impossible,Il est impossible de finir à temps.,It is impossible to finish on time.,A2,Adjectives,2.5
+963,incroyable,ɛ̃kʀwajabl,adj.,incredible / unbelievable,C'est une histoire incroyable mais vraie.,It is an incredible but true story.,A2,Adjectives,2.5
+964,inquiet,ɛ̃kjɛ,adj. — inquiète (f.),worried / anxious,Je suis inquiet pour les résultats de l'examen.,I am worried about the exam results.,A2,Emotions,2.5
+965,installer,ɛ̃stale,"v. — j'installe, nous installons",to install / to set up,Il faut installer ce logiciel sur l'ordinateur.,We need to install this software on the computer.,A2,General,2.5
+966,intelligent,ɛ̃teliʒɑ̃,adj. — intelligente (f.),intelligent / clever,Elle est très intelligente et travailleuse.,She is very intelligent and hardworking.,A2,Adjectives,2.5
+967,intérieur,ɛ̃teʀjœʀ,n.m./adj.,inside / interior / indoor,Les travaux intérieurs ont été bien réalisés.,The interior work has been done well.,A2,Home,2.5
+968,inviter,ɛ̃vite,"v. — j'invite, nous invitons",to invite,Je vous invite à dîner samedi soir.,I invite you to dinner on Saturday evening.,A2,Greetings,2.5
+969,jaloux,ʒalu,adj. — jalouse (f.),jealous,Il est jaloux du succès de son frère.,He is jealous of his brother's success.,A2,Emotions,2.5
+970,jeter,ʒəte,"v. — je jette, nous jetons",to throw / to throw away,Ne jette pas ce papier ce n'est pas une poubelle.,Do not throw this paper it is not a bin.,A2,Verbs,2.5
+971,jeune,ʒœn,n.m./f.,young person / youth,Les jeunes d'aujourd'hui sont très connectés.,Young people today are very connected.,A2,General,2.5
+972,joie,ʒwa,n.f.,joy / happiness,La naissance d'un enfant est une grande joie.,The birth of a child is a great joy.,A2,Emotions,2.5
+973,jouer,ʒwe,"v. — je joue, nous jouons",to play,Les enfants jouent au parc après l'école.,The children play in the park after school.,A2,General,2.5
+974,juste,ʒyst,adj./adv.,fair / just / right / only,Ce n'est pas juste de ne pas l'inviter.,It is not fair not to invite him.,A2,Adjectives,2.5
+975,kilomètre,kilomɛtʀ,n.m.,kilometre,La ville est à vingt kilomètres d'ici.,The town is twenty kilometres from here.,A2,Travel,2.5
+976,langue,lɑ̃ɡ,n.f.,language / tongue,Il parle quatre langues couramment.,He speaks four languages fluently.,A2,General,2.5
+977,laver,lave,"v. — je me lave, nous nous lavons",to wash,Je me lave les mains avant de manger.,I wash my hands before eating.,A2,Body & Health,2.5
+978,légende,leʒɑ̃d,n.f.,legend / caption,Il a lu une vieille légende celtique.,He read an old Celtic legend.,A2,General,2.5
+979,lettre,lɛtʀ,n.f.,letter,J'ai reçu une lettre de mon ami américain.,I received a letter from my American friend.,A2,General,2.5
+980,lever,ləve,"v. — je me lève, nous nous levons",to get up / to raise,Je me lève à sept heures chaque matin.,I get up at seven o'clock every morning.,A2,General,2.5
+981,liberté,libɛʀte,n.f.,freedom / liberty,La liberté est une valeur fondamentale.,Freedom is a fundamental value.,A2,General,2.5
+982,logique,lɔʒik,adj./n.f.,logical / logic,Sa réponse est tout à fait logique.,His answer is quite logical.,A2,Adjectives,2.5
+983,loin,lwɛ̃,adv.,far,La gare est loin d'ici à pied.,The station is far from here on foot.,A2,Travel,2.5
+984,lumière,lymjɛʀ,n.f.,light,Allume la lumière s'il te plaît il fait sombre.,Switch on the light please it is dark.,A2,Home,2.5
+985,magnifique,maɲifik,adj.,magnificent / beautiful,Le coucher de soleil est magnifique ce soir.,The sunset is magnificent tonight.,A2,Adjectives,2.5
+986,manquer,mɑ̃ke,"v. — je manque, nous manquons",to miss / to lack,Tu me manques beaucoup depuis ton départ.,I miss you a lot since you left.,A2,Emotions,2.5
+987,marchand,maʀʃɑ̃,n.m. — marchande (f.),merchant / trader / seller,Le marchand de légumes est très sympathique.,The vegetable seller is very friendly.,A2,Shopping,2.5
+988,mauvais,movɛ,adj. — mauvaise (f.),bad / wrong,Il fait mauvais temps aujourd'hui.,The weather is bad today.,A2,Adjectives,2.5
+989,même si,mɛm si,conj.,even if / even though,Même si c'est difficile il faut continuer.,Even if it is difficult we must continue.,A2,General,2.5
+990,mentir,mɑ̃tiʀ,"v. — je mens, nous mentons",to lie,Il ne faut jamais mentir à ses parents.,You must never lie to your parents.,A2,Verbs,2.5
+991,message,mesaʒ,n.m.,message,J'ai reçu un message important ce matin.,I received an important message this morning.,A2,General,2.5
+992,mettre,mɛtʀ,"v. — je mets, nous mettons",to put / to place / to wear,Mets ta veste avant de sortir.,Put your jacket on before going out.,A2,Verbs,2.5
+993,mieux,mjø,adv.,better,Tu te sens mieux aujourd'hui ?,Do you feel better today?,A2,General,2.5
+994,milieu,miljø,n.m.,middle / environment / background,Mets la vase au milieu de la table.,Put the vase in the middle of the table.,A2,General,2.5
+995,mince,mɛ̃s,adj.,thin / slim,Elle est mince et grande.,She is slim and tall.,A2,Adjectives,2.5
+996,mois,mwa,n.m.,month,Le mois de juillet est le plus chaud de l'année.,The month of July is the hottest of the year.,A2,Time,2.5
+997,montre,mɔ̃tʀ,n.f.,watch,Ma montre avance de cinq minutes.,My watch is five minutes fast.,A2,General,2.5
+998,moteur,mɔtœʀ,n.m.,engine / motor,Le moteur de la voiture est en panne.,The car engine has broken down.,A2,Travel,2.5
+999,moyen,mwajɛ̃,adj. — moyenne (f.),average / medium,Il est de taille moyenne.,He is of average height.,A2,Adjectives,2.5
+1000,naturel,natɥʀɛl,adj. — naturelle (f.),natural,Il est tout à fait naturel de se sentir nerveux.,It is quite natural to feel nervous.,A2,Adjectives,2.5
+1001,néanmoins,neɑ̃mwɛ̃,adv.,nevertheless / nonetheless,Il est fatigué néanmoins il continue à travailler.,He is tired nevertheless he continues to work.,A2,General,2.5
+1002,nerveux,nɛʀvø,adj. — nerveuse (f.),nervous / anxious,Elle est très nerveuse avant son entretien.,She is very nervous before her interview.,A2,Emotions,2.5
+1003,net,nɛ,adj. — nette (f.),clear / clean / net,Il y a une nette amélioration dans son travail.,There is a clear improvement in his work.,A2,Adjectives,2.5
+1004,niveau,nivo,n.m.,level / standard,Son niveau en anglais est excellent.,His level of English is excellent.,A2,General,2.5
+1005,nombreux,nɔ̃bʀø,adj. — nombreuse (f.),numerous / many,De nombreux touristes visitent Paris chaque année.,Numerous tourists visit Paris every year.,A2,Adjectives,2.5
+1006,normal,nɔʀmal,adj. — normale (f.),normal / usual,C'est tout à fait normal de se sentir ainsi.,It is quite normal to feel this way.,A2,Adjectives,2.5
+1007,noter,nɔte,"v. — je note, nous notons",to note / to mark,Note bien cette adresse dans ton carnet.,Note this address carefully in your notebook.,A2,General,2.5
+1008,nourrir,nuʀiʀ,"v. — je nourris, nous nourrissons",to feed / to nourish,Il faut bien nourrir les enfants.,We must feed the children well.,A2,Food & Drink,2.5
+1009,nourriture,nuʀityʀ,n.f.,food / nourishment,La nourriture dans ce restaurant est excellente.,The food in this restaurant is excellent.,A2,Food & Drink,2.5
+1010,nouveau,nuvo,adj. — nouvelle (f.),new / another,J'ai acheté un nouvel ordinateur.,I bought a new computer.,A2,Adjectives,2.5
+1011,numéro,nymeʀo,n.m.,number,Quel est ton numéro de téléphone ?,What is your phone number?,A2,General,2.5
+1012,obéir,obeʀiʀ,"v. — j'obéis, nous obéissons",to obey,Les enfants doivent obéir à leurs parents.,Children must obey their parents.,A2,General,2.5
+1013,objectif,ɔbʒɛktif,n.m.,objective / goal,Mon objectif est de parler couramment français.,My goal is to speak French fluently.,A2,General,2.5
+1014,obligatoire,ɔbliɡatwaʀ,adj.,compulsory / mandatory,Le port du casque est obligatoire à vélo.,Wearing a helmet is compulsory when cycling.,A2,General,2.5
+1015,occasion,ɔkazjɔ̃,n.f.,opportunity / occasion / second-hand,C'est une excellente occasion d'apprendre.,It is an excellent opportunity to learn.,A2,General,2.5
+1016,offrir,ɔfʀiʀ,"v. — j'offre, nous offrons",to offer / to give (gift),Il m'a offert un beau bouquet de fleurs.,He gave me a beautiful bunch of flowers.,A2,General,2.5
+1017,ombre,ɔ̃bʀ,n.f.,shadow / shade,Asseyons-nous à l'ombre il fait trop chaud.,Let us sit in the shade it is too hot.,A2,Nature,2.5
+1018,opérer,ɔpeʀe,"v. — j'opère, nous opérons",to operate / to perform surgery,Le chirurgien a opéré pendant six heures.,The surgeon operated for six hours.,A2,Body & Health,2.5
+1019,ordinaire,ɔʀdinɛʀ,adj.,ordinary / usual / standard,C'est un repas tout à fait ordinaire.,It is a perfectly ordinary meal.,A2,Adjectives,2.5
+1020,oublier,ublije,"v. — j'oublie, nous oublions",to forget,N'oublie pas de prendre ton parapluie.,Don't forget to take your umbrella.,A2,Verbs,2.5
+1021,ouvrier,uvʀije,n.m. — ouvrière (f.),worker / labourer,Les ouvriers travaillent sur le chantier.,The workers are working on the building site.,A2,Work,2.5
+1022,paraître,paʀɛtʀ,"v. — je parais, nous paraissons",to seem / to appear / to be published,Il paraît fatigué depuis quelques jours.,He seems tired for a few days.,A2,Verbs,2.5
+1023,parcourir,paʀkuʀiʀ,"v. — je parcours, nous parcourons",to travel through / to cover,Il a parcouru toute l'Europe à vélo.,He travelled through all of Europe by bike.,A2,Travel,2.5
+1024,pareil,paʀɛj,adj. — pareille (f.),same / similar / alike,Ces deux robes sont pareilles.,These two dresses are the same.,A2,Adjectives,2.5
+1025,partager,paʀtaʒe,"v. — je partage, nous partageons",to share / to divide,On va partager la note en deux.,We are going to split the bill in two.,A2,General,2.5
+1026,particulier,paʀtikylje,adj. — particulière (f.),particular / special / private,Il a un style particulier très reconnaissable.,He has a very recognisable particular style.,A2,Adjectives,2.5
+1027,partout,paʀtu,adv.,everywhere,Il y a des touristes partout en été.,There are tourists everywhere in summer.,A2,General,2.5
+1028,passager,pasaʒe,n.m. — passagère (f.),passenger,Les passagers sont priés d'attacher leur ceinture.,Passengers are asked to fasten their seatbelts.,A2,Travel,2.5
+1029,passé,pase,n.m.,past,Il ne faut pas rester prisonnier du passé.,We must not remain prisoner of the past.,A2,Time,2.5
+1030,passionné,pasjɔne,adj. — passionnée (f.),passionate / enthusiastic,Elle est passionnée de littérature française.,She is passionate about French literature.,A2,Emotions,2.5
+1031,patient,pasjɑ̃,adj./n.m. — patiente (f.),patient,Il faut être patient pour apprendre une langue.,You need to be patient to learn a language.,A2,Adjectives,2.5
+1032,paysage,pɛizaʒ,n.m.,landscape / scenery,Le paysage de Provence est magnifique.,The landscape of Provence is magnificent.,A2,Nature,2.5
+1033,peine,pɛn,n.f.,sorrow / effort / difficulty,Ce n'est pas la peine de t'inquiéter.,There is no point in worrying.,A2,Emotions,2.5
+1034,perdre,pɛʀdʀ,"v. — je perds, nous perdons",to lose,J'ai perdu mes clés quelque part.,I have lost my keys somewhere.,A2,Verbs,2.5
+1035,personnage,pɛʀsɔnaʒ,n.m.,character / figure / person,C'est le personnage principal du roman.,He is the main character of the novel.,A2,General,2.5
+1036,personne,pɛʀsɔn,n.f./pron.,person / nobody,Il n'y a personne dans la salle.,There is nobody in the room.,A2,General,2.5
+1037,plaire,plɛʀ,"v. — il me plaît, nous plaisons",to please / to like,Ce film m'a beaucoup plu.,I really liked this film.,A2,Emotions,2.5
+1038,plaisir,plɛziʀ,n.m.,pleasure / enjoyment,C'est avec plaisir que j'accepte votre invitation.,It is with pleasure that I accept your invitation.,A2,Emotions,2.5
+1039,plat,pla,adj.,flat,La région est très plate il n'y a pas de collines.,The region is very flat there are no hills.,A2,Adjectives,2.5
+1040,plein,plɛ̃,adv.,full / lots of / in the middle of,Il y a plein de choses à faire ici.,There are lots of things to do here.,A2,General,2.5
+1041,pleurer,plœʀe,"v. — je pleure, nous pleurons",to cry / to weep,Elle a pleuré en regardant ce film.,She cried while watching this film.,A2,Emotions,2.5
+1042,poème,pɔɛm,n.m.,poem,Il a écrit un beau poème pour sa femme.,He wrote a beautiful poem for his wife.,A2,General,2.5
+1043,politesse,politɛs,n.f.,politeness / good manners,La politesse est essentielle dans la vie sociale.,Politeness is essential in social life.,A2,General,2.5
+1044,pompe,pɔ̃p,n.f.,pump / pomp,La pompe à eau est en panne.,The water pump is broken.,A2,General,2.5
+1045,porter,pɔʀte,"v. — je porte, nous portons",to carry / to wear / to bear,Elle porte une belle robe bleue.,She is wearing a beautiful blue dress.,A2,Verbs,2.5
+1046,poser,poze,"v. — je pose, nous posons",to put down / to ask (question),Pose ta valise ici et repose-toi.,Put your suitcase down here and rest.,A2,Verbs,2.5
+1047,positif,pozitif,adj. — positive (f.),positive,Gardons une attitude positive face aux difficultés.,Let us keep a positive attitude in the face of difficulties.,A2,Adjectives,2.5
+1048,posséder,posede,"v. — je possède, nous possédons",to own / to possess,Il possède une belle maison à la campagne.,He owns a beautiful house in the countryside.,A2,General,2.5
+1049,pratique,pʀatik,adj.,practical / handy,Ce sac est très pratique pour voyager.,This bag is very practical for travelling.,A2,Adjectives,2.5
+1050,précieux,pʀesjø,adj. — précieuse (f.),precious / valuable,Votre aide m'est très précieuse.,Your help is very precious to me.,A2,Adjectives,2.5
+1051,préparer,pʀepaʀe,"v. — je prépare, nous préparons",to prepare,Elle prépare le dîner depuis deux heures.,She has been preparing dinner for two hours.,A2,Verbs,2.5
+1052,présenter,pʀezɑ̃te,"v. — je présente, nous présentons",to present / to introduce,Permettez-moi de vous présenter mon collègue.,Allow me to introduce my colleague to you.,A2,General,2.5
+1053,pressé,pʀese,adj. — pressée (f.),in a hurry / pressed,Je suis très pressé je dois partir maintenant.,I am in a great hurry I must leave now.,A2,Adjectives,2.5
+1054,prêt,pʀɛ,adj. — prête (f.),ready,Le dîner est prêt venez à table.,Dinner is ready come to the table.,A2,Adjectives,2.5
+1055,prévenir,pʀevəniʀ,"v. — je préviens, nous prévenons",to warn / to notify,Préviens-moi si tu as un problème.,Let me know if you have a problem.,A2,General,2.5
+1056,principal,pʀɛ̃sipal,adj. — principale (f.),main / principal,Quel est le problème principal ?,What is the main problem?,A2,Adjectives,2.5
+1057,priver,pʀive,"v. — je prive, nous privons",to deprive,Il ne faut pas priver les enfants de sommeil.,We must not deprive children of sleep.,A2,General,2.5
+1058,problème,pʀɔblɛm,n.m.,problem,Nous devons résoudre ce problème rapidement.,We need to solve this problem quickly.,A2,General,2.5
+1059,profiter,pʀɔfite,"v. — je profite, nous profitons",to take advantage of / to enjoy,Il faut profiter de chaque moment.,We must enjoy every moment.,A2,General,2.5
+1060,profond,pʀɔfɔ̃,adj. — profonde (f.),deep / profound,La rivière est très profonde à cet endroit.,The river is very deep at this point.,A2,Adjectives,2.5
+1061,promettre,pʀɔmɛtʀ,"v. — je promets, nous promettons",to promise,Je te promets que je serai là.,I promise you I will be there.,A2,Verbs,2.5
+1062,propre,pʀɔpʀ,adj.,own / clean,Il a ses propres idées sur la question.,He has his own ideas on the matter.,A2,Adjectives,2.5
+1063,protéger,pʀɔteʒe,"v. — je protège, nous protégeons",to protect,Il faut protéger les enfants du danger.,We must protect children from danger.,A2,Verbs,2.5
+1064,prudent,pʀydɑ̃,adj. — prudente (f.),careful / cautious / prudent,Sois prudent sur la route !,Be careful on the road!,A2,Adjectives,2.5
+1065,public,pyblik,adj./n.m. — publique (f.),public,Ce jardin est ouvert au public tous les jours.,This garden is open to the public every day.,A2,General,2.5
+1066,punir,pyniʀ,"v. — je punis, nous punissons",to punish,Il a été puni pour son comportement.,He was punished for his behaviour.,A2,General,2.5
+1067,pur,pyʀ,adj. — pure (f.),pure / clean,L'air de la montagne est pur et frais.,The mountain air is pure and fresh.,A2,Adjectives,2.5
+1068,qualifié,kalifje,adj. — qualifiée (f.),qualified / skilled,Nous cherchons un candidat qualifié pour ce poste.,We are looking for a qualified candidate for this position.,A2,Work,2.5
+1069,quotidien,kɔtidjɛ̃,adj./n.m. — quotidienne (f.),daily / everyday,La vie quotidienne peut être épuisante.,Everyday life can be exhausting.,A2,General,2.5
+1070,raconter,ʀakɔ̃te,"v. — je raconte, nous racontons",to tell / to narrate,Il raconte toujours des histoires fascinantes.,He always tells fascinating stories.,A2,Verbs,2.5
+1071,raison,ʀɛzɔ̃,n.f.,reason / right,Tu as tout à fait raison sur ce point.,You are absolutely right on this point.,A2,General,2.5
+1072,ramener,ʀamne,"v. — je ramène, nous ramenons",to bring back / to take back,Ramène du pain en rentrant s'il te plaît.,Bring some bread back when you come home please.,A2,Verbs,2.5
+1073,ranger,ʀɑ̃ʒe,"v. — je range, nous rangeons",to tidy / to put away,Range ta chambre avant de sortir.,Tidy your room before going out.,A2,Home,2.5
+1074,rapporter,ʀapɔʀte,"v. — je rapporte, nous rapportons",to bring back / to report / to yield,Il a rapporté un cadeau de son voyage.,He brought back a present from his trip.,A2,Verbs,2.5
+1075,réaliser,ʀealize,"v. — je réalise, nous réalisons",to realise / to achieve / to carry out,Il a réalisé son rêve de voyager en Asie.,He achieved his dream of travelling in Asia.,A2,Verbs,2.5
+1076,recevoir,ʀəsəvwaʀ,"v. — je reçois, nous recevons",to receive / to get / to entertain,J'ai reçu une invitation à son mariage.,I received an invitation to his wedding.,A2,Verbs,2.5
+1077,reconnaître,ʀəkɔnɛtʀ,"v. — je reconnais, nous reconnaissons",to recognise / to admit,Je l'ai reconnu tout de suite à sa voix.,I recognised him immediately by his voice.,A2,Verbs,2.5
+1078,recueillir,ʀəkœjiʀ,"v. — je recueille, nous recueillons",to collect / to gather / to take in,Ils ont recueilli un chat abandonné.,They took in an abandoned cat.,A2,General,2.5
+1079,réfléchir,ʀefleʃiʀ,"v. — je réfléchis, nous réfléchissons",to think / to reflect,Réfléchis bien avant de prendre cette décision.,Think carefully before making this decision.,A2,Verbs,2.5
+1080,refuser,ʀəfyze,"v. — je refuse, nous refusons",to refuse / to reject,Il a refusé l'offre sans même l'étudier.,He refused the offer without even studying it.,A2,Verbs,2.5
+1081,regarder,ʀəɡaʀde,"v. — je regarde, nous regardons",to look at / to watch,Je regarde les nouvelles chaque soir.,I watch the news every evening.,A2,Verbs,2.5
+1082,regretter,ʀəɡʀɛte,"v. — je regrette, nous regrettons",to regret / to be sorry,Je regrette de ne pas avoir appris le piano plus tôt.,I regret not having learned piano earlier.,A2,Emotions,2.5
+1083,rejoindre,ʀəʒwɛ̃dʀ,"v. — je rejoins, nous rejoignons",to join / to meet up with,Je vous rejoins dans une demi-heure.,I will join you in half an hour.,A2,Verbs,2.5
+1084,remettre,ʀəmɛtʀ,"v. — je remets, nous remettons",to hand in / to postpone / to put back,Remets ce document au directeur.,Hand this document to the director.,A2,Verbs,2.5
+1085,remplir,ʀɑ̃pliʀ,"v. — je remplis, nous remplissons",to fill / to fill in,Remplissez ce formulaire en lettres capitales.,Fill in this form in capital letters.,A2,General,2.5
+1086,rencontrer,ʀɑ̃kɔ̃tʀe,"v. — je rencontre, nous rencontrons",to meet,J'ai rencontré mon mari à l'université.,I met my husband at university.,A2,Verbs,2.5
+1087,rendre,ʀɑ̃dʀ,"v. — je rends, nous rendons",to give back / to make / to render,Rends-moi mon livre s'il te plaît.,Give me my book back please.,A2,Verbs,2.5
+1088,réparer,ʀepaʀe,"v. — je répare, nous réparons",to repair / to fix,Le mécanicien a réparé ma voiture en deux heures.,The mechanic repaired my car in two hours.,A2,Verbs,2.5
+1089,répéter,ʀepete,"v. — je répète, nous répétons",to repeat / to rehearse,Peux-tu répéter la question s'il te plaît ?,Can you repeat the question please?,A2,Verbs,2.5
+1090,résoudre,ʀezudʀ,"v. — je résous, nous résolvons",to solve / to resolve,Il faut résoudre ce problème rapidement.,We need to solve this problem quickly.,A2,Verbs,2.5
+1091,résumer,ʀezyme,"v. — je résume, nous résumons",to summarise,Peux-tu résumer le document en quelques lignes ?,Can you summarise the document in a few lines?,A2,General,2.5
+1092,retourner,ʀətuʀne,"v. — je retourne, nous retournons",to go back / to return / to turn over,Je retourne en France l'été prochain.,I am going back to France next summer.,A2,Travel,2.5
+1093,réussir,ʀeysiʀ,"v. — je réussis, nous réussissons",to succeed / to pass,Elle a réussi son permis de conduire du premier coup.,She passed her driving test first time.,A2,Verbs,2.5
+1094,rêver,ʀɛve,"v. — je rêve, nous rêvons",to dream,Je rêve de visiter le Japon un jour.,I dream of visiting Japan one day.,A2,Emotions,2.5
+1095,riche,ʀiʃ,adj.,rich / wealthy,Ce pays est riche en ressources naturelles.,This country is rich in natural resources.,A2,Adjectives,2.5
+1096,rigolo,ʀiɡolo,adj. — rigolote (f.),funny / amusing (informal),Il est vraiment rigolo ce film !,This film is really funny!,A2,Adjectives,2.5
+1097,risque,ʀisk,n.m.,risk,Il prend trop de risques dans sa conduite.,He takes too many risks in his driving.,A2,General,2.5
+1098,rôle,ʀol,n.m.,role / part,Elle joue un rôle important dans cette association.,She plays an important role in this association.,A2,General,2.5
+1099,rompre,ʀɔ̃pʀ,"v. — je romps, nous rompons",to break / to break up,Ils ont rompu après cinq ans ensemble.,They broke up after five years together.,A2,Emotions,2.5
+1100,route,ʀut,n.f.,road / route / way,La route nationale est très fréquentée.,The main road is very busy.,A2,Travel,2.5
+1101,sac,sak,n.m.,bag / sack,J'ai oublié mon sac au bureau.,I forgot my bag at the office.,A2,General,2.5
+1102,sage,saʒ,adj.,wise / well-behaved,Sois sage pendant que je téléphone.,Be well-behaved while I am on the phone.,A2,Adjectives,2.5
+1103,sain,sɛ̃,adj. — saine (f.),healthy / sound,Il mène une vie saine et sportive.,He leads a healthy and sporty life.,A2,Body & Health,2.5
+1104,salle à manger,sal a mɑ̃ʒe,n.f.,dining room,Nous mangeons dans la salle à manger le dimanche.,We eat in the dining room on Sundays.,A2,Home,2.5
+1105,satisfait,satisfɛ,adj. — satisfaite (f.),satisfied / pleased,Je suis très satisfait du résultat.,I am very satisfied with the result.,A2,Emotions,2.5
+1106,sauter,sote,"v. — je saute, nous sautons",to jump / to skip,Les enfants sautent à la corde dans la cour.,The children are skipping rope in the playground.,A2,Verbs,2.5
+1107,sauvegarder,sovɡaʀde,"v. — je sauvegarde, nous sauvegardons",to save / to back up / to safeguard,N'oublie pas de sauvegarder ton travail.,Don't forget to save your work.,A2,General,2.5
+1108,se débrouiller,sə debʀuje,v.,to manage / to get by,Il se débrouille très bien en cuisine.,He manages very well in the kitchen.,A2,Verbs,2.5
+1109,se dépêcher,sə depɛʃe,v.,to hurry up,Dépêche-toi on va être en retard !,Hurry up we are going to be late!,A2,Verbs,2.5
+1110,se plaindre,sə plɛ̃dʀ,"v. — je me plains, nous nous plaignons",to complain,Il se plaint toujours de tout.,He always complains about everything.,A2,Emotions,2.5
+1111,se promener,sə pʀɔmne,"v. — je me promène, nous nous promenons",to go for a walk,Nous nous promenons dans le parc chaque matin.,We go for a walk in the park every morning.,A2,General,2.5
+1112,se souvenir,sə suvəniʀ,"v. — je me souviens, nous nous souvenons",to remember,Je me souviens très bien de notre première rencontre.,I remember our first meeting very well.,A2,Verbs,2.5
+1113,sembler,sɑ̃ble,"v. — il semble, ça semble",to seem / to appear,Il semble que le temps va changer.,It seems that the weather is going to change.,A2,Verbs,2.5
+1114,sensible,sɑ̃sibl,adj.,sensitive / significant,Elle est très sensible aux critiques.,She is very sensitive to criticism.,A2,Emotions,2.5
+1115,sérieux,seʀjø,adj. — sérieuse (f.),serious / reliable,C'est un employé très sérieux.,He is a very reliable employee.,A2,Adjectives,2.5
+1116,service,sɛʀvis,n.m.,service / department,Le service client est ouvert de neuf à dix-huit heures.,Customer service is open from nine to six.,A2,Work,2.5
+1117,signifier,siɡnifje,"v. — je signifie, nous signifions",to mean / to signify,Que signifie ce mot en français ?,What does this word mean in French?,A2,General,2.5
+1118,simple,sɛ̃pl,adj.,simple / easy / plain,La solution est plus simple qu'on ne le pense.,The solution is simpler than we think.,A2,Adjectives,2.5
+1119,sinon,sinɔ̃,conj.,otherwise / if not,Dépêche-toi sinon tu vas rater le bus.,Hurry up otherwise you will miss the bus.,A2,General,2.5
+1120,soigner,swɑɲe,"v. — je soigne, nous soignons",to treat / to look after / to take care of,Le médecin soigne ses patients avec beaucoup d'attention.,The doctor treats his patients with great care.,A2,Body & Health,2.5
+1121,solution,sɔlysjɔ̃,n.f.,solution / answer,Nous avons enfin trouvé une solution.,We have finally found a solution.,A2,General,2.5
+1122,sombre,sɔ̃bʀ,adj.,dark / gloomy,La forêt est sombre et mystérieuse.,The forest is dark and mysterious.,A2,Adjectives,2.5
+1123,sonner,sɔne,"v. — je sonne, nous sonnons",to ring / to sound,Le téléphone a sonné trois fois.,The phone rang three times.,A2,General,2.5
+1124,souhaiter,swɛte,"v. — je souhaite, nous souhaitons",to wish / to hope,Je vous souhaite une excellente journée.,I wish you an excellent day.,A2,Greetings,2.5
+1125,souple,supl,adj.,flexible / supple,Il faut être souple dans ses décisions.,We need to be flexible in our decisions.,A2,Adjectives,2.5
+1126,sourire,suʀiʀ,"v./n.m. — je souris, nous sourions",to smile / smile,Elle a un sourire magnifique.,She has a magnificent smile.,A2,Emotions,2.5
+1127,spécial,spesjal,adj. — spéciale (f.),special / particular,C'est un jour très spécial pour nous.,It is a very special day for us.,A2,Adjectives,2.5
+1128,stresser,stʀese,"v. — je stresse, nous stressons",to stress / to be stressed,Cet examen me stresse beaucoup.,This exam stresses me a lot.,A2,Emotions,2.5
+1129,stupide,stypid,adj.,stupid / foolish,Ce n'était pas une décision stupide.,It was not a stupid decision.,A2,Adjectives,2.5
+1130,succès,syksɛ,n.m.,success,Son livre a eu un grand succès.,Her book was a great success.,A2,General,2.5
+1131,suggérer,syɡʒeʀe,"v. — je suggère, nous suggérons",to suggest,Je suggère de prendre le train plutôt que l'avion.,I suggest taking the train rather than the plane.,A2,Verbs,2.5
+1132,suivant,sɥivɑ̃,adj. — suivante (f.),following / next,La réunion aura lieu la semaine suivante.,The meeting will take place the following week.,A2,Adjectives,2.5
+1133,suivre,sɥivʀ,"v. — je suis, nous suivons",to follow / to take (course),Suis les instructions à la lettre.,Follow the instructions to the letter.,A2,Verbs,2.5
+1134,supérieur,sypeʀjœʀ,adj. — supérieure (f.),superior / upper / higher,Elle occupe un poste supérieur dans l'entreprise.,She holds a superior position in the company.,A2,Adjectives,2.5
+1135,supporter,sypɔʀte,"v. — je supporte, nous supportons",to bear / to stand / to support,Je ne supporte pas le bruit constant.,I cannot stand the constant noise.,A2,Emotions,2.5
+1136,surprendre,syʀpʀɑ̃dʀ,"v. — je surprends, nous surprenons",to surprise,Sa réaction m'a beaucoup surpris.,His reaction really surprised me.,A2,Emotions,2.5
+1137,sympa,sɛ̃pa,adj.,nice / friendly (informal),Ton collègue est vraiment sympa.,Your colleague is really nice.,A2,Adjectives,2.5
+1138,tableau,tablo,n.m.,painting / board / table / chart,Il y a un beau tableau au-dessus de la cheminée.,There is a beautiful painting above the fireplace.,A2,General,2.5
+1139,tâche,taʃ,n.f.,task / chore / stain,J'ai beaucoup de tâches à accomplir aujourd'hui.,I have many tasks to accomplish today.,A2,Work,2.5
+1140,tant,tɑ̃,adv.,so much / so many / as long as,Il y a tant de choses à découvrir ici.,There are so many things to discover here.,A2,General,2.5
+1141,tarif,taʀif,n.m.,rate / price / fare,Quel est le tarif pour une chambre double ?,What is the rate for a double room?,A2,Shopping,2.5
+1142,technologie,tɛknɔlɔʒi,n.f.,technology,La technologie évolue très rapidement.,Technology is evolving very rapidly.,A2,General,2.5
+1143,télécharger,teleʃaʀʒe,"v. — je télécharge, nous téléchargeons",to download,J'ai téléchargé l'application sur mon téléphone.,I downloaded the app on my phone.,A2,General,2.5
+1144,tellement,tɛlmɑ̃,adv.,so / so much,Il est tellement gentil avec tout le monde.,He is so kind to everyone.,A2,General,2.5
+1145,tendre,tɑ̃dʀ,"adj./v. — je tends, nous tendons",tender / to hold out / to stretch,Elle a une voix douce et tendre.,She has a soft and tender voice.,A2,Adjectives,2.5
+1146,terminer,tɛʀmine,"v. — je termine, nous terminons",to finish / to end,J'ai terminé mon rapport avant l'heure.,I finished my report ahead of time.,A2,Verbs,2.5
+1147,timide,timid,adj.,shy / timid,Il est trop timide pour parler en public.,He is too shy to speak in public.,A2,Adjectives,2.5
+1148,titre,titʀ,n.m.,title / headline,Quel est le titre de ce livre ?,What is the title of this book?,A2,General,2.5
+1149,tomber amoureux,tɔ̃be amuʀø,v.,to fall in love,Il est tombé amoureux d'elle au premier regard.,He fell in love with her at first sight.,A2,Emotions,2.5
+1150,total,tɔtal,adj./n.m. — totale (f.),total,Le coût total du projet s'élève à mille euros.,The total cost of the project amounts to a thousand euros.,A2,General,2.5
+1151,toucher,tuʃe,"v. — je touche, nous touchons",to touch / to affect / to receive,Ne touche pas à ça c'est fragile.,Don't touch that it is fragile.,A2,Verbs,2.5
+1152,toujours,tuʒuʀ,adv.,always / still / ever,Il est toujours prêt à rendre service.,He is always ready to help.,A2,General,2.5
+1153,traduire,tʀadɥiʀ,"v. — je traduis, nous traduisons",to translate,Peux-tu traduire ce texte en anglais ?,Can you translate this text into English?,A2,Verbs,2.5
+1154,tranquille,tʀɑ̃kil,adj.,quiet / calm / peaceful,C'est un quartier tranquille idéal pour les familles.,It is a quiet neighbourhood ideal for families.,A2,Adjectives,2.5
+1155,transport,tʀɑ̃spɔʀ,n.m.,transport,Les transports en commun sont bien développés ici.,Public transport is well developed here.,A2,Travel,2.5
+1156,travaux,tʀavo,n.m.pl.,works / construction / homework,Il y a des travaux sur la route nationale.,There are roadworks on the main road.,A2,General,2.5
+1157,traverser,tʀavɛʀse,"v. — je traverse, nous traversons",to cross / to go through,Traversez la place et tournez à gauche.,Cross the square and turn left.,A2,Travel,2.5
+1158,triste,tʀist,adj.,sad,Je suis triste de te voir partir.,I am sad to see you leave.,A2,Emotions,2.5
+1159,trop,tʀo,adv.,too / too much,Il y a trop de monde dans ce restaurant.,There are too many people in this restaurant.,A2,General,2.5
+1160,trouver,tʀuve,"v. — je trouve, nous trouvons",to find / to think,J'ai enfin trouvé un appartement.,I have finally found a flat.,A2,Verbs,2.5
+1161,typique,tipik,adj.,typical,C'est un plat typique de la région.,It is a typical dish of the region.,A2,Adjectives,2.5
+1162,unique,ynik,adj.,unique / only,C'est une occasion unique à ne pas manquer.,It is a unique opportunity not to be missed.,A2,Adjectives,2.5
+1163,utile,ytil,adj.,useful,Ce dictionnaire est très utile.,This dictionary is very useful.,A2,Adjectives,2.5
+1164,valable,valabl,adj.,valid / worthwhile,Ce billet est valable un mois.,This ticket is valid for one month.,A2,General,2.5
+1165,vendre,vɑ̃dʀ,"v. — je vends, nous vendons",to sell,Il vend des légumes au marché.,He sells vegetables at the market.,A2,Shopping,2.5
+1166,vérifier,veʀifje,"v. — je vérifie, nous vérifions",to check / to verify,Vérifie bien l'heure de ton train.,Check your train time carefully.,A2,Verbs,2.5
+1167,vérité,veʀite,n.f.,truth,Il faut toujours dire la vérité.,We must always tell the truth.,A2,General,2.5
+1168,vider,vide,"v. — je vide, nous vidons",to empty,Vide le lave-vaisselle s'il te plaît.,Empty the dishwasher please.,A2,Home,2.5
+1169,village,vilaʒ,n.m.,village,Ce petit village est très pittoresque.,This small village is very picturesque.,A2,Travel,2.5
+1170,violent,vjɔlɑ̃,adj. — violente (f.),violent,Il ne faut pas regarder des films trop violents.,We should not watch films that are too violent.,A2,Adjectives,2.5
+1171,visiter,vizite,"v. — je visite, nous visitons",to visit (place),Nous avons visité le Louvre hier après-midi.,We visited the Louvre yesterday afternoon.,A2,Travel,2.5
+1172,vite,vit,adv.,quickly / fast,Il conduit trop vite sur cette route.,He drives too fast on this road.,A2,General,2.5
+1173,vitesse,vitɛs,n.f.,speed / gear,La vitesse maximale autorisée est de cent trente km/h.,The maximum permitted speed is one hundred and thirty km/h.,A2,Travel,2.5
+1174,voici,vwasi,adv.,here is / here are,Voici les documents que vous avez demandés.,Here are the documents you requested.,A2,General,2.5
+1175,voilà,vwala,adv.,there is / there you go,Voilà c'est terminé !,There you go it is finished!,A2,General,2.5
+1176,voisinage,vwazinaʒ,n.m.,neighbourhood / vicinity,Il connaît tout le monde dans son voisinage.,He knows everyone in his neighbourhood.,A2,Home,2.5
+1177,vol,vɔl,n.m.,flight / theft,Mon vol part à sept heures du matin.,My flight leaves at seven in the morning.,A2,Travel,2.5
+1178,volontaire,vɔlɔ̃tɛʀ,adj./n.,voluntary / volunteer,Il est volontaire dans une association caritative.,He volunteers in a charitable organisation.,A2,General,2.5
+1179,voyager,vwajaʒe,"v. — je voyage, nous voyageons",to travel,J'adore voyager et découvrir de nouvelles cultures.,I love travelling and discovering new cultures.,A2,Travel,2.5
+1180,vrai,vʀɛ,adj. — vraie (f.),true / real / genuine,Est-ce que c'est vrai ce que tu me dis ?,Is what you are telling me true?,A2,Adjectives,2.5
+1181,abandonner,abɑ̃dɔne,"v. — j'abandonne, nous abandonnons",to abandon / to give up,Il ne faut jamais abandonner ses rêves.,We must never abandon our dreams.,A2,Verbs,2.5
+1182,aboutissement,abutismɑ̃,n.m.,outcome / result / culmination,C'est l'aboutissement de plusieurs années de travail.,It is the culmination of several years of work.,A2,General,2.5
+1183,absence,absɑ̃s,n.f.,absence,Son absence lors de la réunion a été remarquée.,His absence during the meeting was noticed.,A2,General,2.5
+1184,abstenir,apstəniʀ,"v. — je m'abstiens, nous nous abstenons",to abstain / to refrain,Il vaut mieux s'abstenir de commenter cette situation.,It is better to refrain from commenting on this situation.,A2,General,2.5
+1185,accéder,aksede,"v. — j'accède, nous accédons",to access / to reach,Vous pouvez accéder au site via ce lien.,You can access the site via this link.,A2,General,2.5
+1186,accroissement,akʀwasmɑ̃,n.m.,increase / growth,L'accroissement de la population pose des défis.,Population growth poses challenges.,A2,General,2.5
+1187,accumulation,akymylasjɔ̃,n.f.,accumulation / build-up,L'accumulation de stress peut nuire à la santé.,The build-up of stress can harm health.,A2,Body & Health,2.5
+1188,achèvement,aʃɛvmɑ̃,n.m.,completion / achievement,L'achèvement du projet est prévu pour mars.,The completion of the project is scheduled for March.,A2,Work,2.5
+1189,acte,akt,n.m.,act / deed / action,Il faut passer aux actes maintenant.,We need to take action now.,A2,General,2.5
+1190,acteur,aktœʀ,n.m. — actrice (f.),actor / player (key figure),Les acteurs économiques doivent s'adapter.,Economic players must adapt.,A2,General,2.5
+1191,adaptation,adaptasjɔ̃,n.f.,adaptation / adjustment,L'adaptation au changement est indispensable.,Adaptation to change is indispensable.,A2,General,2.5
+1192,adéquation,adekwasjɔ̃,n.f.,adequacy / match / fit,Il faut vérifier l'adéquation entre l'offre et la demande.,We need to check the match between supply and demand.,A2,Work,2.5
+1193,aléatoire,aleatwaʀ,adj.,random / aleatory,La sélection des participants est aléatoire.,The selection of participants is random.,A2,General,2.5
+1194,alléger,aleʒe,"v. — j'allège, nous allégeons",to lighten / to reduce / to ease,Il faut alléger la charge de travail des employés.,We need to ease the workload of employees.,A2,Work,2.5
+1195,alléguer,aleɡe,"v. — j'allègue, nous alléguons",to allege / to claim,Il allègue qu'il était absent ce jour-là.,He alleges that he was absent that day.,A2,General,2.5
+1196,alterner,altɛʀne,"v. — j'alterne, nous alternons",to alternate,Il faut alterner travail et repos pour être efficace.,We need to alternate work and rest to be effective.,A2,General,2.5
+1197,ambiguïté,ɑ̃biɡɥite,n.f.,ambiguity,Il faut lever toute ambiguïté sur ce point.,We must remove all ambiguity on this point.,A2,General,2.5
+1198,amorcer,amɔʀse,"v. — j'amorce, nous amorçons",to initiate / to start,Il faut amorcer un dialogue constructif.,We need to initiate a constructive dialogue.,A2,General,2.5
+1199,ampleur,ɑ̃plœʀ,n.f.,scale / extent / scope,L'ampleur des dégâts est considérable.,The scale of the damage is considerable.,A2,General,2.5
+1200,ancrer,ɑ̃kʀe,"v. — j'ancre, nous ancrons",to anchor / to embed / to root,Ces valeurs sont ancrées dans notre culture.,These values are embedded in our culture.,A2,General,2.5
+1201,anticiper,ɑ̃tisipe,"v. — j'anticipe, nous anticipons",to anticipate / to foresee,Il faut anticiper les difficultés à venir.,We need to anticipate the difficulties ahead.,A2,General,2.5
+1202,apaiser,apɛze,"v. — j'apaise, nous apaisons",to calm / to soothe / to ease,Il faut apaiser les tensions au sein de l'équipe.,We need to ease the tensions within the team.,A2,Emotions,2.5
+1203,arbitraire,aʀbitʀɛʀ,adj.,arbitrary,Cette décision semble totalement arbitraire.,This decision seems totally arbitrary.,A2,General,2.5
+1204,argumenter,aʀɡymɑ̃te,"v. — j'argumente, nous argumentons",to argue / to make a case,Il sait très bien argumenter ses positions.,He is very good at arguing his positions.,A2,General,2.5
+1205,articuler,aʀtikyle,"v. — j'articule, nous articulons",to articulate / to structure,Il faut articuler clairement ses idées.,We need to articulate our ideas clearly.,A2,General,2.5
+1206,assimiler,asimile,"v. — j'assimile, nous assimilons",to assimilate / to absorb,Il faut du temps pour assimiler ces nouvelles informations.,It takes time to assimilate this new information.,A2,General,2.5
+1207,atout,atu,n.m.,asset / advantage / trump card,Sa maîtrise des langues est un véritable atout.,His mastery of languages is a real asset.,A2,Work,2.5
+1208,attribuer,atʀibɥe,"v. — j'attribue, nous attribuons",to attribute / to assign / to award,On lui a attribué le premier prix.,He was awarded first prize.,A2,General,2.5
+1209,autonomie,otɔnɔmi,n.f.,autonomy / independence,L'autonomie est une compétence clé dans ce métier.,Autonomy is a key skill in this profession.,A2,Work,2.5
+1210,avérer,aveʀe,"v. — il s'avère, ils s'avèrent",to prove / to turn out,Il s'avère que la situation est plus complexe.,It turns out that the situation is more complex.,A2,General,2.5
+1211,biais,bja,n.m.,bias / angle / means,Il faut éviter tout biais dans cette analyse.,We must avoid any bias in this analysis.,A2,General,2.5
+1212,cadre,kadʀ,n.m.,frame / framework / manager,Dans le cadre de ce projet nous devons coopérer.,Within the framework of this project we must cooperate.,A2,Work,2.5
+1213,capacité,kapasite,n.f.,capacity / ability / skill,Il a la capacité de résoudre des problèmes complexes.,He has the ability to solve complex problems.,A2,General,2.5
+1214,cerner,sɛʀne,"v. — je cerne, nous cernons",to identify / to define / to pinpoint,Il faut cerner les véritables enjeux de la situation.,We need to identify the real issues of the situation.,A2,General,2.5
+1215,clarifier,klaʀifje,"v. — je clarifie, nous clarifions",to clarify,Pouvez-vous clarifier votre position sur ce sujet ?,Can you clarify your position on this subject?,A2,General,2.5
+1216,clé,kle,adj.,key / crucial,C'est un élément clé de notre stratégie.,It is a key element of our strategy.,A2,General,2.5
+1217,cohésion,koeʒjɔ̃,n.f.,cohesion / unity,La cohésion de l'équipe est notre force principale.,Team cohesion is our main strength.,A2,Work,2.5
+1218,collaboration,kɔlaboʀasjɔ̃,n.f.,collaboration,La collaboration entre les équipes est essentielle.,Collaboration between teams is essential.,A2,Work,2.5
+1219,collectif,kɔlɛktif,adj./n.m. — collective (f.),collective / group,L'effort collectif a permis d'atteindre les objectifs.,The collective effort made it possible to achieve the objectives.,A2,Work,2.5
+1220,complexité,kɔ̃plɛksite,n.f.,complexity,La complexité de ce problème nécessite une analyse approfondie.,The complexity of this problem requires a thorough analysis.,A2,General,2.5
+1221,compromis,kɔ̃pʀɔmi,n.m.,compromise,Nous avons trouvé un compromis acceptable pour les deux parties.,We found a compromise acceptable to both parties.,A2,Work,2.5
+1222,concret,kɔ̃kʀɛ,adj. — concrète (f.),concrete / tangible,Donnez-moi des exemples concrets s'il vous plaît.,Give me concrete examples please.,A2,Adjectives,2.5
+1223,conditonner,kɔ̃disjɔne,"v. — je conditionne, nous conditionnons",to condition / to determine,Les résultats conditionnent les décisions futures.,The results determine future decisions.,A2,General,2.5
+1224,consolider,kɔ̃sɔlide,"v. — je consolide, nous consolidons",to consolidate / to strengthen,Il faut consolider nos acquis avant d'avancer.,We need to consolidate our gains before moving forward.,A2,Work,2.5
+1225,contrainte,kɔ̃tʀɛ̃t,n.f.,constraint / pressure / obligation,Les contraintes budgétaires limitent nos actions.,Budget constraints limit our actions.,A2,Work,2.5
+1226,contredire,kɔ̃tʀədiʀ,"v. — je contredis, nous contredisons",to contradict,Il ne faut pas contredire le client en public.,We should not contradict the client in public.,A2,General,2.5
+1227,controversé,kɔ̃tʀɔvɛʀse,adj. — controversée (f.),controversial,Cette décision est très controversée.,This decision is very controversial.,A2,Adjectives,2.5
+1228,convenable,kɔ̃vnabl,adj.,suitable / appropriate / decent,Il faut adopter une tenue convenable.,We need to wear appropriate clothing.,A2,Adjectives,2.5
+1229,coordonner,kɔɔʀdɔne,"v. — je coordonne, nous coordonnons",to coordinate,Il faut bien coordonner les actions de chaque équipe.,We need to coordinate the actions of each team well.,A2,Work,2.5
+1230,coupable,kupabl,adj./n.,guilty / culpable,Il a été reconnu coupable de fraude fiscale.,He was found guilty of tax fraud.,A2,General,2.5
+1231,courant,kuʀɑ̃,n.m.,current / trend / flow,Il faut suivre les courants d'opinion.,We must follow the currents of opinion.,A2,General,2.5
+1232,critique,kʀitik,n.f./adj.,criticism / critic / critical,Elle a reçu des critiques très positives.,She received very positive reviews.,A2,General,2.5
+1233,cumul,kymyl,n.m.,accumulation / combination,Le cumul des fonctions est parfois interdit.,The combination of functions is sometimes prohibited.,A2,Work,2.5
+1234,décliner,dekline,"v. — je décline, nous déclinons",to decline / to turn down / to state,Il a décliné l'invitation poliment.,He declined the invitation politely.,A2,General,2.5
+1235,déduire,dedɥiʀ,"v. — je déduis, nous déduisons",to deduce / to infer / to deduct,On peut déduire de ces résultats que le projet est viable.,We can deduce from these results that the project is viable.,A2,General,2.5
+1236,déléguer,deleɡe,"v. — je délègue, nous déléguons",to delegate,Un bon manager sait déléguer les tâches.,A good manager knows how to delegate tasks.,A2,Work,2.5
+1237,déployer,deplwaje,"v. — je déploie, nous déployons",to deploy / to unfold / to roll out,L'entreprise déploie sa nouvelle stratégie commerciale.,The company is rolling out its new commercial strategy.,A2,Work,2.5
+1238,dériver,deʀive,"v. — je dérive, nous dérivons",to derive / to drift / to stem from,Ce terme dérive du latin.,This term derives from Latin.,A2,General,2.5
+1239,désaccord,dezakɔʀ,n.m.,disagreement / discord,Il y a un désaccord entre les membres de l'équipe.,There is a disagreement among team members.,A2,Work,2.5
+1240,désigner,deziɲe,"v. — je désigne, nous désignons",to designate / to appoint / to refer to,Il a été désigné responsable du projet.,He was designated project manager.,A2,Work,2.5
+1241,déterminer,detɛʀmine,"v. — je détermine, nous déterminons",to determine / to decide,Il faut déterminer les priorités avant d'agir.,We must determine the priorities before acting.,A2,General,2.5
+1242,diffuser,difyze,"v. — je diffuse, nous diffusons",to broadcast / to spread / to distribute,Le film sera diffusé ce soir à vingt heures.,The film will be broadcast tonight at eight o'clock.,A2,General,2.5
+1243,dilemme,dilɛm,n.m.,dilemma,Nous sommes face à un véritable dilemme.,We are faced with a real dilemma.,A2,General,2.5
+1244,diverger,divɛʀʒe,"v. — je diverge, nous divergeons",to diverge / to differ,Nos opinions divergent sur ce point précis.,Our opinions diverge on this precise point.,A2,General,2.5
+1245,dominer,dɔmine,"v. — je domine, nous dominons",to dominate / to overlook / to master,Il faut dominer ses émotions dans les moments difficiles.,We must master our emotions in difficult moments.,A2,Emotions,2.5
+1246,dynamique,dinamik,adj./n.f.,dynamic / dynamics,L'équipe est très dynamique et motivée.,The team is very dynamic and motivated.,A2,Adjectives,2.5
+1247,écart,ekaʀ,n.m.,gap / difference / deviation,L'écart entre les salaires est trop important.,The gap between salaries is too significant.,A2,General,2.5
+1248,échéance,eʃeɑ̃s,n.f.,deadline / due date / maturity,Il faut respecter les échéances du projet.,We must respect the project deadlines.,A2,Work,2.5
+1249,élargir,elaʀʒiʀ,"v. — j'élargis, nous élargissons",to widen / to broaden / to expand,Il faut élargir notre champ de vision.,We need to broaden our field of vision.,A2,General,2.5
+1250,élément,elemɑ̃,n.m.,element / component / factor,Chaque élément du projet est important.,Every element of the project is important.,A2,General,2.5
+1251,émergent,emeʀʒɑ̃,adj. — émergente (f.),emerging,Les marchés émergents offrent de nouvelles opportunités.,Emerging markets offer new opportunities.,A2,Work,2.5
+1252,enjeu,ɑ̃ʒø,n.m.,stake / issue / challenge,Les enjeux de cette décision sont considérables.,The stakes of this decision are considerable.,A2,General,2.5
+1253,envisager,ɑ̃vizaʒe,"v. — j'envisage, nous envisageons",to envisage / to consider,Nous envisageons de recruter dix nouvelles personnes.,We are considering recruiting ten new people.,A2,Work,2.5
+1254,épanouissement,epanwismɑ̃,n.m.,fulfilment / blossoming,L'épanouissement personnel est une priorité pour beaucoup.,Personal fulfilment is a priority for many.,A2,Emotions,2.5
+1255,équitable,ekitabl,adj.,fair / equitable,Une répartition équitable des ressources est nécessaire.,A fair distribution of resources is necessary.,A2,Adjectives,2.5
+1256,essor,esɔʀ,n.m.,rise / boom / development,Le secteur numérique connaît un essor remarquable.,The digital sector is experiencing remarkable growth.,A2,Work,2.5
+1257,estimer,ɛstime,"v. — j'estime, nous estimons",to estimate / to consider / to value,On estime que le projet durera six mois.,It is estimated that the project will last six months.,A2,General,2.5
+1258,étape,etap,n.f.,stage / step / leg,Nous en sommes à la deuxième étape du projet.,We are at the second stage of the project.,A2,Work,2.5
+1259,être en mesure de,ɛtʀ ɑ̃ məzyʀ də,expr.,to be able to / to be in a position to,Nous ne sommes pas en mesure de répondre maintenant.,We are not in a position to respond now.,A2,General,2.5
+1260,exclure,ɛksklɥʀ,"v. — j'exclus, nous excluons",to exclude / to rule out,On ne peut pas exclure cette hypothèse.,We cannot rule out this hypothesis.,A2,General,2.5
+1261,exhaustif,ɛɡzostif,adj. — exhaustive (f.),exhaustive / comprehensive,Cette liste n'est pas exhaustive.,This list is not exhaustive.,A2,Adjectives,2.5
+1262,explicite,ɛksplisit,adj.,explicit / clear,Les instructions doivent être explicites.,The instructions must be explicit.,A2,Adjectives,2.5
+1263,exploiter,ɛksplwate,"v. — j'exploite, nous exploitons",to exploit / to use / to operate,Il faut exploiter toutes les ressources disponibles.,We must exploit all available resources.,A2,Work,2.5
+1264,exposer,ɛkspoze,"v. — j'expose, nous exposons",to expose / to present / to display,Il a exposé clairement ses arguments.,He clearly presented his arguments.,A2,General,2.5
+1265,faciliter,fasilite,"v. — je facilite, nous facilitons",to facilitate / to make easier,Cette décision facilitera notre travail quotidien.,This decision will make our daily work easier.,A2,Work,2.5
+1266,fiabilité,fjabilite,n.f.,reliability / dependability,La fiabilité de ce système est prouvée.,The reliability of this system is proven.,A2,Work,2.5
+1267,fixer,fikse,"v. — je fixe, nous fixons",to fix / to set / to establish,Il faut fixer des objectifs clairs et mesurables.,We need to set clear and measurable objectives.,A2,Work,2.5
+1268,flexibilité,flɛksibilite,n.f.,flexibility,La flexibilité est une qualité très appréciée.,Flexibility is a very appreciated quality.,A2,Work,2.5
+1269,flux,fly,n.m.,flow / stream / flux,Le flux de travail doit être optimisé.,The workflow must be optimised.,A2,Work,2.5
+1270,fondamental,fɔ̃damɑ̃tal,adj. — fondamentale (f.),fundamental / basic / key,Ce principe est fondamental pour comprendre la situation.,This principle is fundamental to understanding the situation.,A2,Adjectives,2.5
+1271,fournisseur,fuʀnisœʀ,n.m.,supplier / provider,Nous cherchons un nouveau fournisseur fiable.,We are looking for a new reliable supplier.,A2,Work,2.5
+1272,fragmenter,fʀaɡmɑ̃te,"v. — je fragmente, nous fragmentons",to fragment / to break up,Il ne faut pas fragmenter ce processus en trop d'étapes.,We should not fragment this process into too many steps.,A2,General,2.5
+1273,franchir,fʀɑ̃ʃiʀ,"v. — je franchis, nous franchissons",to cross / to overcome / to pass,Il a franchi un cap important dans sa carrière.,He crossed an important milestone in his career.,A2,General,2.5
+1274,génération,ʒeneʀasjɔ̃,n.f.,generation,Chaque génération fait face à ses propres défis.,Each generation faces its own challenges.,A2,General,2.5
+1275,global,ɡlɔbal,adj. — globale (f.),global / overall / comprehensive,Il faut avoir une vision globale du problème.,We need to have an overall view of the problem.,A2,Adjectives,2.5
+1276,hiérarchie,jeʀaʀʃi,n.f.,hierarchy,La hiérarchie de l'entreprise est très structurée.,The company hierarchy is very structured.,A2,Work,2.5
+1277,hypothèse,ipotɛz,n.f.,hypothesis / assumption,Nous travaillons sur plusieurs hypothèses.,We are working on several hypotheses.,A2,General,2.5
+1278,implication,ɛ̃plikasjɔ̃,n.f.,implication / involvement,Ses implications dans ce projet sont nombreuses.,His involvements in this project are numerous.,A2,Work,2.5
+1279,impliqué,ɛ̃plike,adj. — impliquée (f.),involved / committed / implicated,Elle est très impliquée dans la vie associative.,She is very involved in associative life.,A2,Adjectives,2.5
+1280,incertitude,ɛ̃sɛʀtityd,n.f.,uncertainty,Il y a beaucoup d'incertitude sur l'avenir du projet.,There is a lot of uncertainty about the future of the project.,A2,General,2.5
+1281,incompatible,ɛ̃kɔ̃patibl,adj.,incompatible,Ces deux approches sont incompatibles.,These two approaches are incompatible.,A2,General,2.5
+1282,indépendance,ɛ̃depɑ̃dɑ̃s,n.f.,independence,L'indépendance financière est un objectif important.,Financial independence is an important goal.,A2,General,2.5
+1283,indicateur,ɛ̃dikatœʀ,n.m.,indicator / sign,Quels sont les indicateurs de performance utilisés ?,What performance indicators are used?,A2,Work,2.5
+1284,inégal,ineɡal,adj. — inégale (f.),unequal / uneven,La répartition des richesses est très inégale.,The distribution of wealth is very unequal.,A2,Adjectives,2.5
+1285,inévitable,inevitabl,adj.,inevitable,Ce changement est inévitable à long terme.,This change is inevitable in the long term.,A2,Adjectives,2.5
+1286,infléchir,ɛ̃fleʃiʀ,"v. — j'infléchis, nous infléchissons",to influence / to bend / to alter,Il est difficile d'infléchir cette tendance.,It is difficult to alter this trend.,A2,General,2.5
+1287,infrastructure,ɛ̃fʀastʀyktɥʀ,n.f.,infrastructure,Les infrastructures de transport doivent être modernisées.,Transport infrastructures must be modernised.,A2,General,2.5
+1288,inhérent,ineʀɑ̃,adj. — inhérente (f.),inherent,Ce risque est inhérent à ce type d'activité.,This risk is inherent in this type of activity.,A2,Adjectives,2.5
+1289,instaurer,ɛ̃stoʀe,"v. — j'instaure, nous instaurons",to establish / to introduce / to set up,Il faut instaurer un dialogue entre les parties.,We need to establish a dialogue between the parties.,A2,General,2.5
+1290,intégral,ɛ̃teɡʀal,adj. — intégrale (f.),full / complete / integral,Le remboursement intégral sera effectué sous dix jours.,Full reimbursement will be made within ten days.,A2,Adjectives,2.5
+1291,intensifier,ɛ̃tɑ̃sifje,"v. — j'intensifie, nous intensifions",to intensify / to step up,Il faut intensifier nos efforts de communication.,We need to step up our communication efforts.,A2,General,2.5
+1292,interconnecté,ɛ̃tɛʀkɔnɛkte,adj. — interconnectée (f.),interconnected,Le monde moderne est de plus en plus interconnecté.,The modern world is increasingly interconnected.,A2,Adjectives,2.5
+1293,intermédiaire,ɛ̃tɛʀmedjɛʀ,adj./n.m.,intermediate / intermediary,Nous avons besoin d'un intermédiaire pour négocier.,We need an intermediary to negotiate.,A2,General,2.5
+1294,interne,ɛ̃tɛʀn,adj.,internal / in-house,Ce rapport est à usage interne uniquement.,This report is for internal use only.,A2,Adjectives,2.5
+1295,intrinsèque,ɛ̃tʀɛ̃sɛk,adj.,intrinsic / inherent,La valeur intrinsèque de ce bien est élevée.,The intrinsic value of this asset is high.,A2,Adjectives,2.5
+1296,irreversible,iʀevɛʀsibl,adj.,irreversible,Cette décision est-elle vraiment irréversible ?,Is this decision truly irreversible?,A2,Adjectives,2.5
+1297,levier,ləvje,n.m.,lever / tool / mechanism,L'éducation est un levier puissant de développement.,Education is a powerful lever for development.,A2,General,2.5
+1298,linéaire,lineɛʀ,adj.,linear / straightforward,Ce processus n'est pas linéaire il y a des allers-retours.,This process is not linear there are back-and-forths.,A2,Adjectives,2.5
+1299,logistique,lɔʒistik,n.f./adj.,logistics / logistical,La logistique de cet événement est très complexe.,The logistics of this event are very complex.,A2,Work,2.5
+1300,lucide,lysid,adj.,lucid / clear-eyed,Il faut être lucide sur les difficultés à venir.,We need to be clear-eyed about the difficulties ahead.,A2,Adjectives,2.5
+1301,maîtrise,mɛtʀiz,n.f.,mastery / control / command,Sa maîtrise du sujet est impressionnante.,His mastery of the subject is impressive.,A2,Work,2.5
+1302,marge,maʀʒ,n.f.,margin / scope,Il y a une marge d'erreur à prendre en compte.,There is a margin of error to take into account.,A2,Work,2.5
+1303,mécanisme,mekanizm,n.m.,mechanism / process / system,Le mécanisme de décision est trop lent.,The decision-making mechanism is too slow.,A2,General,2.5
+1304,médiation,medjɑsjɔ̃,n.f.,mediation,La médiation a permis de résoudre le conflit.,Mediation made it possible to resolve the conflict.,A2,Work,2.5
+1305,meilleur,mɛjœʀ,adj./n.m. — meilleure (f.),better / best,C'est la meilleure solution possible.,It is the best possible solution.,A2,Adjectives,2.5
+1306,mettre en œuvre,mɛtʀ ɑ̃ œvʀ,expr.,to implement / to put into practice,Il faut mettre en œuvre cette stratégie rapidement.,We need to implement this strategy quickly.,A2,Work,2.5
+1307,minorité,minɔʀite,n.f.,minority,Il faut protéger les droits des minorités.,We must protect the rights of minorities.,A2,General,2.5
+1308,mobiliser,mɔbilize,"v. — je mobilise, nous mobilisons",to mobilise / to rally,Il faut mobiliser toutes les équipes sur ce projet.,We need to mobilise all teams on this project.,A2,Work,2.5
+1309,modalité,mɔdalite,n.f.,modality / terms / method,Les modalités de paiement doivent être discutées.,The terms of payment must be discussed.,A2,Work,2.5
+1310,modèle,mɔdɛl,n.m.,model / example / pattern,Ce modèle économique est très performant.,This economic model is very effective.,A2,Work,2.5
+1311,moduler,mɔdyle,"v. — je module, nous modulons",to modulate / to adjust / to vary,Il faut moduler notre approche selon les situations.,We need to adjust our approach according to the situations.,A2,General,2.5
+1312,motiver,mɔtive,"v. — je motive, nous motivons",to motivate,Il sait très bien motiver ses équipes.,He is very good at motivating his teams.,A2,Work,2.5
+1313,mutuel,mytɥɛl,adj. — mutuelle (f.),mutual / reciprocal,Le respect mutuel est la base d'une bonne collaboration.,Mutual respect is the basis of good collaboration.,A2,Adjectives,2.5
+1314,nuance,nɥɑ̃s,n.f.,nuance / shade,Il faut apporter des nuances à cette affirmation.,We need to add nuances to this statement.,A2,General,2.5
+1315,objectiver,ɔbʒɛktive,"v. — j'objective, nous objectivons",to objectify / to make objective,Il faut objectiver l'évaluation des performances.,We need to make the performance evaluation objective.,A2,Work,2.5
+1316,obstacle,ɔbstakl,n.m.,obstacle / barrier,Il faut surmonter les obstacles un par un.,We need to overcome the obstacles one by one.,A2,General,2.5
+1317,optimiser,ɔptimize,"v. — j'optimise, nous optimisons",to optimise,Il faut optimiser l'utilisation des ressources disponibles.,We need to optimise the use of available resources.,A2,Work,2.5
+1318,ordre du jour,ɔʀdʀ dy ʒuʀ,n.m.,agenda / order of the day,Quel est l'ordre du jour de la réunion ?,What is the agenda for the meeting?,A2,Work,2.5
+1319,outrepasser,utʀəpase,"v. — j'outrepasse, nous outrepassons",to overstep / to exceed,Il a outrepassé ses attributions en prenant cette décision.,He overstepped his remit by making this decision.,A2,Work,2.5
+1320,palette,palɛt,n.f.,range / palette,Il dispose d'une large palette de compétences.,He has a wide range of skills.,A2,General,2.5
+1321,paradoxe,paʀadɔks,n.m.,paradox,C'est un paradoxe croître et réduire les coûts en même temps.,It is a paradox to grow and reduce costs at the same time.,A2,General,2.5
+1322,paramètre,paʀamɛtʀ,n.m.,parameter / factor,Quels sont les paramètres à prendre en compte ?,What are the parameters to take into account?,A2,General,2.5
+1323,parvenir,paʀvəniʀ,"v. — je parviens, nous parvenons",to manage / to succeed / to reach,Il est parvenu à convaincre tous ses associés.,He managed to convince all his associates.,A2,Verbs,2.5
+1324,pénétrer,penetʀe,"v. — je pénètre, nous pénétrons",to penetrate / to enter / to break into,L'entreprise cherche à pénétrer de nouveaux marchés.,The company seeks to break into new markets.,A2,Work,2.5
+1325,pertinent,pɛʀtinɑ̃,adj. — pertinente (f.),relevant / pertinent,Votre remarque est très pertinente.,Your remark is very pertinent.,A2,Adjectives,2.5
+1326,pilier,pilje,n.m.,pillar / cornerstone,L'innovation est un pilier de notre stratégie.,Innovation is a cornerstone of our strategy.,A2,General,2.5
+1327,pivot,pivo,n.m.,pivot / linchpin,Il est le pivot de toute l'organisation.,He is the linchpin of the entire organisation.,A2,General,2.5
+1328,plausible,plozible,adj.,plausible,Cette explication est tout à fait plausible.,This explanation is quite plausible.,A2,Adjectives,2.5
+1329,pondérer,pɔ̃deʀe,"v. — je pondère, nous pondérons",to weigh up / to balance,Il faut pondérer les avantages et les inconvénients.,We need to weigh up the advantages and disadvantages.,A2,General,2.5
+1330,portée,pɔʀte,n.f.,scope / reach / significance,La portée de cette décision est considérable.,The scope of this decision is considerable.,A2,General,2.5
+1331,potentiel,pɔtɑ̃sjɛl,adj./n.m. — potentielle (f.),potential,Ce candidat a un fort potentiel de développement.,This candidate has strong development potential.,A2,Work,2.5
+1332,préalable,pʀealabl,adj./n.m.,preliminary / prior / prerequisite,Il faut obtenir l'accord préalable du directeur.,We need to obtain the director's prior agreement.,A2,Adjectives,2.5
+1333,prédominant,pʀedɔminɑ̃,adj. — prédominante (f.),predominant / prevailing,Cette tendance est prédominante dans le secteur.,This trend is predominant in the sector.,A2,Adjectives,2.5
+1334,prérogative,pʀeʀɔɡativ,n.f.,prerogative / privilege / right,C'est la prérogative du directeur de trancher.,It is the director's prerogative to decide.,A2,Work,2.5
+1335,prise de décision,pʀiz də desiʒɔ̃,n.f.,decision-making,Le processus de prise de décision doit être accéléré.,The decision-making process must be accelerated.,A2,Work,2.5
+1336,proactif,pʀoaktif,adj. — proactive (f.),proactive,Il faut adopter une attitude proactive face aux problèmes.,We need to adopt a proactive attitude towards problems.,A2,Adjectives,2.5
+1337,problématiser,pʀɔblematize,"v. — je problématise, nous problématisons",to problematise / to frame as a problem,Il faut bien problématiser la question avant d'y répondre.,We need to properly frame the question before answering it.,A2,General,2.5
+1338,prolonger,pʀɔlɔ̃ʒe,"v. — je prolonge, nous prolongeons",to extend / to prolong,Il a demandé à prolonger son contrat.,He asked to extend his contract.,A2,Work,2.5
+1339,promouvoir,pʀɔmuvwaʀ,"v. — je promeuts, nous promouvons",to promote / to further,L'association cherche à promouvoir l'égalité des chances.,The association seeks to promote equal opportunities.,A2,Work,2.5
+1340,propension,pʀɔpɑ̃sjɔ̃,n.f.,propensity / tendency,Il a une propension à remettre les choses au lendemain.,He has a propensity to put things off.,A2,General,2.5
+1341,proportionnel,pʀɔpɔʀsjɔnɛl,adj. — proportionnelle (f.),proportional,La sanction doit être proportionnelle à la faute.,The sanction must be proportional to the fault.,A2,Adjectives,2.5
+1342,prospecter,pʀɔspɛkte,"v. — je prospecte, nous prospectons",to prospect / to canvass,L'équipe commerciale prospecte de nouveaux clients.,The sales team is canvassing new clients.,A2,Work,2.5
+1343,prototype,pʀɔtotip,n.m.,prototype,Le prototype sera présenté lors du salon.,The prototype will be presented at the trade fair.,A2,Work,2.5
+1344,provenir,pʀɔvəniʀ,"v. — je proviens, nous provenons",to come from / to originate from,Ces fonds proviennent de partenaires privés.,These funds come from private partners.,A2,General,2.5
+1345,qualification,kalifikasjɔ̃,n.f.,qualification / skill,Ses qualifications correspondent parfaitement au poste.,His qualifications match the position perfectly.,A2,Work,2.5
+1346,rationaliser,ʀasjɔnalize,"v. — je rationalise, nous rationalisons",to rationalise / to streamline,Il faut rationaliser les processus de production.,We need to rationalise the production processes.,A2,Work,2.5
+1347,rebondir,ʀəbɔ̃diʀ,"v. — je rebondis, nous rebondissons",to bounce back / to rebound,Il a su rebondir après l'échec de son premier projet.,He managed to bounce back after the failure of his first project.,A2,Emotions,2.5
+1348,récurrent,ʀekyʀɑ̃,adj. — récurrente (f.),recurring / recurrent,Ce problème est récurrent dans notre organisation.,This problem is recurring in our organisation.,A2,Adjectives,2.5
+1349,redéfinir,ʀədefiniʀ,"v. — je redéfinis, nous redéfinissons",to redefine,Il faut redéfinir nos priorités en fonction du contexte.,We need to redefine our priorities according to the context.,A2,General,2.5
+1350,redresser,ʀədʀɛse,"v. — je redresse, nous redressons",to straighten / to turn around / to correct,L'entreprise cherche à redresser sa situation financière.,The company seeks to turn around its financial situation.,A2,Work,2.5
+1351,référentiel,ʀefeʀɑ̃sjɛl,n.m.,reference framework / benchmark,Le référentiel de compétences est en cours de révision.,The skills framework is currently being revised.,A2,Work,2.5
+1352,renforcement,ʀɑ̃fɔʀsmɑ̃,n.m.,strengthening / reinforcement,Le renforcement des équipes est une priorité.,The strengthening of teams is a priority.,A2,Work,2.5
+1353,réorienter,ʀeɔʀjɑ̃te,"v. — je réoriente, nous réorientons",to reorient / to redirect,Il faut réorienter notre stratégie vers de nouveaux marchés.,We need to redirect our strategy towards new markets.,A2,Work,2.5
+1354,répartition,ʀepaʀtisjɔ̃,n.f.,distribution / allocation / sharing,La répartition des tâches doit être équilibrée.,The distribution of tasks must be balanced.,A2,Work,2.5
+1355,répondre à,ʀepɔ̃dʀ a,v.,to meet / to answer / to respond to,Cette offre répond à un réel besoin du marché.,This offer meets a real market need.,A2,General,2.5
+1356,représenter,ʀəpʀezɑ̃te,"v. — je représente, nous représentons",to represent / to account for,Les femmes représentent quarante pour cent des effectifs.,Women account for forty per cent of the workforce.,A2,General,2.5
+1357,résilience,ʀeziljɑ̃s,n.f.,resilience,La résilience est une qualité indispensable dans ce métier.,Resilience is an indispensable quality in this profession.,A2,Emotions,2.5
+1358,ressource,ʀəsuʀs,n.f.,resource,Les ressources humaines sont notre principal atout.,Human resources are our main asset.,A2,Work,2.5
+1359,restituer,ʀɛstitɥe,"v. — je restitue, nous restituons",to return / to restore / to present (findings),Il faut restituer les résultats de l'étude aux participants.,We need to present the study results to the participants.,A2,General,2.5
+1360,révéler,ʀevele,"v. — je révèle, nous révélons",to reveal / to show,Cette crise a révélé les failles du système.,This crisis revealed the flaws in the system.,A2,General,2.5
+1361,risque calculé,ʀisk kalyle,n.m.,calculated risk,Prendre un risque calculé est parfois nécessaire.,Taking a calculated risk is sometimes necessary.,A2,Work,2.5
+1362,robustesse,ʀɔbystɛs,n.f.,robustness / resilience / soundness,La robustesse du modèle a été démontrée.,The robustness of the model has been demonstrated.,A2,Work,2.5
+1363,scénario,senaʀjo,n.m.,scenario / script,Il faut envisager plusieurs scénarios possibles.,We need to consider several possible scenarios.,A2,General,2.5
+1364,sécuriser,sekyʀize,"v. — je sécurise, nous sécurisons",to secure / to make safe,Il faut sécuriser les données confidentielles.,We need to secure confidential data.,A2,Work,2.5
+1365,sensibiliser,sɑ̃sibilize,"v. — je sensibilise, nous sensibilisons",to raise awareness / to sensitise,Il faut sensibiliser le grand public à ce problème.,We need to raise public awareness of this problem.,A2,General,2.5
+1366,significatif,siɡnifikatif,adj. — significative (f.),significant / meaningful,Les résultats montrent une amélioration significative.,The results show a significant improvement.,A2,Adjectives,2.5
+1367,solliciter,sɔlisite,"v. — je sollicite, nous sollicitons",to request / to solicit / to approach,Je me permets de vous solliciter pour un avis.,I am taking the liberty of approaching you for advice.,A2,General,2.5
+1368,sous-jacent,suʒasɑ̃,adj. — sous-jacente (f.),underlying,Il faut comprendre les causes sous-jacentes du problème.,We need to understand the underlying causes of the problem.,A2,Adjectives,2.5
+1369,souveraineté,suvʀɛnte,n.f.,sovereignty,La souveraineté nationale doit être respectée.,National sovereignty must be respected.,A2,General,2.5
+1370,spécifier,speʃifje,"v. — je spécifie, nous spécifions",to specify,Pouvez-vous spécifier vos besoins exactement ?,Can you specify your needs exactly?,A2,General,2.5
+1371,stabiliser,stabilize,"v. — je stabilise, nous stabilisons",to stabilise,Il faut stabiliser la situation avant d'agir.,We need to stabilise the situation before acting.,A2,General,2.5
+1372,standardiser,stɑ̃daʀdize,"v. — je standardise, nous standardisons",to standardise,Il faut standardiser les procédures de travail.,We need to standardise work procedures.,A2,Work,2.5
+1373,stimuler,stimyle,"v. — je stimule, nous stimulons",to stimulate / to boost,Il faut stimuler l'innovation dans l'entreprise.,We need to stimulate innovation in the company.,A2,Work,2.5
+1374,structurer,stʀyktɥʀe,"v. — je structure, nous structurons",to structure / to organise,Il faut structurer clairement votre présentation.,You need to structure your presentation clearly.,A2,General,2.5
+1375,subsidiarité,sybzidjaʀite,n.f.,subsidiarity,Le principe de subsidiarité régit les relations entre niveaux.,The principle of subsidiarity governs relations between levels.,A2,General,2.5
+1376,synthétiser,sɛ̃tetize,"v. — je synthétise, nous synthétisons",to synthesise / to summarise,Il faut synthétiser les informations recueillies.,We need to synthesise the information gathered.,A2,General,2.5
+1377,tirer parti de,tiʀe paʀti də,expr.,to make the most of / to leverage,Il faut tirer parti de toutes les opportunités.,We need to make the most of all opportunities.,A2,General,2.5
+1378,traçabilité,tʀasabilite,n.f.,traceability,La traçabilité des produits est essentielle dans ce secteur.,Product traceability is essential in this sector.,A2,Work,2.5
+1379,transférer,tʀɑ̃sfeʀe,"v. — je transfère, nous transférons",to transfer,Il faut transférer ces compétences aux nouvelles recrues.,We need to transfer these skills to new recruits.,A2,Work,2.5
+1380,transmettre,tʀɑ̃smɛtʀ,"v. — je transmets, nous transmettons",to transmit / to pass on / to convey,Il faut transmettre les valeurs de l'entreprise.,We need to transmit the values of the company.,A2,Work,2.5
+1381,transparent,tʀɑ̃spɑʀɑ̃,adj. — transparente (f.),transparent / clear,Il faut être transparent avec ses partenaires.,We need to be transparent with our partners.,A2,Adjectives,2.5
+1382,transversal,tʀɑ̃svɛʀsal,adj. — transversale (f.),cross-cutting / transversal,Cette compétence est transversale à tous les métiers.,This skill is cross-cutting across all professions.,A2,Adjectives,2.5
+1383,urbanisation,yʀbanizasjɔ̃,n.f.,urbanisation,L'urbanisation croissante pose de nouveaux défis.,Growing urbanisation poses new challenges.,A2,General,2.5
+1384,usage,yzaʒ,n.m.,use / usage / custom,L'usage du téléphone pendant les repas est déconseillé.,The use of the phone during meals is discouraged.,A2,General,2.5
+1385,valider,valide,"v. — je valide, nous validons",to validate / to approve,Le directeur doit valider ce rapport avant diffusion.,The director must validate this report before distribution.,A2,Work,2.5
+1386,valoriser,valɔʀize,"v. — je valorise, nous valorisons",to enhance / to valorise / to highlight,Il faut valoriser les compétences de chaque employé.,We need to highlight the skills of each employee.,A2,Work,2.5
+1387,vérification,veʀifikasjɔ̃,n.f.,verification / check / audit,Une vérification des comptes aura lieu en décembre.,An audit of the accounts will take place in December.,A2,Work,2.5
+1388,viabilité,vjabilite,n.f.,viability / feasibility,La viabilité du projet a été confirmée.,The viability of the project has been confirmed.,A2,Work,2.5
+1389,vigilance,viʒilɑ̃s,n.f.,vigilance / alertness,Il faut faire preuve de vigilance dans cette situation.,We must show vigilance in this situation.,A2,General,2.5
+1390,vulnérabilité,vylneʀabilite,n.f.,vulnerability,Il faut réduire la vulnérabilité de notre système.,We need to reduce the vulnerability of our system.,A2,General,2.5
+1391,aboutir à,abutiʀ a,v.,to lead to / to result in / to end up at,Les négociations ont abouti à un accord historique.,The negotiations resulted in a historic agreement.,A2,General,2.5
+1392,allouer,alwe,"v. — j'alloue, nous allouons",to allocate / to assign,Il faut allouer davantage de ressources à ce projet.,We need to allocate more resources to this project.,A2,Work,2.5
+1393,arbitrer,aʀbitʀe,"v. — j'arbitre, nous arbitrons",to arbitrate / to referee,Le médiateur a arbitré le conflit entre les parties.,The mediator arbitrated the conflict between the parties.,A2,Work,2.5
+1394,benchmark,bɛ̃ʃmaʀk,n.m.,benchmark,Nous allons effectuer un benchmark de nos concurrents.,We are going to carry out a benchmark of our competitors.,A2,Work,2.5
+1395,catalyseur,katalizœʀ,n.m.,catalyst,Cette crise a été un catalyseur de changement.,This crisis was a catalyst for change.,A2,General,2.5
+1396,circonstance,siʀkɔ̃stɑ̃s,n.f.,circumstance,Dans ces circonstances il faut agir avec prudence.,In these circumstances we must act with caution.,A2,General,2.5
+1397,convergence,kɔ̃vɛʀʒɑ̃s,n.f.,convergence,Il y a une convergence de vues sur ce sujet.,There is a convergence of views on this subject.,A2,General,2.5
+1398,décisif,desizif,adj. — décisive (f.),decisive / crucial,Ce moment est décisif pour l'avenir de l'entreprise.,This moment is decisive for the future of the company.,A2,Adjectives,2.5
+1399,démultiplier,demyltiplije,"v. — je démultiplie, nous démultiplions",to multiply / to amplify,Cette approche permet de démultiplier les efforts.,This approach makes it possible to multiply efforts.,A2,General,2.5
+1400,déploiement,deplwamɑ̃,n.m.,deployment / rollout,Le déploiement du nouveau système prendra trois mois.,The rollout of the new system will take three months.,A2,Work,2.5
+1401,déroulement,deʀulmɑ̃,n.m.,course / progress / unfolding,Le déroulement de la réunion s'est bien passé.,The course of the meeting went well.,A2,Work,2.5
+1402,diagnostic,djagnostik,n.m.,diagnosis / assessment,Un diagnostic précis de la situation s'impose.,A precise diagnosis of the situation is necessary.,A2,General,2.5
+1403,disproportion,dispʀɔpɔʀsjɔ̃,n.f.,disproportion / imbalance,Il y a une disproportion entre l'effort et le résultat.,There is a disproportion between the effort and the result.,A2,General,2.5
+1404,disséminer,disémine,"v. — je dissémine, nous disséminons",to disseminate / to spread,Il faut disséminer les bonnes pratiques dans toute l'organisation.,We need to disseminate good practices throughout the organisation.,A2,General,2.5
+1405,diversifier,divɛʀsifje,"v. — je diversifie, nous diversifions",to diversify,L'entreprise cherche à diversifier ses sources de revenus.,The company seeks to diversify its revenue sources.,A2,Work,2.5
+1406,durabilité,dyʀabilite,n.f.,sustainability / durability,La durabilité est au cœur de notre stratégie.,Sustainability is at the heart of our strategy.,A2,Nature,2.5
+1407,équilibrer,ekilibʀe,"v. — j'équilibre, nous équilibrons",to balance,Il faut équilibrer les charges entre les différentes équipes.,We need to balance the workload between the different teams.,A2,Work,2.5
+1408,externaliser,ɛkstɛʀnalize,"v. — j'externalise, nous externalisons",to outsource,L'entreprise a décidé d'externaliser sa comptabilité.,The company decided to outsource its accounting.,A2,Work,2.5
+1409,fédérer,fedeʀe,"v. — je fédère, nous fédérons",to federate / to unite / to bring together,Il faut fédérer les équipes autour d'un objectif commun.,We need to bring the teams together around a common goal.,A2,Work,2.5
+1410,flux de travail,fly də tʀavaj,n.m.,workflow,Le flux de travail doit être simplifié.,The workflow must be simplified.,A2,Work,2.5
+1411,formaliser,fɔʀmalize,"v. — je formalise, nous formalisons",to formalise,Il faut formaliser cet accord par écrit.,We need to formalise this agreement in writing.,A2,Work,2.5
+1412,gains,ɡɛ̃,n.m.pl.,gains / earnings / benefits,Les gains de productivité ont été significatifs.,The productivity gains have been significant.,A2,Work,2.5
+1413,gouvernance,ɡuvɛʀnɑ̃s,n.f.,governance,La gouvernance de l'entreprise doit être améliorée.,The governance of the company must be improved.,A2,Work,2.5
+1414,harmoniser,aʀmɔnize,"v. — j'harmonise, nous harmonisons",to harmonise,Il faut harmoniser les pratiques au sein du groupe.,We need to harmonise practices within the group.,A2,Work,2.5
+1415,hiérarchiser,jeʀaʀʃize,"v. — je hiérarchise, nous hiérarchisons",to prioritise / to rank,Il faut hiérarchiser les tâches selon leur importance.,We need to prioritise tasks according to their importance.,A2,Work,2.5
+1416,homogène,ɔmɔʒɛn,adj.,homogeneous / consistent,L'équipe doit être homogène pour être efficace.,The team must be homogeneous to be effective.,A2,Adjectives,2.5
+1417,impact positif,ɛ̃pakt pozitif,n.m.,positive impact,Nous cherchons à avoir un impact positif sur la société.,We seek to have a positive impact on society.,A2,General,2.5
+1418,impératif,ɛ̃peʀatif,adj./n.m. — impérative (f.),imperative / crucial,Il est impératif d'agir maintenant sans attendre.,It is imperative to act now without waiting.,A2,Adjectives,2.5
+1419,implanter,ɛ̃plɑ̃te,"v. — j'implante, nous implantons",to establish / to set up / to implant,L'entreprise cherche à s'implanter en Asie.,The company seeks to establish itself in Asia.,A2,Work,2.5
+1420,impliquer,ɛ̃plike,"v. — j'implique, nous impliquons",to involve / to imply,Il faut impliquer tous les acteurs dans la décision.,We need to involve all stakeholders in the decision.,A2,Work,2.5
+1421,inadéquat,inadekwa,adj. — inadéquate (f.),inadequate / unsuitable,Cette approche est inadéquate pour résoudre ce problème.,This approach is inadequate for solving this problem.,A2,Adjectives,2.5
+1422,incohérence,ɛ̃koeʀɑ̃s,n.f.,inconsistency / incoherence,Il y a des incohérences dans ce rapport.,There are inconsistencies in this report.,A2,General,2.5
+1423,indispensable,ɛ̃dispɑ̃sabl,adj.,indispensable / essential,Votre présence est indispensable à cette réunion.,Your presence is indispensable at this meeting.,A2,Adjectives,2.5
+1424,inégalité,ineɡalite,n.f.,inequality,Les inégalités salariales persistent dans de nombreux secteurs.,Salary inequalities persist in many sectors.,A2,General,2.5
+1425,innover,inɔve,"v. — j'innove, nous innovons",to innovate,L'entreprise doit constamment innover pour rester compétitive.,The company must constantly innovate to remain competitive.,A2,Work,2.5
+1426,insister,ɛ̃siste,"v. — j'insiste, nous insistons",to insist / to emphasise,J'insiste sur l'importance du respect des délais.,I emphasise the importance of respecting deadlines.,A2,General,2.5
+1427,intégrer,ɛ̃teɡʀe,"v. — j'intègre, nous intégrons",to integrate / to incorporate,Il faut intégrer ces nouvelles données dans notre analyse.,We need to integrate this new data into our analysis.,A2,Work,2.5
+1428,interdépendance,ɛ̃tɛʀdepɑ̃dɑ̃s,n.f.,interdependence,L'interdépendance des marchés mondiaux est un fait.,The interdependence of global markets is a fact.,A2,General,2.5
+1429,interface,ɛ̃tɛʀfas,n.f.,interface,L'interface utilisateur doit être intuitive et simple.,The user interface must be intuitive and simple.,A2,General,2.5
+1430,interlocuteur,ɛ̃tɛʀlɔkytœʀ,n.m. — interlocutrice (f.),interlocutor / contact person,Quel est votre interlocuteur principal pour ce dossier ?,Who is your main contact person for this file?,A2,Work,2.5
+1431,investissement,ɛ̃vɛstismɑ̃,n.m.,investment,Cet investissement devrait être rentabilisé en deux ans.,This investment should be recouped within two years.,A2,Work,2.5
+1432,itératif,iteʀatif,adj. — itérative (f.),iterative,Le développement itératif permet d'ajuster rapidement.,Iterative development allows rapid adjustment.,A2,Work,2.5
+1433,jalonnement,ʒalɔnmɑ̃,n.m.,marking out / staging / milestones,Le jalonnement du projet permet de suivre l'avancement.,Project milestones allow progress to be tracked.,A2,Work,2.5
+1434,judicieux,ʒydisjø,adj. — judicieuse (f.),judicious / wise / well-judged,C'est un choix judicieux étant donné les circonstances.,It is a judicious choice given the circumstances.,A2,Adjectives,2.5
+1435,légitimité,leʒitimite,n.f.,legitimacy,La légitimité de cette décision est contestée.,The legitimacy of this decision is contested.,A2,General,2.5
+1436,litige,litiʒ,n.m.,dispute / litigation,Le litige a été réglé à l'amiable.,The dispute was settled amicably.,A2,Work,2.5
+1437,marge de manœuvre,maʀʒ də manœvʀ,n.f.,room for manoeuvre / leeway,Nous avons peu de marge de manœuvre dans ce budget.,We have little room for manoeuvre in this budget.,A2,Work,2.5
+1438,maximiser,maksimize,"v. — je maximise, nous maximisons",to maximise,Il faut maximiser les profits tout en réduisant les coûts.,We need to maximise profits while reducing costs.,A2,Work,2.5
+1439,minimiser,minimize,"v. — je minimise, nous minimisons",to minimise / to play down,Il ne faut pas minimiser l'impact de cette décision.,We must not minimise the impact of this decision.,A2,Work,2.5
+1440,mise en place,miz ɑ̃ plas,n.f.,implementation / setting up,La mise en place du nouveau système prendra du temps.,The implementation of the new system will take time.,A2,Work,2.5
+1441,mitiger,mitiʒe,"v. — je mitige, nous mitigeons",to mitigate / to reduce,Il faut mitiger les risques liés à ce projet.,We need to mitigate the risks associated with this project.,A2,General,2.5
+1442,monétiser,mɔnetize,"v. — je monétise, nous monétisons",to monetise,L'entreprise cherche à monétiser ses données.,The company seeks to monetise its data.,A2,Work,2.5
+1443,mutualiser,mytɥalize,"v. — je mutualise, nous mutualisons",to pool / to share (resources),Il faut mutualiser les ressources entre les différents services.,We need to pool resources between the different departments.,A2,Work,2.5
+1444,nécessiter,nesesite,"v. — je nécessite, nous nécessitons",to require / to necessitate,Ce projet nécessite un budget conséquent.,This project requires a substantial budget.,A2,General,2.5
+1445,neutraliser,nøtʀalize,"v. — je neutralise, nous neutralisons",to neutralise / to offset,Il faut neutraliser les effets négatifs de cette décision.,We need to neutralise the negative effects of this decision.,A2,General,2.5
+1446,norme,nɔʀm,n.f.,standard / norm / rule,Les normes de qualité doivent être respectées.,Quality standards must be respected.,A2,Work,2.5
+1447,nuancer,nɥɑ̃se,"v. — je nuance, nous nuançons",to nuance / to qualify,Il faut nuancer cette affirmation trop catégorique.,We need to qualify this overly categorical statement.,A2,General,2.5
+1448,objectivité,ɔbʒɛktivite,n.f.,objectivity,L'objectivité est indispensable dans cette analyse.,Objectivity is indispensable in this analysis.,A2,General,2.5
+1449,obtenir un consensus,ɔptəniʀ œ̃ kɔ̃sɑ̃sys,expr.,to reach a consensus,Il faut obtenir un consensus sur cette question.,We need to reach a consensus on this question.,A2,Work,2.5
+1450,opérationnel,ɔpeʀasjɔnɛl,adj. — opérationnelle (f.),operational / fully functional,Le système sera opérationnel d'ici la fin du mois.,The system will be operational by the end of the month.,A2,Adjectives,2.5
+1451,optimum,ɔptimɔm,adj./n.m.,optimum,Il faut trouver l'équilibre optimum entre qualité et coût.,We need to find the optimum balance between quality and cost.,A2,General,2.5
+1452,orchestrer,ɔʀkɛstʀe,"v. — j'orchestre, nous orchestrons",to orchestrate / to coordinate,Il a orchestré toute la campagne de communication.,He orchestrated the entire communication campaign.,A2,Work,2.5
+1453,orientation stratégique,ɔʀjɑ̃tasjɔ̃ stʀateʒik,n.f.,strategic direction,L'orientation stratégique de l'entreprise est claire.,The strategic direction of the company is clear.,A2,Work,2.5
+1454,pérenniser,peʀenize,"v. — je pérennise, nous pérennisons",to make sustainable / to perpetuate,Il faut pérenniser ces bonnes pratiques.,We need to make these good practices sustainable.,A2,Work,2.5
+1455,périmètre,peʀimɛtʀ,n.m.,scope / perimeter,Le périmètre du projet a été élargi.,The scope of the project has been broadened.,A2,Work,2.5
+1456,piste,pist,n.f.,lead / track / clue / slope,Il faut explorer toutes les pistes possibles.,We need to explore all possible leads.,A2,General,2.5
+1457,planification,planifikasjɔ̃,n.f.,planning,La planification du projet est en cours.,Project planning is underway.,A2,Work,2.5
+1458,polémique,pɔlemik,n.f./adj.,controversy / controversial,Cette décision a suscité une vive polémique.,This decision sparked a heated controversy.,A2,General,2.5
+1459,préconiser,pʀekɔnize,"v. — je préconise, nous préconisons",to recommend / to advocate,Les experts préconisent une approche progressive.,Experts recommend a gradual approach.,A2,General,2.5
+1460,prédéfinir,pʀedefiniʀ,"v. — je prédéfinis, nous prédéfinissons",to predefine / to set in advance,Les critères doivent être prédéfinis avant l'évaluation.,The criteria must be predefined before the evaluation.,A2,Work,2.5
+1461,prémisse,pʀemis,n.f.,premise / assumption,Les prémisses de ce raisonnement sont discutables.,The premises of this reasoning are debatable.,A2,General,2.5
+1462,prérequis,pʀeʀəki,n.m.,prerequisite,Quels sont les prérequis pour ce poste ?,What are the prerequisites for this position?,A2,Work,2.5
+1463,prévaloir,pʀevaluaʀ,"v. — il prévaut, ils prévalent",to prevail,La qualité doit prévaloir sur la quantité.,Quality must prevail over quantity.,A2,General,2.5
+1464,probant,pʀɔbɑ̃,adj. — probante (f.),convincing / conclusive,Les résultats ne sont pas encore probants.,The results are not yet conclusive.,A2,Adjectives,2.5
+1465,procédure,pʀɔsedyʀ,n.f.,procedure / process,Il faut respecter les procédures établies.,We must respect the established procedures.,A2,Work,2.5
+1466,profil,pʀɔfil,n.m.,profile,Son profil correspond parfaitement au poste proposé.,His profile matches the proposed position perfectly.,A2,Work,2.5
+1467,progressivement,pʀɔɡʀɛsivmɑ̃,adv.,progressively / gradually,La situation s'améliore progressivement.,The situation is gradually improving.,A2,General,2.5
+1468,proportionner,pʀɔpɔʀsjɔne,"v. — je proportionne, nous proportionnons",to proportion / to size correctly,Il faut proportionner les moyens aux objectifs visés.,We need to proportion the means to the objectives targeted.,A2,General,2.5
+1469,proroger,pʀɔʀɔʒe,"v. — je proroge, nous prorogeons",to extend / to prolong,Le contrat a été prorogé de six mois.,The contract was extended by six months.,A2,Work,2.5
+1470,prospective,pʀɔspɛktiv,n.f.,forward planning / foresight,La prospective permet d'anticiper les évolutions futures.,Foresight makes it possible to anticipate future developments.,A2,General,2.5
+1471,protocole,pʀɔtɔkɔl,n.m.,protocol / procedure,Il faut suivre le protocole établi.,We must follow the established protocol.,A2,Work,2.5
+1472,provisionner,pʀɔvizjɔne,"v. — je provisionne, nous provisionnons",to provision / to set aside funds,Il faut provisionner des fonds pour les imprévus.,We need to set aside funds for unexpected expenses.,A2,Work,2.5
+1473,rationalité,ʀasjɔnalite,n.f.,rationality,La rationalité doit guider nos décisions.,Rationality must guide our decisions.,A2,General,2.5
+1474,récapituler,ʀekapityle,"v. — je récapitule, nous récapitulons",to recap / to summarise,Permettez-moi de récapituler les points clés.,Allow me to recap the key points.,A2,General,2.5
+1475,réconcilier,ʀekɔ̃silje,"v. — je réconcilie, nous réconcilions",to reconcile,Il faut réconcilier les différentes parties prenantes.,We need to reconcile the different stakeholders.,A2,General,2.5
+1476,reconfigurer,ʀəkɔ̃fiɡyʀe,"v. — je reconfigure, nous reconfigurons",to reconfigure / to restructure,Il faut reconfigurer l'organisation pour plus d'efficacité.,We need to reconfigure the organisation for greater efficiency.,A2,Work,2.5
+1477,recouvrement,ʀəkuvʀəmɑ̃,n.m.,recovery / collection,Le recouvrement des créances est une priorité.,The recovery of debts is a priority.,A2,Work,2.5
+1478,rectifier,ʀɛktifje,"v. — je rectifie, nous rectifions",to rectify / to correct,Il faut rectifier cette erreur le plus vite possible.,We need to rectify this error as quickly as possible.,A2,General,2.5
+1479,recul,ʀəkyl,n.m.,hindsight / decline / step back,Avec le recul cette décision était la bonne.,With hindsight this decision was the right one.,A2,General,2.5
+1480,redéployer,ʀədeplwaje,"v. — je redéploie, nous redéployons",to redeploy,Il faut redéployer les ressources vers les secteurs prioritaires.,We need to redeploy resources towards priority sectors.,A2,Work,2.5
+1481,reformuler,ʀəfɔʀmyle,"v. — je reformule, nous reformulons",to reformulate / to rephrase,Pouvez-vous reformuler votre question différemment ?,Can you rephrase your question differently?,A2,General,2.5
+1482,réguler,ʀeɡyle,"v. — je régule, nous régulons",to regulate,Il faut mieux réguler ce marché.,We need to better regulate this market.,A2,General,2.5
+1483,renégocier,ʀənéɡɔsje,"v. — je renégocie, nous renégocions",to renegotiate,Il faut renégocier les termes du contrat.,We need to renegotiate the terms of the contract.,A2,Work,2.5
+1484,renouveler,ʀənuvle,"v. — je renouvelle, nous renouvelons",to renew / to refresh,Il faut renouveler notre offre pour rester compétitif.,We need to renew our offer to remain competitive.,A2,Work,2.5
+1485,rentabiliser,ʀɑ̃tabilize,"v. — je rentabilise, nous rentabilisons",to make profitable / to get a return on,Il faut rentabiliser cet investissement rapidement.,We need to get a return on this investment quickly.,A2,Work,2.5
+1486,repère,ʀəpɛʀ,n.m.,reference point / landmark,Il faut des repères clairs pour avancer.,We need clear reference points to move forward.,A2,General,2.5
+1487,répertoire,ʀepɛʀtwaʀ,n.m.,directory / repertoire / range,Il dispose d'un large répertoire de techniques.,He has a wide repertoire of techniques.,A2,General,2.5
+1488,reprendre,ʀəpʀɑ̃dʀ,"v. — je reprends, nous reprenons",to resume / to take back / to redo,Il faut reprendre les négociations là où elles se sont arrêtées.,We need to resume the negotiations where they left off.,A2,Verbs,2.5
+1489,requête,ʀəkɛt,n.f.,request / query,Votre requête a bien été prise en compte.,Your request has been duly noted.,A2,General,2.5
+1490,résilier,ʀezilje,"v. — je résilie, nous résilions",to terminate / to cancel,Il a résilié son contrat avant la fin de l'année.,He terminated his contract before the end of the year.,A2,Work,2.5
+1491,résorber,ʀezɔʀbe,"v. — je résorbe, nous résorbons",to reduce / to absorb / to clear,Il faut résorber le déficit budgétaire progressivement.,We need to progressively reduce the budget deficit.,A2,General,2.5
+1492,responsabiliser,ʀɛspɔ̃sabilize,"v. — je responsabilise, nous responsabilisons",to empower / to make accountable,Il faut responsabiliser les équipes sur leurs résultats.,We need to make teams accountable for their results.,A2,Work,2.5
+1493,restreindre,ʀɛstʀɛ̃dʀ,"v. — je restreins, nous restreignons",to restrict / to limit,Il faut restreindre l'accès à ces données confidentielles.,We need to restrict access to this confidential data.,A2,General,2.5
+1494,rétroaction,ʀetʀɔaksjɔ̃,n.f.,feedback / retroaction,Le mécanisme de rétroaction est essentiel.,The feedback mechanism is essential.,A2,Work,2.5
+1495,réviser,ʀevize,"v. — je révise, nous révisons",to revise / to review / to service,Il faut réviser notre stratégie en fonction des résultats.,We need to revise our strategy based on the results.,A2,Work,2.5
+1496,schématiser,ʃematize,"v. — je schématise, nous schématisons",to schematise / to simplify,Il faut parfois schématiser pour mieux comprendre.,We sometimes need to simplify to better understand.,A2,General,2.5
+1497,séquencer,sekɑ̃se,"v. — je séquence, nous séquençons",to sequence / to break down into steps,Il faut séquencer les tâches de manière logique.,We need to sequence the tasks in a logical way.,A2,Work,2.5
+1498,simuler,simyle,"v. — je simule, nous simulons",to simulate,Nous allons simuler différents scénarios de crise.,We are going to simulate different crisis scenarios.,A2,Work,2.5
+1499,spécialisation,spesjalizasjɔ̃,n.f.,specialisation,La spécialisation des équipes améliore la performance.,Team specialisation improves performance.,A2,Work,2.5
+1500,systématiser,sistematize,"v. — je systématise, nous systématisons",to systematise,Il faut systématiser les bonnes pratiques identifiées.,We need to systematise the good practices identified.,A2,Work,2.5
+
+1501,abîmer,abime,"v. — j'abîme, nous abîmons",to damage / to spoil,Il a abîmé son téléphone en le faisant tomber.,He damaged his phone by dropping it.,A2,General,2.5
+1502,aboutir,abutiʀ,"v. — j'aboutis, nous aboutissons",to lead to / to succeed,Ses efforts ont finalement abouti à un résultat positif.,His efforts finally led to a positive result.,A2,Verbs,2.5
+1503,accélérer,akseleʀe,"v. — j'accélère, nous accélérons",to accelerate / to speed up,Il faut accélérer le rythme de travail.,We need to speed up the pace of work.,A2,Verbs,2.5
+1504,accrocher,akʀɔʃe,"v. — j'accroche, nous accrochons",to hang / to catch,Il a accroché le tableau au mur.,He hung the painting on the wall.,A2,Home,2.5
+1505,adopter,adɔpte,"v. — j'adopte, nous adoptons",to adopt,Elle a adopté un chien abandonné.,She adopted an abandoned dog.,A2,General,2.5
+1506,afficher,afiʃe,"v. — j'affiche, nous affichons",to display / to show,Il affiche toujours un grand sourire.,He always displays a big smile.,A2,General,2.5
+1507,améliorer,ameljɔʀe,"v. — j'améliore, nous améliorons",to improve,Il travaille dur pour améliorer son niveau de français.,He works hard to improve his level of French.,A2,Verbs,2.5
+1508,aménager,amenaʒe,"v. — j'aménage, nous aménageons",to fit out / to arrange,Ils ont aménagé leur appartement avec goût.,They fitted out their apartment with taste.,A2,Home,2.5
+1509,ancêtre,ɑ̃sɛtʀ,n.m./f.,ancestor,Ses ancêtres venaient de Bretagne.,His ancestors came from Brittany.,A2,Family,2.5
+1510,anticiper,ɑ̃tisipe,"v. — j'anticipe, nous anticipons",to anticipate,Il faut anticiper les besoins des clients.,We need to anticipate the needs of clients.,A2,General,2.5
+1511,appliquer,aplike,"v. — j'applique, nous appliquons",to apply / to implement,Il faut appliquer les règles sans exception.,We must apply the rules without exception.,A2,Verbs,2.5
+1512,appuyer,apɥije,"v. — j'appuie, nous appuyons",to press / to support,Appuyez sur le bouton pour continuer.,Press the button to continue.,A2,Verbs,2.5
+1513,arrêter,aʀɛte,"v. — j'arrête, nous arrêtons",to stop / to arrest,Arrête de parler et écoute-moi !,Stop talking and listen to me!,A2,Verbs,2.5
+1514,arriver,aʀive,"v. — j'arrive, nous arrivons",to arrive / to happen,À quelle heure arrives-tu ?,What time are you arriving?,A2,Verbs,2.5
+1515,assurer,asyʀe,"v. — j'assure, nous assurons",to ensure / to assure,Je t'assure que tout va bien.,I assure you that everything is fine.,A2,General,2.5
+1516,attirer,atiʀe,"v. — j'attire, nous attirons",to attract,Ce spectacle attire des milliers de visiteurs chaque année.,This show attracts thousands of visitors every year.,A2,General,2.5
+1517,bateau,bato,n.m.,boat / ship,Nous prenons le bateau pour aller en Corse.,We are taking the boat to go to Corsica.,A2,Travel,2.5
+1518,bonheur,bɔnœʀ,n.m.,happiness / joy,Le bonheur n'est pas une destination mais un chemin.,Happiness is not a destination but a journey.,A2,Emotions,2.5
+1519,bouillir,bujiʀ,"v. — je bous, nous bouillons",to boil,Faites bouillir l'eau avant d'y ajouter les pâtes.,Bring the water to the boil before adding the pasta.,A2,Food & Drink,2.5
+1520,briser,bʀize,"v. — je brise, nous brisons",to break / to shatter,Il ne faut pas briser la confiance de ses proches.,We must not shatter the trust of our loved ones.,A2,Emotions,2.5
+1521,calmer,kalme,"v. — je calme, nous calmons",to calm down / to soothe,Calme-toi et respire profondément.,Calm down and breathe deeply.,A2,Emotions,2.5
+1522,casser,kase,"v. — je casse, nous cassons",to break,J'ai cassé mon téléphone en le faisant tomber.,I broke my phone by dropping it.,A2,Verbs,2.5
+1523,céder,sede,"v. — je cède, nous cédons",to give in / to give way,Il a cédé sa place à une personne âgée dans le bus.,He gave up his seat to an elderly person on the bus.,A2,General,2.5
+1524,chaleur,ʃalœʀ,n.f.,heat / warmth,La chaleur de l'été est étouffante dans le sud.,The summer heat is stifling in the south.,A2,Nature,2.5
+1525,chérir,ʃeʀiʀ,"v. — je chéris, nous chérissons",to cherish,Il chérit les moments passés en famille.,He cherishes the moments spent with family.,A2,Emotions,2.5
+1526,collaborer,kolabɔʀe,"v. — je collabore, nous collaborons",to collaborate,Les deux équipes collaborent sur ce projet.,The two teams are collaborating on this project.,A2,Work,2.5
+1527,combattre,kɔ̃batʀ,"v. — je combats, nous combattons",to fight / to combat,Il faut combattre les préjugés avec l'éducation.,We must fight prejudices with education.,A2,General,2.5
+1528,commencer,kɔmɑ̃se,"v. — je commence, nous commençons",to begin / to start,Le cours commence à neuf heures.,The class begins at nine o'clock.,A2,Verbs,2.5
+1529,conduire,kɔ̃dɥiʀ,"v. — je conduis, nous conduisons",to drive / to lead,Il conduit depuis l'âge de dix-huit ans.,He has been driving since the age of eighteen.,A2,Travel,2.5
+1530,connecter,kɔnɛkte,"v. — je connecte, nous connectons",to connect,Connecte-toi à notre réseau Wi-Fi gratuit.,Connect to our free Wi-Fi network.,A2,General,2.5
+1531,consulter,kɔ̃sylte,"v. — je consulte, nous consultons",to consult / to see (doctor),Il faut consulter un spécialiste pour ce problème.,We need to consult a specialist for this problem.,A2,Body & Health,2.5
+1532,contacter,kɔ̃takte,"v. — je contacte, nous contactons",to contact,N'hésitez pas à me contacter si vous avez des questions.,Do not hesitate to contact me if you have questions.,A2,General,2.5
+1533,contrôler,kɔ̃tʀole,"v. — je contrôle, nous contrôlons",to check / to control,Les douaniers contrôlent les passeports à la frontière.,Customs officers check passports at the border.,A2,Travel,2.5
+1534,corriger,kɔʀiʒe,"v. — je corrige, nous corrigeons",to correct / to mark,Le professeur corrige les copies de ses élèves.,The teacher marks his pupils' papers.,A2,Work,2.5
+1535,couper,kupe,"v. — je coupe, nous coupons",to cut,Coupe le pain en tranches s'il te plaît.,Cut the bread into slices please.,A2,Food & Drink,2.5
+1536,craquer,kʀake,"v. — je craque, nous craquons",to crack / to give in,Elle a craqué et a acheté cette belle robe.,She gave in and bought that beautiful dress.,A2,Emotions,2.5
+1537,débattre,debatʀ,"v. — je débats, nous débattons",to debate,Ils ont débattu de la question pendant des heures.,They debated the question for hours.,A2,General,2.5
+1538,décevoir,desəvwaʀ,"v. — je déçois, nous décevons",to disappoint,Je ne veux pas te décevoir avec ce résultat.,I do not want to disappoint you with this result.,A2,Emotions,2.5
+1539,déclarer,deklaʀe,"v. — je déclare, nous déclarons",to declare / to announce,Il a déclaré ses revenus à l'administration fiscale.,He declared his income to the tax authority.,A2,General,2.5
+1540,décoller,dekɔle,"v. — je décolle, nous décollons",to take off,L'avion a décollé avec une heure de retard.,The plane took off an hour late.,A2,Travel,2.5
+1541,décourager,dekuʀaʒe,"v. — je me décourage, nous nous décourageons",to discourage / to lose heart,Ne te décourage pas les résultats viendront.,Don't lose heart the results will come.,A2,Emotions,2.5
+1542,défendre,defɑ̃dʀ,"v. — je défends, nous défendons",to defend / to protect,Il défend toujours les droits des plus faibles.,He always defends the rights of the weakest.,A2,General,2.5
+1543,déplacer,deplase,"v. — je déplace, nous déplaçons",to move / to travel,Il se déplace souvent pour son travail.,He travels frequently for work.,A2,Travel,2.5
+1544,dessiner,desine,"v. — je dessine, nous dessinons",to draw,Il dessine des portraits depuis son enfance.,He has been drawing portraits since childhood.,A2,General,2.5
+1545,deviner,dəvine,"v. — je devine, nous devinons",to guess,Devine qui j'ai rencontré hier ?,Guess who I met yesterday?,A2,Verbs,2.5
+1546,diriger,diʀiʒe,"v. — je dirige, nous dirigeons",to manage / to lead,Elle dirige une équipe de cinquante personnes.,She manages a team of fifty people.,A2,Work,2.5
+1547,distribuer,distʀibɥe,"v. — je distribue, nous distribuons",to distribute / to hand out,Les volontaires ont distribué des repas aux sans-abri.,The volunteers distributed meals to the homeless.,A2,General,2.5
+1548,dresser,dʀɛse,"v. — je dresse, nous dressons",to draw up / to erect,Il faut dresser un bilan complet de la situation.,We need to draw up a full assessment of the situation.,A2,General,2.5
+1549,échanger,eʃɑ̃ʒe,"v. — j'échange, nous échangeons",to exchange / to swap,Nous avons échangé nos numéros de téléphone.,We exchanged our phone numbers.,A2,Verbs,2.5
+1550,économiser,ekɔnɔmize,"v. — j'économise, nous économisons",to save (money),Il économise pour acheter une voiture neuve.,He is saving up to buy a new car.,A2,Shopping,2.5
+1551,éliminer,elimine,"v. — j'élimine, nous éliminons",to eliminate / to get rid of,Il faut éliminer les obstacles un par un.,We need to eliminate the obstacles one by one.,A2,Verbs,2.5
+1552,embrasser,ɑ̃bʀase,"v. — j'embrasse, nous embrassons",to kiss / to embrace,Il a embrassé ses parents en arrivant.,He kissed his parents upon arriving.,A2,Family,2.5
+1553,emmener,ɑ̃mne,"v. — j'emmène, nous emmenons",to take (someone),Il emmène ses enfants au zoo chaque été.,He takes his children to the zoo every summer.,A2,General,2.5
+1554,emprunter,ɑ̃pʀœ̃te,"v. — j'emprunte, nous empruntons",to borrow,J'ai emprunté ce livre à la bibliothèque.,I borrowed this book from the library.,A2,General,2.5
+1555,encourager,ɑ̃kuʀaʒe,"v. — j'encourage, nous encourageons",to encourage,Son professeur l'a encouragé à persévérer.,His teacher encouraged him to persevere.,A2,Emotions,2.5
+1556,endommager,ɑ̃dɔmaʒe,"v. — j'endommage, nous endommageons",to damage,La tempête a endommagé plusieurs maisons.,The storm damaged several houses.,A2,General,2.5
+1557,enthousiasme,ɑ̃tuzjazm,n.m.,enthusiasm,Son enthousiasme est communicatif.,His enthusiasm is infectious.,A2,Emotions,2.5
+1558,envoyer,ɑ̃vwaje,"v. — j'envoie, nous envoyons",to send,J'ai envoyé un message à ma mère.,I sent a message to my mother.,A2,Verbs,2.5
+1559,épargner,epaʀɲe,"v. — j'épargne, nous épargnons",to save (money),Il épargne dix pour cent de son salaire chaque mois.,He saves ten per cent of his salary every month.,A2,Shopping,2.5
+1560,espérer,ɛspeʀe,"v. — j'espère, nous espérons",to hope,J'espère que tu vas bien.,I hope you are well.,A2,Emotions,2.5
+1561,essayer,eseje,"v. — j'essaie, nous essayons",to try,Essaie cette veste elle te va bien.,Try this jacket it suits you.,A2,Verbs,2.5
+1562,étaler,etale,"v. — j'étale, nous étalons",to spread / to stagger,Il faut étaler les paiements sur plusieurs mois.,We need to stagger the payments over several months.,A2,General,2.5
+1563,éteindre,etɛ̃dʀ,"v. — j'éteins, nous éteignons",to switch off,Éteins la lumière en sortant s'il te plaît.,Switch off the light when you leave please.,A2,Home,2.5
+1564,étudier,etydʒe,"v. — j'étudie, nous étudions",to study,Elle étudie la médecine à Paris.,She is studying medicine in Paris.,A2,Work,2.5
+1565,éviter,evite,"v. — j'évite, nous évitons",to avoid,Il faut éviter les conflits inutiles au bureau.,We must avoid unnecessary conflicts at the office.,A2,Verbs,2.5
+1566,exercer,eɡzɛʀse,"v. — j'exerce, nous exerçons",to practise / to exercise,Il exerce la médecine depuis vingt ans.,He has been practising medicine for twenty years.,A2,Work,2.5
+1567,exprimer,ɛkspʀime,"v. — j'exprime, nous exprimons",to express,Il exprime ses émotions à travers la peinture.,He expresses his emotions through painting.,A2,Emotions,2.5
+1568,fabriquer,fabʀike,"v. — je fabrique, nous fabriquons",to make / to manufacture,Cette usine fabrique des pièces automobiles.,This factory manufactures car parts.,A2,Work,2.5
+1569,faire confiance,fɛʀ kɔ̃fjɑ̃s,expr.,to trust,Il faut faire confiance à son instinct.,We need to trust our instinct.,A2,Emotions,2.5
+1570,finir,finiʀ,"v. — je finis, nous finissons",to finish / to end,Il faut finir ce rapport avant vendredi.,We need to finish this report before Friday.,A2,Verbs,2.5
+1571,flotter,flɔte,"v. — je flotte, nous flottons",to float,Le bateau flotte paisiblement sur le lac.,The boat floats peacefully on the lake.,A2,Nature,2.5
+1572,fréquenter,fʀekɑ̃te,"v. — je fréquente, nous fréquentons",to frequent / to attend regularly,Il fréquente ce café depuis des années.,He has been frequenting this café for years.,A2,General,2.5
+1573,gagner,ɡaɲe,"v. — je gagne, nous gagnons",to win / to earn,Elle gagne bien sa vie comme médecin.,She earns a good living as a doctor.,A2,Work,2.5
+1574,garder,ɡaʀde,"v. — je garde, nous gardons",to keep / to look after,Garde ce secret pour toi s'il te plaît.,Keep this secret to yourself please.,A2,Verbs,2.5
+1575,guider,ɡide,"v. — je guide, nous guidons",to guide / to lead,Il guide les touristes dans les musées parisiens.,He guides tourists around Parisian museums.,A2,Travel,2.5
+1576,hésiter,ezite,"v. — j'hésite, nous hésitons",to hesitate,N'hésite pas à me demander si tu as besoin d'aide.,Do not hesitate to ask me if you need help.,A2,Verbs,2.5
+1577,ignorer,iɡnɔʀe,"v. — j'ignore, nous ignorons",to ignore,Il ignore les critiques et continue son travail.,He ignores criticism and continues his work.,A2,Verbs,2.5
+1578,imprimer,ɛ̃pʀime,"v. — j'imprime, nous imprimons",to print,Peux-tu imprimer ce document en double exemplaire ?,Can you print this document in duplicate?,A2,Work,2.5
+1579,inquiéter,ɛ̃kjete,"v. — je m'inquiète, nous nous inquiétons",to worry,Ne t'inquiète pas tout va bien se passer.,Don't worry everything will work out fine.,A2,Emotions,2.5
+1580,insister,ɛ̃siste,"v. — j'insiste, nous insistons",to insist,Il insiste pour que tout soit parfait.,He insists that everything be perfect.,A2,Verbs,2.5
+1581,inspirer,ɛ̃spiʀe,"v. — j'inspire, nous inspirons",to inspire,Ce chef d'entreprise inspire toute une génération.,This business leader inspires a whole generation.,A2,Emotions,2.5
+1582,intéresser,ɛ̃teʀese,"v. — j'intéresse, nous intéressons",to interest,Ce projet m'intéresse beaucoup.,This project interests me a great deal.,A2,Emotions,2.5
+1583,interroger,ɛ̃teʀɔʒe,"v. — j'interroge, nous interrogeons",to question,Le policier a interrogé le suspect pendant deux heures.,The police officer questioned the suspect for two hours.,A2,General,2.5
+1584,investir,ɛ̃vɛstiʀ,"v. — j'investis, nous investissons",to invest,Il a investi toutes ses économies dans ce projet.,He invested all his savings in this project.,A2,Work,2.5
+1585,joindre,ʒwɛ̃dʀ,"v. — je joins, nous joignons",to join / to reach,Je n'arrive pas à joindre ce client depuis hier.,I have not been able to reach this client since yesterday.,A2,Verbs,2.5
+1586,juger,ʒyʒe,"v. — je juge, nous jugeons",to judge,Il ne faut pas juger les gens sur les apparences.,We must not judge people by appearances.,A2,General,2.5
+1587,lancer,lɑ̃se,"v. — je lance, nous lançons",to launch / to throw,Il faut lancer la campagne publicitaire dès lundi.,We need to launch the advertising campaign from Monday.,A2,Work,2.5
+1588,libérer,libeʀe,"v. — je libère, nous libérons",to free / to clear,Il a libéré du temps pour se consacrer à sa famille.,He freed up time to devote himself to his family.,A2,General,2.5
+1589,livrer,livʀe,"v. — je livre, nous livrons",to deliver,La commande a été livrée en avance.,The order was delivered early.,A2,Shopping,2.5
+1590,louer,lwe,"v. — je loue, nous louons",to rent,Nous avons loué une villa pour les vacances.,We rented a villa for the holidays.,A2,Travel,2.5
+1591,maîtriser,mɛtʀize,"v. — je maîtrise, nous maîtrisons",to master / to control,Il maîtrise parfaitement trois langues étrangères.,He perfectly masters three foreign languages.,A2,Work,2.5
+1592,menacer,mənase,"v. — je menace, nous menaçons",to threaten,La sécheresse menace les récoltes cette année.,The drought threatens the harvest this year.,A2,Nature,2.5
+1593,mériter,meʀite,"v. — je mérite, nous méritons",to deserve,Il mérite cette récompense après tant d'efforts.,He deserves this reward after so much effort.,A2,Emotions,2.5
+1594,modifier,mɔdifje,"v. — je modifie, nous modifions",to modify / to alter,Nous avons modifié le plan initial.,We modified the initial plan.,A2,Verbs,2.5
+1595,montrer,mɔ̃tʀe,"v. — je montre, nous montrons",to show,Montre-moi comment tu fais cela.,Show me how you do that.,A2,Verbs,2.5
+1596,négliger,neɡliʒe,"v. — je néglige, nous négligeons",to neglect,Il ne faut pas négliger sa santé même quand on est occupé.,We must not neglect our health even when busy.,A2,Body & Health,2.5
+1597,obliger,ɔbliʒe,"v. — j'oblige, nous obligeons",to oblige / to force,La loi oblige les entreprises à déclarer leurs revenus.,The law requires companies to declare their income.,A2,General,2.5
+1598,organiser,ɔʀɡanize,"v. — j'organise, nous organisons",to organise,Elle organise une fête surprise pour son anniversaire.,She is organising a surprise party for her birthday.,A2,Verbs,2.5
+1599,ouvrir,uvʀiʀ,"v. — j'ouvre, nous ouvrons",to open,La nouvelle boutique ouvre ses portes demain.,The new shop opens its doors tomorrow.,A2,Verbs,2.5
+1600,parvenir,paʀvəniʀ,"v. — je parviens, nous parvenons",to manage / to reach,Elle est parvenue à finir son roman.,She managed to finish her novel.,A2,Verbs,2.5
