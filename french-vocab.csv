@@ -249,3 +249,503 @@ id,fr,pron,info,en,frSentence,enSentence,level,category,difficulty
 248,patron,patʀɔ̃,n.m. — patronne (f.),boss / employer,Mon patron est très exigeant.,My boss is very demanding.,A1,Work,2.5
 249,salaire,salɛʀ,n.m.,salary / wage,Mon salaire est versé le premier du mois.,My salary is paid on the first of the month.,A1,Work,2.5
 250,réservation,ʀezɛʀvasjɔ̃,n.f.,reservation / booking,J'ai fait une réservation pour deux personnes.,I made a reservation for two people.,A1,Travel,2.5
+251,donc,dɔ̃k,conj.,so / therefore,Il était fatigué donc il est parti tôt.,He was tired so he left early.,A1,General,2.5
+252,même,mɛm,adv./adj.,even / same,Même les enfants peuvent comprendre.,Even children can understand.,A1,General,2.5
+253,entre,ɑ̃tʀ,prep.,between / among,Le café est entre la boulangerie et la pharmacie.,The café is between the bakery and the pharmacy.,A1,General,2.5
+254,autre,otʀ,adj./pron.,other / another,Tu veux un autre café ?,Do you want another coffee?,A1,General,2.5
+255,toujours,tuʒuʀ,adv.,always / still,Elle est toujours en retard.,She is always late.,A1,General,2.5
+256,beaucoup,boku,adv.,a lot / many / much,Il y a beaucoup de monde dans ce restaurant.,There are a lot of people in this restaurant.,A1,General,2.5
+257,rien,ʀjɛ̃,pron.,nothing,Il n'y a rien dans le frigo.,There is nothing in the fridge.,A1,General,2.5
+258,plusieurs,plyzjœʀ,adj.,several,J'ai plusieurs questions à poser.,I have several questions to ask.,A1,General,2.5
+259,chaque,ʃak,adj.,each / every,Elle appelle sa mère chaque soir.,She calls her mother every evening.,A1,General,2.5
+260,quelque,kɛlkə,adj.,some / a few,J'ai besoin de quelque chose à manger.,I need something to eat.,A1,General,2.5
+261,selon,səlɔ̃,prep.,according to,Selon la météo il va pleuvoir.,According to the forecast it will rain.,A1,General,2.5
+262,pendant,pɑ̃dɑ̃,prep.,during / for,J'ai étudié pendant deux heures.,I studied for two hours.,A1,Time,2.5
+263,depuis,dəpɥi,prep.,since / for,Il habite ici depuis dix ans.,He has lived here for ten years.,A1,Time,2.5
+264,jusqu'à,ʒyska,prep.,until / up to,Le magasin est ouvert jusqu'à vingt heures.,The shop is open until eight o'clock.,A1,Time,2.5
+265,environ,ɑ̃viʀɔ̃,adv.,approximately / about,Il y a environ trente personnes.,There are approximately thirty people.,A1,General,2.5
+266,souvent,suvɑ̃,adv.,often,Je mange souvent au restaurant.,I often eat at a restaurant.,A1,General,2.5
+267,parfois,paʀfwa,adv.,sometimes,Parfois je prends le vélo pour aller au travail.,Sometimes I cycle to work.,A1,General,2.5
+268,jamais,ʒamɛ,adv.,never,Je ne mange jamais de viande rouge.,I never eat red meat.,A1,General,2.5
+269,tôt,to,adv.,early,Il faut partir tôt pour éviter les embouteillages.,We need to leave early to avoid traffic.,A1,Time,2.5
+270,tard,taʀ,adv.,late,Il est rentré tard hier soir.,He came home late last night.,A1,Time,2.5
+271,trop,tʀo,adv.,too / too much,Ce café est trop chaud.,This coffee is too hot.,A1,General,2.5
+272,assez,ase,adv.,enough / quite,Tu as assez dormi cette nuit ?,Did you sleep enough last night?,A1,General,2.5
+273,seulement,sølmɑ̃,adv.,only / just,Il reste seulement deux billets.,There are only two tickets left.,A1,General,2.5
+274,vraiment,vʀɛmɑ̃,adv.,really / truly,C'est vraiment délicieux !,This is really delicious!,A1,General,2.5
+275,peut-être,pøtɛtʀ,adv.,maybe / perhaps,Peut-être qu'il viendra demain.,Maybe he will come tomorrow.,A1,General,2.5
+276,alors que,alɔʀkə,conj.,while / whereas,Je travaille alors que tu te reposes.,I work while you rest.,A1,General,2.5
+277,parce que,paʀsəkə,conj.,because,Je suis fatigué parce que j'ai mal dormi.,I am tired because I slept badly.,A1,General,2.5
+278,quand même,kɑ̃mɛm,adv.,all the same / still,Il est venu quand même malgré la pluie.,He came all the same despite the rain.,A1,General,2.5
+279,n'importe,nɛ̃pɔʀt,pron.,any / whatever,Tu peux choisir n'importe quoi.,You can choose anything.,A1,General,2.5
+280,quelqu'un,kɛlkœ̃,pron.,someone,Quelqu'un a appelé pendant ton absence.,Someone called while you were away.,A1,General,2.5
+281,apprendre,apʀɑ̃dʀ,"v. — j'apprends, nous apprenons",to learn / to teach,J'apprends le français depuis six mois.,I have been learning French for six months.,A1,Verbs,2.5
+282,comprendre,kɔ̃pʀɑ̃dʀ,"v. — je comprends, nous comprenons",to understand,Tu comprends ce que je dis ?,Do you understand what I am saying?,A1,Verbs,2.5
+283,connaître,kɔnɛtʀ,"v. — je connais, nous connaissons",to know (a person/place),Tu connais Paris ?,Do you know Paris?,A1,Verbs,2.5
+284,croire,kʀwaʀ,"v. — je crois, nous croyons",to believe / to think,Je crois qu'il a raison.,I think he is right.,A1,Verbs,2.5
+285,devoir,dəvwaʀ,"v. — je dois, nous devons",to have to / must,Tu dois finir tes devoirs avant de sortir.,You must finish your homework before going out.,A1,Verbs,2.5
+286,falloir,falwaʀ,v. impers. — il faut,to be necessary / must,Il faut réserver à l'avance.,You must book in advance.,A1,Verbs,2.5
+287,mettre,mɛtʀ,"v. — je mets, nous mettons",to put / to place / to wear,Mets ton manteau il fait froid.,Put your coat on it's cold.,A1,Verbs,2.5
+288,montrer,mɔ̃tʀe,"v. — je montre, nous montrons",to show,Montre-moi ton passeport s'il vous plaît.,Show me your passport please.,A1,Verbs,2.5
+289,rentrer,ʀɑ̃tʀe,"v. — je rentre, nous rentrons",to go home / to return,Je rentre à la maison vers dix-neuf heures.,I go home at around seven o'clock.,A1,Verbs,2.5
+290,sortir,sɔʀtiʀ,"v. — je sors, nous sortons",to go out / to leave,On sort ce soir ?,Are we going out tonight?,A1,Verbs,2.5
+291,sentir,sɑ̃tiʀ,"v. — je sens, nous sentons",to smell / to feel,Ça sent bon ici !,It smells good here!,A1,Verbs,2.5
+292,tenir,təniʀ,"v. — je tiens, nous tenons",to hold / to keep,Tiens la porte s'il te plaît.,Hold the door please.,A1,Verbs,2.5
+293,vivre,vivʀ,"v. — je vis, nous vivons",to live,Il vit seul depuis deux ans.,He has been living alone for two years.,A1,Verbs,2.5
+294,penser,pɑ̃se,"v. — je pense, nous pensons",to think,Qu'est-ce que tu penses de ce film ?,What do you think of this film?,A1,Verbs,2.5
+295,décider,deside,"v. — je décide, nous décidons",to decide,On a décidé de partir en vacances en Espagne.,We decided to go on holiday in Spain.,A1,Verbs,2.5
+296,expliquer,ɛksplike,"v. — j'explique, nous expliquons",to explain,Peux-tu m'expliquer comment ça marche ?,Can you explain to me how it works?,A1,Verbs,2.5
+297,changer,ʃɑ̃ʒe,"v. — je change, nous changeons",to change,Les choses changent très vite.,Things change very quickly.,A1,Verbs,2.5
+298,utiliser,ytilize,"v. — j'utilise, nous utilisons",to use,Tu sais utiliser ce logiciel ?,Do you know how to use this software?,A1,Verbs,2.5
+299,chercher,ʃɛʀʃe,"v. — je cherche, nous cherchons",to look for / to search,Je cherche mon portefeuille.,I am looking for my wallet.,A1,Verbs,2.5
+300,aider,ede,"v. — j'aide, nous aidons",to help,Est-ce que je peux t'aider ?,Can I help you?,A1,Verbs,2.5
+301,permettre,pɛʀmɛtʀ,"v. — je permets, nous permettons",to allow / to permit,Ce billet permet d'entrer deux fois.,This ticket allows entry twice.,A1,Verbs,2.5
+302,rappeler,ʀaple,"v. — je rappelle, nous rappelons",to remind / to call back,Je te rappelle demain matin.,I will call you back tomorrow morning.,A1,Verbs,2.5
+303,sembler,sɑ̃ble,"v. — il semble, ça semble",to seem,Il semble fatigué aujourd'hui.,He seems tired today.,A1,Verbs,2.5
+304,suffire,syfiʀ,v. impers. — il suffit,to be enough / to suffice,Il suffit de demander.,You just need to ask.,A1,Verbs,2.5
+305,tourner,tuʀne,"v. — je tourne, nous tournons",to turn,Tournez à gauche au prochain carrefour.,Turn left at the next junction.,A1,Travel,2.5
+306,marcher,maʀʃe,"v. — je marche, nous marchons",to walk / to work (machine),Est-ce que le chauffage marche ?,Is the heating working?,A1,Verbs,2.5
+307,courir,kuʀiʀ,"v. — je cours, nous courons",to run,Il court dix kilomètres chaque matin.,He runs ten kilometres every morning.,A1,Verbs,2.5
+308,monter,mɔ̃te,"v. — je monte, nous montons",to go up / to climb,Monte dans ta chambre !,Go up to your room!,A1,Verbs,2.5
+309,descendre,desɑ̃dʀ,"v. — je descends, nous descendons",to go down / to get off,Je descends au prochain arrêt.,I am getting off at the next stop.,A1,Travel,2.5
+310,tomber,tɔ̃be,"v. — je tombe, nous tombons",to fall,Il est tombé dans l'escalier.,He fell on the stairs.,A1,Verbs,2.5
+311,appartement,apaʀtəmɑ̃,n.m.,apartment / flat,Mon appartement est au troisième étage.,My apartment is on the third floor.,A1,Home,2.5
+312,étage,etaʒ,n.m.,floor / storey,L'ascenseur est au premier étage.,The lift is on the first floor.,A1,Home,2.5
+313,escalier,ɛskalje,n.m.,staircase / stairs,Prenez l'escalier à droite.,Take the staircase on the right.,A1,Home,2.5
+314,couloir,kulwaʀ,n.m.,corridor / hallway,Le bureau est au fond du couloir.,The office is at the end of the corridor.,A1,Home,2.5
+315,salon,salɔ̃,n.m.,living room,Le salon est grand et lumineux.,The living room is large and bright.,A1,Home,2.5
+316,canapé,kanape,n.m.,sofa / couch,Le chat dort sur le canapé.,The cat is sleeping on the sofa.,A1,Home,2.5
+317,fauteuil,fotœj,n.m.,armchair,Grand-père lit dans son fauteuil.,Grandad reads in his armchair.,A1,Home,2.5
+318,tapis,tapi,n.m.,carpet / rug,Il y a un tapis rouge dans le salon.,There is a red rug in the living room.,A1,Home,2.5
+319,rideau,ʀido,n.m.,curtain,Ferme les rideaux s'il te plaît.,Close the curtains please.,A1,Home,2.5
+320,lampe,lɑ̃p,n.f.,lamp / light,Allume la lampe il fait sombre.,Turn on the lamp it is dark.,A1,Home,2.5
+321,clé,kle,n.f.,key,J'ai oublié ma clé dans la voiture.,I left my key in the car.,A1,Home,2.5
+322,ascenseur,asɑ̃sœʀ,n.m.,lift / elevator,L'ascenseur est en panne.,The lift is out of order.,A1,Home,2.5
+323,loyer,lwaje,n.m.,rent,Le loyer est de huit cents euros par mois.,The rent is eight hundred euros a month.,A1,Home,2.5
+324,voisin,vwazɛ̃,n.m. — voisine (f.),neighbour,Mon voisin fait beaucoup de bruit.,My neighbour makes a lot of noise.,A1,Home,2.5
+325,quartier,kaʀtje,n.m.,neighbourhood / district,C'est un quartier très agréable.,It is a very pleasant neighbourhood.,A1,Home,2.5
+326,immeuble,imœbl,n.m.,building / block of flats,Il habite dans un grand immeuble.,He lives in a large block of flats.,A1,Home,2.5
+327,déménager,demenɑʒe,"v. — je déménage, nous déménageons",to move house,On déménage le mois prochain.,We are moving house next month.,A1,Home,2.5
+328,habituer,abitɥe,"v. — je m'habitue, nous nous habituons",to get used to,Je m'habitue à ma nouvelle ville.,I am getting used to my new city.,A1,General,2.5
+329,restaurant,ʀɛstɔʀɑ̃,n.m.,restaurant,On va au restaurant ce soir ?,Shall we go to the restaurant tonight?,A1,Food & Drink,2.5
+330,menu,məny,n.m.,menu / set meal,Quel est le menu du jour ?,What is today's set menu?,A1,Food & Drink,2.5
+331,plat,pla,n.m.,dish / course / flat,Le plat du jour est le poulet rôti.,Today's dish is roast chicken.,A1,Food & Drink,2.5
+332,entrée,ɑ̃tʀe,n.f.,starter / entrance,Comme entrée je prends la soupe.,For starter I will have the soup.,A1,Food & Drink,2.5
+333,dessert,desɛʀ,n.m.,dessert,Qu'est-ce que vous avez comme dessert ?,What do you have for dessert?,A1,Food & Drink,2.5
+334,addition,adisjɔ̃,n.f.,bill / check (restaurant),L'addition s'il vous plaît ?,The bill please?,A1,Food & Drink,2.5
+335,réserver,ʀezɛʀve,"v. — je réserve, nous réservons",to reserve / to book,J'ai réservé une table pour deux personnes.,I have booked a table for two.,A1,Food & Drink,2.5
+336,commander,kɔmɑ̃de,"v. — je commande, nous commandons",to order,Vous êtes prêts à commander ?,Are you ready to order?,A1,Food & Drink,2.5
+337,goûter,ɡute,"v. — je goûte, nous goûtons",to taste / to try,Tu veux goûter mon plat ?,Do you want to taste my dish?,A1,Food & Drink,2.5
+338,recette,ʀəsɛt,n.f.,recipe,C'est une vieille recette de ma grand-mère.,It is an old recipe from my grandmother.,A1,Food & Drink,2.5
+339,ingrédient,ɛ̃ɡʀedjɑ̃,n.m.,ingredient,Il me manque un ingrédient pour cette recette.,I am missing one ingredient for this recipe.,A1,Food & Drink,2.5
+340,cuisine,kɥizin,n.f.,cooking / cuisine,J'adore la cuisine italienne.,I love Italian cuisine.,A1,Food & Drink,2.5
+341,poulet,pulɛ,n.m.,chicken,Le poulet rôti est mon plat préféré.,Roast chicken is my favourite dish.,A1,Food & Drink,2.5
+342,bœuf,bœf,n.m.,beef / ox,Je voudrais un steak de bœuf s'il vous plaît.,I would like a beef steak please.,A1,Food & Drink,2.5
+343,porc,pɔʀ,n.m.,pork,En France on mange beaucoup de porc.,In France a lot of pork is eaten.,A1,Food & Drink,2.5
+344,salade,salad,n.f.,salad / lettuce,Je prends une salade verte s'il vous plaît.,I will have a green salad please.,A1,Food & Drink,2.5
+345,soupe,sup,n.f.,soup,La soupe à l'oignon est un classique français.,Onion soup is a French classic.,A1,Food & Drink,2.5
+346,riz,ʀi,n.m.,rice,Le riz est la base de beaucoup de plats asiatiques.,Rice is the basis of many Asian dishes.,A1,Food & Drink,2.5
+347,pâtes,pɑt,n.f.pl.,pasta,Les pâtes à la carbonara sont délicieuses.,Pasta carbonara is delicious.,A1,Food & Drink,2.5
+348,sucre,sykʀ,n.m.,sugar,Tu veux du sucre dans ton café ?,Do you want sugar in your coffee?,A1,Food & Drink,2.5
+349,sel,sɛl,n.m.,salt,Passe-moi le sel s'il te plaît.,Pass me the salt please.,A1,Food & Drink,2.5
+350,huile,ɥil,n.f.,oil,J'utilise de l'huile d'olive pour cuisiner.,I use olive oil for cooking.,A1,Food & Drink,2.5
+351,bureau de poste,byʀo də pɔst,n.m.,post office,Le bureau de poste est fermé le dimanche.,The post office is closed on Sundays.,A1,Travel,2.5
+352,pharmacie,faʀmasi,n.f.,pharmacy / chemist,Il y a une pharmacie au coin de la rue.,There is a pharmacy on the corner of the street.,A1,Body & Health,2.5
+353,banque,bɑ̃k,n.f.,bank,Je dois aller à la banque retirer de l'argent.,I need to go to the bank to withdraw money.,A1,Shopping,2.5
+354,mairie,mɛʀi,n.f.,town hall / city hall,Le bureau d'état civil est à la mairie.,The registry office is at the town hall.,A1,Travel,2.5
+355,bibliothèque,biblijɔtɛk,n.f.,library,Je vais à la bibliothèque emprunter des livres.,I am going to the library to borrow books.,A1,General,2.5
+356,musée,myze,n.m.,museum,Le musée est gratuit le premier dimanche du mois.,The museum is free on the first Sunday of the month.,A1,Travel,2.5
+357,église,eɡliz,n.f.,church,L'église date du douzième siècle.,The church dates from the twelfth century.,A1,Travel,2.5
+358,parc,paʀk,n.m.,park,Les enfants jouent au parc après l'école.,The children play in the park after school.,A1,Nature,2.5
+359,pont,pɔ̃,n.m.,bridge,Le pont sur la rivière est très ancien.,The bridge over the river is very old.,A1,Travel,2.5
+360,place,plas,n.f.,square / place / seat,On se retrouve sur la place du marché ?,Shall we meet at the market square?,A1,Travel,2.5
+361,carrefour,kaʀfuʀ,n.m.,crossroads / junction,Tournez à droite au carrefour.,Turn right at the crossroads.,A1,Travel,2.5
+362,direction,diʀɛksjɔ̃,n.f.,direction,Dans quelle direction se trouve la gare ?,In which direction is the train station?,A1,Travel,2.5
+363,plan,plɑ̃,n.m.,map / plan,Avez-vous un plan de la ville ?,Do you have a map of the city?,A1,Travel,2.5
+364,correspondance,kɔʀɛspɔ̃dɑ̃s,n.f.,connection / transfer (transport),J'ai une correspondance à Lyon.,I have a connection in Lyon.,A1,Travel,2.5
+365,aller-retour,aleʀətuʀ,n.m.,return ticket,Un aller-retour Paris-Bordeaux s'il vous plaît.,A return ticket Paris-Bordeaux please.,A1,Travel,2.5
+366,aller simple,ale sɛ̃pl,n.m.,one-way ticket,Un aller simple pour Nice s'il vous plaît.,A one-way ticket to Nice please.,A1,Travel,2.5
+367,quai,kɛ,n.m.,platform / quay,Le train part du quai numéro cinq.,The train leaves from platform five.,A1,Travel,2.5
+368,retard,ʀətaʀ,n.m.,delay / lateness,Le train a vingt minutes de retard.,The train is twenty minutes late.,A1,Travel,2.5
+369,horaire,ɔʀɛʀ,n.m.,timetable / schedule,Consulte les horaires sur le site.,Check the timetables on the website.,A1,Travel,2.5
+370,passeport,paspɔʀ,n.m.,passport,N'oublie pas ton passeport !,Don't forget your passport!,A1,Travel,2.5
+371,valise,valizs,n.f.,suitcase,Ma valise est trop lourde.,My suitcase is too heavy.,A1,Travel,2.5
+372,douane,dwan,n.f.,customs,Ils ont été contrôlés à la douane.,They were checked at customs.,A1,Travel,2.5
+373,vol,vɔl,n.m.,flight / theft,Mon vol est à quatorze heures.,My flight is at two o'clock.,A1,Travel,2.5
+374,décollage,dekɔlaʒ,n.m.,takeoff,Le décollage est prévu à l'heure.,The takeoff is scheduled on time.,A1,Travel,2.5
+375,atterrissage,ateʀisaʒ,n.m.,landing,L'atterrissage a été très doux.,The landing was very smooth.,A1,Travel,2.5
+376,ordonnance,ɔʀdɔnɑ̃s,n.f.,prescription,Le médecin m'a donné une ordonnance.,The doctor gave me a prescription.,A1,Body & Health,2.5
+377,blessure,blɛsyʀ,n.f.,injury / wound,Sa blessure n'est pas grave.,His injury is not serious.,A1,Body & Health,2.5
+378,fièvre,fjɛvʀ,n.f.,fever / temperature,L'enfant a de la fièvre.,The child has a temperature.,A1,Body & Health,2.5
+379,toux,tu,n.f.,cough,J'ai une toux depuis une semaine.,I have had a cough for a week.,A1,Body & Health,2.5
+380,rhume,ʀym,n.m.,cold (illness),J'ai attrapé un rhume.,I have caught a cold.,A1,Body & Health,2.5
+381,allergie,alɛʀʒi,n.f.,allergy,Je suis allergique aux arachides.,I am allergic to peanuts.,A1,Body & Health,2.5
+382,rendez-vous,ʀɑ̃devu,n.m.,appointment / date,J'ai un rendez-vous chez le dentiste.,I have an appointment at the dentist.,A1,Body & Health,2.5
+383,infirmier,ɛ̃fiʀmje,n.m. — infirmière (f.),nurse,L'infirmière m'a pris la tension.,The nurse took my blood pressure.,A1,Body & Health,2.5
+384,dos,do,n.m.,back,J'ai mal au dos depuis ce matin.,I have had back pain since this morning.,A1,Body & Health,2.5
+385,genou,ʒənu,n.m.,knee,Je me suis fait mal au genou en courant.,I hurt my knee while running.,A1,Body & Health,2.5
+386,bras,bʀɑ,n.m.,arm,Elle s'est cassé le bras en tombant.,She broke her arm when she fell.,A1,Body & Health,2.5
+387,jambe,ʒɑ̃b,n.f.,leg,Il a une jambe dans le plâtre.,He has one leg in plaster.,A1,Body & Health,2.5
+388,dent,dɑ̃,n.f.,tooth,J'ai mal aux dents depuis hier.,I have had toothache since yesterday.,A1,Body & Health,2.5
+389,oreille,ɔʀɛj,n.f.,ear,J'ai une infection à l'oreille.,I have an ear infection.,A1,Body & Health,2.5
+390,nez,ne,n.m.,nose,Il a le nez bouché.,He has a blocked nose.,A1,Body & Health,2.5
+391,cœur,kœʀ,n.m.,heart,Il a des problèmes de cœur.,He has heart problems.,A1,Body & Health,2.5
+392,estomac,ɛstɔma,n.m.,stomach,J'ai mal à l'estomac.,I have a stomach ache.,A1,Body & Health,2.5
+393,sang,sɑ̃,n.m.,blood,Le médecin m'a fait une prise de sang.,The doctor took a blood sample.,A1,Body & Health,2.5
+394,opération,ɔpeʀasjɔ̃,n.f.,operation / surgery,L'opération a duré trois heures.,The operation lasted three hours.,A1,Body & Health,2.5
+395,urgence,yʀʒɑ̃s,n.f.,emergency,Il faut appeler les urgences !,We need to call emergency services!,A1,Body & Health,2.5
+396,ceinture,sɛ̃tyʀ,n.f.,belt / seatbelt,Attache ta ceinture de sécurité.,Put on your seatbelt.,A1,Travel,2.5
+397,embouteillage,ɑ̃butɛjaʒ,n.m.,traffic jam,Il y a un gros embouteillage sur l'autoroute.,There is a big traffic jam on the motorway.,A1,Travel,2.5
+398,autoroute,otoʀut,n.f.,motorway / highway,L'autoroute est payante en France.,The motorway is toll-paying in France.,A1,Travel,2.5
+399,panneau,pano,n.m.,sign / signpost,Regarde le panneau de direction.,Look at the signpost.,A1,Travel,2.5
+400,stationner,stasjɔne,"v. — je stationne, nous stationnons",to park,Il est interdit de stationner ici.,It is forbidden to park here.,A1,Travel,2.5
+401,grand-père,ɡʀɑ̃pɛʀ,n.m.,grandfather,Mon grand-père a quatre-vingts ans.,My grandfather is eighty years old.,A1,Family,2.5
+402,grand-mère,ɡʀɑ̃mɛʀ,n.f.,grandmother,Ma grand-mère fait les meilleurs gâteaux.,My grandmother makes the best cakes.,A1,Family,2.5
+403,oncle,ɔ̃kl,n.m.,uncle,Mon oncle habite au Canada.,My uncle lives in Canada.,A1,Family,2.5
+404,tante,tɑ̃t,n.f.,aunt,Ma tante est médecin.,My aunt is a doctor.,A1,Family,2.5
+405,cousin,kuzɛ̃,n.m. — cousine (f.),cousin,J'ai un cousin qui joue au tennis.,I have a cousin who plays tennis.,A1,Family,2.5
+406,neveu,nəvø,n.m. — nièce (f.),nephew / niece,Ma nièce a deux ans.,My niece is two years old.,A1,Family,2.5
+407,épouse,epuz,n.f.,wife / spouse,Son épouse est architecte.,His wife is an architect.,A1,Family,2.5
+408,fiancé,fjɑ̃se,n.m. — fiancée (f.),fiancé / fiancée,Ils se sont fiancés le mois dernier.,They got engaged last month.,A1,Family,2.5
+409,célibataire,selibatɛʀ,adj./n.,single / unmarried,Il est célibataire depuis deux ans.,He has been single for two years.,A1,Family,2.5
+410,marié,maʀje,adj. — mariée (f.),married,Ils sont mariés depuis vingt ans.,They have been married for twenty years.,A1,Family,2.5
+411,divorcé,divɔʀse,adj. — divorcée (f.),divorced,Ses parents sont divorcés.,Her parents are divorced.,A1,Family,2.5
+412,naissance,nɛsɑ̃s,n.f.,birth,Quelle est ta date de naissance ?,What is your date of birth?,A1,Family,2.5
+413,mariage,maʀjaʒ,n.m.,marriage / wedding,Le mariage aura lieu en juin.,The wedding will take place in June.,A1,Family,2.5
+414,fête,fɛt,n.f.,party / celebration / holiday,C'est la fête nationale aujourd'hui.,It is the national holiday today.,A1,General,2.5
+415,cadeau,kado,n.m.,gift / present,J'ai acheté un cadeau pour son anniversaire.,I bought a present for his birthday.,A1,General,2.5
+416,anniversaire,anivɛʀsɛʀ,n.m.,birthday / anniversary,Bon anniversaire !,Happy birthday!,A1,General,2.5
+417,invitation,ɛ̃vitasjɔ̃,n.f.,invitation,J'ai reçu une invitation à son mariage.,I received an invitation to his wedding.,A1,General,2.5
+418,remercier,ʀəmɛʀsje,"v. — je remercie, nous remercions",to thank,Je voudrais vous remercier pour votre aide.,I would like to thank you for your help.,A1,Greetings,2.5
+419,féliciter,felisite,"v. — je félicite, nous félicitons",to congratulate,Je vous félicite pour votre succès !,I congratulate you on your success!,A1,Greetings,2.5
+420,excuser,ɛkskyze,"v. — je m'excuse, nous nous excusons",to apologise / to excuse,Je m'excuse pour le retard.,I apologise for the delay.,A1,Greetings,2.5
+421,accueillir,akœjiʀ,"v. — j'accueille, nous accueillons",to welcome / to greet,Ils nous ont très bien accueillis.,They welcomed us very warmly.,A1,Greetings,2.5
+422,bonne nuit,bɔn nɥi,-,good night,Bonne nuit dors bien !,Good night sleep well!,A1,Greetings,2.5
+423,bonne journée,bɔn ʒuʀne,-,have a good day,Bonne journée à toi !,Have a good day!,A1,Greetings,2.5
+424,bonsoir,bɔ̃swaʀ,-,good evening,Bonsoir tout le monde !,Good evening everyone!,A1,Greetings,2.5
+425,enchanté,ɑ̃ʃɑ̃te,adj. — enchantée (f.),pleased to meet you,Enchanté de vous rencontrer.,Pleased to meet you.,A1,Greetings,2.5
+426,agréable,aɡʀeabl,adj.,pleasant / enjoyable,C'est une personne très agréable.,She is a very pleasant person.,A1,Adjectives,2.5
+427,difficile,difisil,adj.,difficult / hard,Cet examen était très difficile.,This exam was very difficult.,A1,Adjectives,2.5
+428,facile,fasil,adj.,easy / simple,C'est plus facile que je pensais.,It is easier than I thought.,A1,Adjectives,2.5
+429,important,ɛ̃pɔʀtɑ̃,adj. — importante (f.),important,C'est une décision très importante.,It is a very important decision.,A1,Adjectives,2.5
+430,intéressant,ɛ̃teʀɛsɑ̃,adj. — intéressante (f.),interesting,Ce livre est vraiment intéressant.,This book is really interesting.,A1,Adjectives,2.5
+431,différent,difɛʀɑ̃,adj. — différente (f.),different,Les deux cultures sont très différentes.,The two cultures are very different.,A1,Adjectives,2.5
+432,possible,pɔsibl,adj.,possible,Est-ce que c'est possible de changer la date ?,Is it possible to change the date?,A1,Adjectives,2.5
+433,nécessaire,nesesɛʀ,adj.,necessary,Il n'est pas nécessaire de réserver.,It is not necessary to book.,A1,Adjectives,2.5
+434,propre,pʀɔpʀ,adj.,clean / own,Garde ta chambre propre s'il te plaît.,Keep your room clean please.,A1,Adjectives,2.5
+435,sale,sal,adj.,dirty,Ses chaussures sont très sales.,His shoes are very dirty.,A1,Adjectives,2.5
+436,chaud,ʃo,adj. — chaude (f.),hot / warm,L'eau est trop chaude.,The water is too hot.,A1,Adjectives,2.5
+437,froid,fʀwa,adj. — froide (f.),cold,Il fait très froid ce matin.,It is very cold this morning.,A1,Adjectives,2.5
+438,vieux,vjø,"adj. — vieille (f.), vieux (m.pl.)",old (thing/person),Cette église est très vieille.,This church is very old.,A1,Adjectives,2.5
+439,jeune,ʒœn,adj.,young,Elle est très jeune pour ce poste.,She is very young for this position.,A1,Adjectives,2.5
+440,fort,fɔʀ,adj. — forte (f.),strong / loud / good at,Il est fort en mathématiques.,He is good at mathematics.,A1,Adjectives,2.5
+441,faible,fɛbl,adj.,weak / faint,Il se sent faible après sa maladie.,He feels weak after his illness.,A1,Adjectives,2.5
+442,rapide,ʀapid,adj.,fast / quick,Le TGV est un train très rapide.,The TGV is a very fast train.,A1,Adjectives,2.5
+443,lent,lɑ̃,adj. — lente (f.),slow,La connexion internet est très lente.,The internet connection is very slow.,A1,Adjectives,2.5
+444,lourd,luʀ,adj. — lourde (f.),heavy,Ce sac est trop lourd.,This bag is too heavy.,A1,Adjectives,2.5
+445,léger,leʒe,adj. — légère (f.),light (weight),Ce manteau est léger mais chaud.,This coat is light but warm.,A1,Adjectives,2.5
+446,long,lɔ̃,adj. — longue (f.),long,C'est un long chemin jusqu'à la ville.,It is a long way to the town.,A1,Adjectives,2.5
+447,court,kuʀ,adj. — courte (f.),short,Elle a les cheveux courts.,She has short hair.,A1,Adjectives,2.5
+448,large,laʀʒ,adj.,wide / broad,La rue principale est très large.,The main street is very wide.,A1,Adjectives,2.5
+449,étroit,etʀwa,adj. — étroite (f.),narrow,Le couloir est trop étroit.,The corridor is too narrow.,A1,Adjectives,2.5
+450,plein,plɛ̃,adj. — pleine (f.),full,Le train est plein ce matin.,The train is full this morning.,A1,Adjectives,2.5
+451,vide,vid,adj.,empty,Le frigo est complètement vide.,The fridge is completely empty.,A1,Adjectives,2.5
+452,ouvert,uvɛʀ,adj. — ouverte (f.),open,Le magasin est ouvert le dimanche.,The shop is open on Sundays.,A1,Adjectives,2.5
+453,fermé,fɛʀme,adj. — fermée (f.),closed / shut,La pharmacie est fermée aujourd'hui.,The pharmacy is closed today.,A1,Adjectives,2.5
+454,libre,libʀ,adj.,free / available,Est-ce que cette place est libre ?,Is this seat free?,A1,Adjectives,2.5
+455,occupé,ɔkype,adj. — occupée (f.),busy / occupied,Désolé je suis très occupé en ce moment.,Sorry I am very busy at the moment.,A1,Adjectives,2.5
+456,forêt,fɔʀɛ,n.f.,forest,On a fait une promenade dans la forêt.,We went for a walk in the forest.,A1,Nature,2.5
+457,rivière,ʀivjɛʀ,n.f.,river,La rivière traverse le village.,The river flows through the village.,A1,Nature,2.5
+458,lac,lak,n.m.,lake,On peut se baigner dans ce lac.,You can swim in this lake.,A1,Nature,2.5
+459,île,il,n.f.,island,La Corse est une île magnifique.,Corsica is a beautiful island.,A1,Nature,2.5
+460,colline,kɔlin,n.f.,hill,Le château est sur la colline.,The castle is on the hill.,A1,Nature,2.5
+461,vallée,vale,n.f.,valley,La vallée est couverte de vignes.,The valley is covered with vineyards.,A1,Nature,2.5
+462,désert,dezɛʀ,n.m.,desert,Le Sahara est le plus grand désert du monde.,The Sahara is the largest desert in the world.,A1,Nature,2.5
+463,ciel,sjɛl,n.m.,sky,Le ciel est dégagé aujourd'hui.,The sky is clear today.,A1,Nature,2.5
+464,nuage,nɥaʒ,n.m.,cloud,Il y a des nuages à l'horizon.,There are clouds on the horizon.,A1,Nature,2.5
+465,vent,vɑ̃,n.m.,wind,Il y a beaucoup de vent aujourd'hui.,It is very windy today.,A1,Nature,2.5
+466,orage,ɔʀaʒ,n.m.,storm / thunderstorm,Un orage éclate ce soir.,A storm is breaking out tonight.,A1,Nature,2.5
+467,tonnerre,tɔnɛʀ,n.m.,thunder,Le tonnerre a réveillé les enfants.,The thunder woke up the children.,A1,Nature,2.5
+468,éclair,eklɛʀ,n.m.,lightning / éclair,Les éclairs illuminaient le ciel.,The lightning lit up the sky.,A1,Nature,2.5
+469,brouillard,bʀujaʀ,n.m.,fog / mist,Il y a du brouillard ce matin.,There is fog this morning.,A1,Nature,2.5
+470,sauvage,sovaʒ,adj.,wild / untamed,On a vu des animaux sauvages.,We saw wild animals.,A1,Nature,2.5
+471,profession,pʀɔfesjɔ̃,n.f.,profession / occupation,Quelle est votre profession ?,What is your profession?,A1,Work,2.5
+472,ingénieur,ɛ̃ʒenjœʀ,n.m./f.,engineer,Elle est ingénieure dans une grande entreprise.,She is an engineer in a large company.,A1,Work,2.5
+473,avocat,avɔka,n.m. — avocate (f.),lawyer,Mon frère est avocat.,My brother is a lawyer.,A1,Work,2.5
+474,professeur,pʀɔfesœʀ,n.m./f.,teacher / professor,Ma mère est professeur de français.,My mother is a French teacher.,A1,Work,2.5
+475,comptable,kɔ̃tabl,n.m./f.,accountant,Notre comptable vérifie les comptes.,Our accountant checks the accounts.,A1,Work,2.5
+476,directeur,diʀɛktœʀ,n.m. — directrice (f.),director / manager,Le directeur est en réunion.,The director is in a meeting.,A1,Work,2.5
+477,employé,ɑ̃plwaje,n.m. — employée (f.),employee,Les employés travaillent huit heures par jour.,The employees work eight hours a day.,A1,Work,2.5
+478,entreprise,ɑ̃tʀəpʀiz,n.f.,company / business,Il travaille dans une grande entreprise.,He works in a large company.,A1,Work,2.5
+479,contrat,kɔ̃tʀa,n.m.,contract,J'ai signé mon contrat de travail.,I signed my employment contract.,A1,Work,2.5
+480,entretien,ɑ̃tʀətjɛ̃,n.m.,interview / maintenance,J'ai un entretien d'embauche demain.,I have a job interview tomorrow.,A1,Work,2.5
+481,candidat,kɑ̃dida,n.m. — candidate (f.),candidate / applicant,Il y a vingt candidats pour ce poste.,There are twenty applicants for this position.,A1,Work,2.5
+482,poste,pɔst,n.m.,post / position / job,J'ai obtenu un nouveau poste.,I got a new position.,A1,Work,2.5
+483,stage,staʒ,n.m.,internship / training,Je fais un stage dans une banque.,I am doing an internship at a bank.,A1,Work,2.5
+484,formation,fɔʀmasjɔ̃,n.f.,training / education,J'ai suivi une formation en informatique.,I completed a training course in IT.,A1,Work,2.5
+485,retraite,ʀətʀɛt,n.f.,retirement / pension,Il part à la retraite l'année prochaine.,He is retiring next year.,A1,Work,2.5
+486,chômage,ʃomaʒ,n.m.,unemployment,Le taux de chômage a baissé.,The unemployment rate has fallen.,A1,Work,2.5
+487,syndicat,sɛ̃dika,n.m.,trade union,Il est membre d'un syndicat.,He is a member of a trade union.,A1,Work,2.5
+488,grève,ɡʀɛv,n.f.,strike,Les transports sont en grève demain.,Transport is on strike tomorrow.,A1,Work,2.5
+489,récompense,ʀekɔ̃pɑ̃s,n.f.,reward,Il a reçu une récompense pour son travail.,He received a reward for his work.,A1,Work,2.5
+490,promotion,pʀɔmosjɔ̃,n.f.,promotion / offer,Elle a obtenu une promotion.,She got a promotion.,A1,Work,2.5
+491,orange,ɔʀɑ̃ʒ,adj.,orange,Le coucher de soleil est orange et rouge.,The sunset is orange and red.,A1,Colors,2.5
+492,rose,ʀoz,adj.,pink,Elle porte une robe rose.,She is wearing a pink dress.,A1,Colors,2.5
+493,violet,vjɔlɛ,adj. — violette (f.),purple / violet,Les lavandes sont violettes.,The lavender is purple.,A1,Colors,2.5
+494,gris,ɡʀi,adj. — grise (f.),grey,Le ciel est gris et nuageux.,The sky is grey and cloudy.,A1,Colors,2.5
+495,marron,maʀɔ̃,adj.,brown,Il a les cheveux marron.,He has brown hair.,A1,Colors,2.5
+496,trente,tʀɑ̃t,adj. num.,thirty,Il a trente ans.,He is thirty years old.,A1,Numbers,2.5
+497,quarante,kaʀɑ̃t,adj. num.,forty,Il y a quarante élèves dans la classe.,There are forty pupils in the class.,A1,Numbers,2.5
+498,cinquante,sɛ̃kɑ̃t,adj. num.,fifty,L'hôtel coûte cinquante euros la nuit.,The hotel costs fifty euros a night.,A1,Numbers,2.5
+499,soixante,swasɑ̃t,adj. num.,sixty,Ma grand-mère a soixante ans.,My grandmother is sixty years old.,A1,Numbers,2.5
+500,mille,mil,adj. num.,one thousand,Il y a mille personnes au concert.,There are a thousand people at the concert.,A1,Numbers,2.5
+501,aborder,abɔʀde,"v. — j'aborde, nous abordons",to approach / to tackle,Il faut aborder ce problème avec calme.,We need to tackle this problem calmly.,A1,General,2.5
+502,aboutir,abutiʀ,"v. — j'aboutis, nous aboutissons",to lead to / to result in,Les négociations ont abouti à un accord.,The negotiations led to an agreement.,A1,Work,2.5
+503,accorder,akɔʀde,"v. — j'accorde, nous accordons",to grant / to agree,Le directeur lui a accordé une promotion.,The director granted him a promotion.,A1,Work,2.5
+504,accroître,akʀwatʀ,"v. — j'accrois, nous accroissons",to increase / to grow,L'entreprise cherche à accroître ses bénéfices.,The company seeks to increase its profits.,A1,Work,2.5
+505,acquérir,akeʀiʀ,"v. — j'acquiers, nous acquérons",to acquire / to gain,Elle a acquis une solide expérience professionnelle.,She has gained solid professional experience.,A1,Work,2.5
+506,admettre,admɛtʀ,"v. — j'admets, nous admettons",to admit / to acknowledge,Il a finalement admis son erreur.,He finally admitted his mistake.,A1,General,2.5
+507,affirmer,afiʀme,"v. — j'affirme, nous affirmons",to assert / to claim,Il affirme qu'il était chez lui ce soir-là.,He claims he was at home that evening.,A1,General,2.5
+508,agir,aʒiʀ,"v. — j'agis, nous agissons",to act / to take action,Il faut agir rapidement face à cette situation.,We must act quickly in this situation.,A1,General,2.5
+509,analyser,analize,"v. — j'analyse, nous analysons",to analyse,Les chercheurs ont analysé les données.,The researchers analysed the data.,A1,Work,2.5
+510,annoncer,anɔ̃se,"v. — j'annonce, nous annonçons",to announce,Le gouvernement a annoncé de nouvelles mesures.,The government announced new measures.,A1,General,2.5
+511,apercevoir,apɛʀsəvwaʀ,"v. — j'aperçois, nous apercevons",to notice / to catch sight of,J'ai aperçu mon ancien professeur dans la rue.,I caught sight of my former teacher in the street.,A1,General,2.5
+512,appartenir,apaʀtəniʀ,"v. — j'appartiens, nous appartenons",to belong to,Ce livre appartient à la bibliothèque.,This book belongs to the library.,A1,General,2.5
+513,approfondir,apʀɔfɔ̃diʀ,"v. — j'approfondis, nous approfondissons",to deepen / to develop further,Il faut approfondir nos connaissances en informatique.,We need to deepen our knowledge of IT.,A1,General,2.5
+514,aspirer,aspiʀe,"v. — j'aspire, nous aspirons",to aspire / to aim for,Elle aspire à devenir chef d'entreprise.,She aspires to become a business leader.,A1,Emotions,2.5
+515,assister,asiste,"v. — j'assiste, nous assistons",to attend / to assist,J'ai assisté à une conférence très intéressante.,I attended a very interesting conference.,A1,Work,2.5
+516,atteindre,atɛ̃dʀ,"v. — j'atteins, nous atteignons",to reach / to achieve,Elle a atteint son objectif après deux ans.,She reached her goal after two years.,A1,General,2.5
+517,augmenter,oɡmɑ̃te,"v. — j'augmente, nous augmentons",to increase / to rise,Les prix ont augmenté de cinq pour cent.,Prices have risen by five per cent.,A1,General,2.5
+518,avouer,avwe,"v. — j'avoue, nous avouons",to confess / to admit,Il a avoué qu'il ne comprenait pas.,He admitted that he did not understand.,A1,General,2.5
+519,baisser,bɛse,"v. — je baisse, nous baissons",to lower / to drop / to decrease,La température a baissé cette nuit.,The temperature dropped last night.,A1,General,2.5
+520,bénéficier,benefisje,"v. — je bénéficie, nous bénéficions",to benefit from,Les employés bénéficient d'une mutuelle.,The employees benefit from health insurance.,A1,Work,2.5
+521,caractériser,kaʀakteʀize,"v. — je caractérise, nous caractérisons",to characterise,Ce style se caractérise par sa simplicité.,This style is characterised by its simplicity.,A1,General,2.5
+522,comparer,kɔ̃paʀe,"v. — je compare, nous comparons",to compare,Il est difficile de comparer ces deux approches.,It is difficult to compare these two approaches.,A1,General,2.5
+523,compléter,kɔ̃plete,"v. — je complète, nous complétons",to complete / to fill in,Veuillez compléter ce formulaire.,Please fill in this form.,A1,Work,2.5
+524,composer,kɔ̃poze,"v. — je compose, nous composons",to compose / to make up,La commission est composée de dix membres.,The committee is made up of ten members.,A1,General,2.5
+525,concevoir,kɔ̃səvwaʀ,"v. — je conçois, nous concevons",to design / to conceive,L'architecte a conçu un bâtiment moderne.,The architect designed a modern building.,A1,Work,2.5
+526,conclure,kɔ̃klyʀ,"v. — je conclus, nous concluons",to conclude,On peut conclure que les résultats sont positifs.,We can conclude that the results are positive.,A1,General,2.5
+527,confirmer,kɔ̃fiʀme,"v. — je confirme, nous confirmons",to confirm,Pouvez-vous confirmer votre réservation ?,Can you confirm your reservation?,A1,General,2.5
+528,confronter,kɔ̃fʀɔ̃te,"v. — je confronte, nous confrontons",to confront / to face,Il faut confronter les différents points de vue.,We need to confront the different points of view.,A1,General,2.5
+529,consacrer,kɔ̃sakʀe,"v. — je consacre, nous consacrons",to devote / to dedicate,Il consacre beaucoup de temps à sa famille.,He devotes a lot of time to his family.,A1,General,2.5
+530,considérer,kɔ̃sideʀe,"v. — je considère, nous considérons",to consider / to regard,Je considère cette décision comme importante.,I consider this decision to be important.,A1,General,2.5
+531,constater,kɔ̃state,"v. — je constate, nous constatons",to note / to observe,On constate une amélioration des résultats.,We note an improvement in results.,A1,General,2.5
+532,construire,kɔ̃stʀɥiʀ,"v. — je construis, nous construisons",to build / to construct,Ils construisent un nouveau quartier.,They are building a new district.,A1,General,2.5
+533,contenir,kɔ̃təniʀ,"v. — je contiens, nous contenons",to contain,Ce document contient des informations confidentielles.,This document contains confidential information.,A1,General,2.5
+534,contribuer,kɔ̃tʀibɥe,"v. — je contribue, nous contribuons",to contribute,Chacun peut contribuer au succès du projet.,Everyone can contribute to the success of the project.,A1,Work,2.5
+535,convaincre,kɔ̃vɛ̃kʀ,"v. — je convaincs, nous convainquons",to convince / to persuade,Il a réussi à convaincre ses collègues.,He managed to convince his colleagues.,A1,General,2.5
+536,correspondre,kɔʀɛspɔ̃dʀ,"v. — je corresponds, nous correspondons",to correspond / to match,Ce poste correspond à mon profil.,This position matches my profile.,A1,Work,2.5
+537,créer,kʀee,"v. — je crée, nous créons",to create,Elle a créé sa propre entreprise.,She created her own company.,A1,Work,2.5
+538,critiquer,kʀitike,"v. — je critique, nous critiquons",to criticise,Il ne faut pas critiquer sans proposer de solutions.,You should not criticise without proposing solutions.,A1,General,2.5
+539,dépasser,depase,"v. — je dépasse, nous dépassons",to exceed / to overtake / to go beyond,Le projet a dépassé le budget prévu.,The project exceeded the planned budget.,A1,Work,2.5
+540,décrire,dekʀiʀ,"v. — je décris, nous décrivons",to describe,Pouvez-vous décrire le problème ?,Can you describe the problem?,A1,General,2.5
+541,définir,definiʀ,"v. — je définis, nous définissons",to define,Il faut définir clairement les objectifs.,We need to clearly define the objectives.,A1,General,2.5
+542,démontrer,demɔ̃tʀe,"v. — je démontre, nous démontrons",to demonstrate / to prove,Cette étude démontre l'efficacité du traitement.,This study demonstrates the effectiveness of the treatment.,A1,General,2.5
+543,dépendre,depɑ̃dʀ,"v. — je dépends, nous dépendons",to depend on,Cela dépend de la situation.,It depends on the situation.,A1,General,2.5
+544,développer,devlɔpe,"v. — je développe, nous développons",to develop,L'entreprise souhaite développer de nouveaux marchés.,The company wishes to develop new markets.,A1,Work,2.5
+545,discuter,diskyte,"v. — je discute, nous discutons",to discuss,Nous avons discuté pendant des heures.,We discussed for hours.,A1,General,2.5
+546,disposer,dispoze,"v. — je dispose, nous disposons",to have available / to dispose of,Nous disposons de tous les outils nécessaires.,We have all the necessary tools available.,A1,General,2.5
+547,distinguer,distɛ̃ɡe,"v. — je distingue, nous distinguons",to distinguish,Il est important de distinguer les deux concepts.,It is important to distinguish between the two concepts.,A1,General,2.5
+548,douter,dute,"v. — je doute, nous doutons",to doubt,Je doute que cette solution soit efficace.,I doubt that this solution is effective.,A1,General,2.5
+549,échouer,eʃwe,"v. — j'échoue, nous échouons",to fail,Il a échoué à son examen mais ne se décourage pas.,He failed his exam but is not discouraged.,A1,General,2.5
+550,effectuer,efɛktɥe,"v. — j'effectue, nous effectuons",to carry out / to perform,Les techniciens ont effectué les réparations.,The technicians carried out the repairs.,A1,Work,2.5
+551,élaborer,elaboʀe,"v. — j'élabore, nous élaborons",to develop / to draw up,Nous devons élaborer une nouvelle stratégie.,We need to develop a new strategy.,A1,Work,2.5
+552,émettre,emɛtʀ,"v. — j'émets, nous émettons",to emit / to express (opinion),Il a émis des doutes sur ce projet.,He expressed doubts about this project.,A1,General,2.5
+553,encourager,ɑ̃kuʀaʒe,"v. — j'encourage, nous encourageons",to encourage,Son professeur l'a encouragé à persévérer.,His teacher encouraged him to persevere.,A1,Emotions,2.5
+554,engager,ɑ̃ɡaʒe,"v. — j'engage, nous engageons",to commit / to hire / to engage,L'entreprise a engagé dix nouveaux employés.,The company hired ten new employees.,A1,Work,2.5
+555,enrichir,ɑ̃ʀiʃiʀ,"v. — j'enrichis, nous enrichissons",to enrich,Voyager enrichit l'esprit et élargit les horizons.,Travelling enriches the mind and broadens horizons.,A1,General,2.5
+556,entraîner,ɑ̃tʀɛne,"v. — j'entraîne, nous entraînons",to lead to / to train / to drag along,Cette décision a entraîné des conséquences importantes.,This decision led to important consequences.,A1,General,2.5
+557,établir,etabliʀ,"v. — j'établis, nous établissons",to establish / to draw up,Nous devons établir un calendrier précis.,We need to establish a precise timetable.,A1,Work,2.5
+558,évaluer,evalɥe,"v. — j'évalue, nous évaluons",to evaluate / to assess,Le jury évalue les candidats sur plusieurs critères.,The jury assesses candidates on several criteria.,A1,Work,2.5
+559,évoluer,evolɥe,"v. — j'évolue, nous évoluons",to evolve / to change,La société a beaucoup évolué ces dernières années.,Society has evolved a great deal in recent years.,A1,General,2.5
+560,exiger,ɛɡziʒe,"v. — j'exige, nous exigeons",to require / to demand,Ce poste exige une grande disponibilité.,This position requires great availability.,A1,Work,2.5
+561,exprimer,ɛkspʀime,"v. — j'exprime, nous exprimons",to express,Il a du mal à exprimer ses émotions.,He has difficulty expressing his emotions.,A1,Emotions,2.5
+562,fonder,fɔ̃de,"v. — je fonde, nous fondons",to found / to base,L'association a été fondée en 1995.,The association was founded in 1995.,A1,General,2.5
+563,formuler,fɔʀmyle,"v. — je formule, nous formulons",to formulate / to express,Il a formulé une proposition intéressante.,He formulated an interesting proposal.,A1,Work,2.5
+564,garantir,ɡaʀɑ̃tiʀ,"v. — je garantis, nous garantissons",to guarantee,Cette assurance garantit une couverture complète.,This insurance guarantees full coverage.,A1,Work,2.5
+565,gérer,ʒeʀe,"v. — je gère, nous gérons",to manage / to handle,Elle gère une équipe de vingt personnes.,She manages a team of twenty people.,A1,Work,2.5
+566,identifier,idɑ̃tifje,"v. — j'identifie, nous identifions",to identify,Il faut identifier les causes du problème.,We need to identify the causes of the problem.,A1,General,2.5
+567,illustrer,ilystʀe,"v. — j'illustre, nous illustrons",to illustrate,Ces exemples illustrent bien le concept.,These examples illustrate the concept well.,A1,General,2.5
+568,imposer,ɛ̃poze,"v. — j'impose, nous imposons",to impose / to force,Le directeur a imposé de nouvelles règles.,The director imposed new rules.,A1,Work,2.5
+569,inclure,ɛ̃klyʀ,"v. — j'inclus, nous incluons",to include,Le prix inclut le petit-déjeuner.,The price includes breakfast.,A1,General,2.5
+570,indiquer,ɛ̃dike,"v. — j'indique, nous indiquons",to indicate / to show,Le panneau indique la direction du centre-ville.,The sign indicates the direction of the town centre.,A1,General,2.5
+571,influencer,ɛ̃flyɑ̃se,"v. — j'influence, nous influençons",to influence,Les médias influencent l'opinion publique.,The media influences public opinion.,A1,General,2.5
+572,informer,ɛ̃fɔʀme,"v. — j'informe, nous informons",to inform,Nous vous informerons des résultats dès que possible.,We will inform you of the results as soon as possible.,A1,General,2.5
+573,intégrer,ɛ̃teɡʀe,"v. — j'intègre, nous intégrons",to integrate / to join,Il a intégré une grande école d'ingénieurs.,He joined a prestigious engineering school.,A1,Work,2.5
+574,interpréter,ɛ̃tɛʀpʀete,"v. — j'interprète, nous interprétons",to interpret,Il est difficile d'interpréter ces données.,It is difficult to interpret this data.,A1,General,2.5
+575,intervenir,ɛ̃tɛʀvəniʀ,"v. — j'interviens, nous intervenons",to intervene / to speak,Un expert est intervenu lors de la conférence.,An expert spoke at the conference.,A1,General,2.5
+576,investir,ɛ̃vɛstiʀ,"v. — j'investis, nous investissons",to invest,L'entreprise a investi dans de nouvelles technologies.,The company invested in new technologies.,A1,Work,2.5
+577,justifier,ʒystifje,"v. — je justifie, nous justifions",to justify,Il doit justifier ses dépenses professionnelles.,He must justify his professional expenses.,A1,Work,2.5
+578,lancer,lɑ̃se,"v. — je lance, nous lançons",to launch / to throw,L'entreprise va lancer un nouveau produit.,The company is going to launch a new product.,A1,Work,2.5
+579,limiter,limite,"v. — je limite, nous limitons",to limit,Il faut limiter les dépenses inutiles.,We must limit unnecessary spending.,A1,General,2.5
+580,maintenir,mɛ̃təniʀ,"v. — je maintiens, nous maintenons",to maintain / to keep,Il est important de maintenir un bon équilibre.,It is important to maintain a good balance.,A1,General,2.5
+581,manifester,manifɛste,"v. — je manifeste, nous manifestons",to show / to demonstrate (protest),Des milliers de personnes ont manifesté hier.,Thousands of people demonstrated yesterday.,A1,General,2.5
+582,mentionner,mɑ̃sjɔne,"v. — je mentionne, nous mentionnons",to mention,Il a mentionné ce problème lors de la réunion.,He mentioned this problem during the meeting.,A1,General,2.5
+583,mesurer,məzyʀe,"v. — je mesure, nous mesurons",to measure,Il faut mesurer l'impact de cette décision.,We need to measure the impact of this decision.,A1,General,2.5
+584,modifier,mɔdifje,"v. — je modifie, nous modifions",to modify / to change,Nous devons modifier notre approche.,We need to modify our approach.,A1,General,2.5
+585,négocier,neɡɔsje,"v. — je négocie, nous négocions",to negotiate,Les syndicats négocient une augmentation de salaire.,The unions are negotiating a pay rise.,A1,Work,2.5
+586,noter,nɔte,"v. — je note, nous notons",to note / to notice,J'ai noté plusieurs erreurs dans le rapport.,I noted several errors in the report.,A1,General,2.5
+587,nuire,nɥiʀ,"v. — je nuis, nous nuisons",to harm / to damage,La pollution nuit à la santé.,Pollution harms health.,A1,General,2.5
+588,observer,ɔpsɛʀve,"v. — j'observe, nous observons",to observe,Les scientifiques ont observé un phénomène étrange.,The scientists observed a strange phenomenon.,A1,General,2.5
+589,obtenir,ɔptəniʀ,"v. — j'obtiens, nous obtenons",to obtain / to get,Il a obtenu son diplôme avec mention.,He obtained his degree with distinction.,A1,General,2.5
+590,opposer,ɔpoze,"v. — je m'oppose, nous nous opposons",to oppose,Plusieurs élus se sont opposés à ce projet.,Several elected officials opposed this project.,A1,General,2.5
+591,organiser,ɔʀɡanize,"v. — j'organise, nous organisons",to organise,Nous organisons une conférence internationale.,We are organising an international conference.,A1,Work,2.5
+592,orienter,ɔʀjɑ̃te,"v. — j'oriente, nous orientons",to direct / to guide,Le conseiller l'a orienté vers une formation.,The adviser directed him towards a training course.,A1,Work,2.5
+593,participer,paʀtisipe,"v. — je participe, nous participons",to participate,Tout le monde est invité à participer.,Everyone is invited to participate.,A1,General,2.5
+594,percevoir,pɛʀsəvwaʀ,"v. — je perçois, nous percevons",to perceive / to collect (payment),Il perçoit un salaire mensuel de deux mille euros.,He receives a monthly salary of two thousand euros.,A1,Work,2.5
+595,permettre,pɛʀmɛtʀ,"v. — je permets, nous permettons",to allow / to enable,Cette technologie permet de réduire les coûts.,This technology enables costs to be reduced.,A1,General,2.5
+596,planifier,planifje,"v. — je planifie, nous planifions",to plan,Il faut planifier les étapes du projet.,We need to plan the stages of the project.,A1,Work,2.5
+597,préciser,pʀesize,"v. — je précise, nous précisons",to specify / to clarify,Pouvez-vous préciser votre demande ?,Can you clarify your request?,A1,General,2.5
+598,prévoir,pʀevwaʀ,"v. — je prévois, nous prévoyons",to forecast / to plan,Il faut prévoir un budget pour les imprévus.,We need to budget for unexpected expenses.,A1,General,2.5
+599,produire,pʀɔdɥiʀ,"v. — je produis, nous produisons",to produce,Cette usine produit mille voitures par jour.,This factory produces a thousand cars a day.,A1,Work,2.5
+600,proposer,pʀɔpoze,"v. — je propose, nous proposons",to propose / to suggest,Je propose de reporter la réunion à demain.,I suggest postponing the meeting to tomorrow.,A1,General,2.5
+601,accord,akɔʀ,n.m.,agreement / deal,Les deux parties ont signé un accord commercial.,The two parties signed a commercial agreement.,A1,Work,2.5
+602,action,aksjɔ̃,n.f.,action / share (stock),Il faut passer à l'action sans tarder.,We must take action without delay.,A1,General,2.5
+603,actualité,aktɥalite,n.f.,current affairs / news,Je lis les actualités chaque matin.,I read the news every morning.,A1,General,2.5
+604,administration,administʀasjɔ̃,n.f.,administration / civil service,Les démarches administratives sont souvent longues.,Administrative procedures are often lengthy.,A1,Work,2.5
+605,ambiance,ɑ̃bjɑ̃s,n.f.,atmosphere / mood,L'ambiance au bureau est très détendue.,The atmosphere in the office is very relaxed.,A1,Work,2.5
+606,ambition,ɑ̃bisjɔ̃,n.f.,ambition,Elle a beaucoup d'ambition dans sa carrière.,She has a lot of ambition in her career.,A1,Emotions,2.5
+607,amélioration,ameljoʀasjɔ̃,n.f.,improvement,On constate une amélioration significative.,We notice a significant improvement.,A1,General,2.5
+608,analyse,analiz,n.f.,analysis,Son analyse de la situation est pertinente.,His analysis of the situation is pertinent.,A1,Work,2.5
+609,aspect,aspɛ,n.m.,aspect / side,Il faut tenir compte de tous les aspects du problème.,We must take into account all aspects of the problem.,A1,General,2.5
+610,association,asɔsjasjɔ̃,n.f.,association / organisation,Il travaille pour une association caritative.,He works for a charitable organisation.,A1,General,2.5
+611,attitude,atityd,n.f.,attitude / approach,Son attitude positive inspire toute l'équipe.,Her positive attitude inspires the whole team.,A1,Emotions,2.5
+612,augmentation,oɡmɑ̃tasjɔ̃,n.f.,increase / rise,Les employés demandent une augmentation de salaire.,The employees are asking for a pay rise.,A1,Work,2.5
+613,autorité,otɔʀite,n.f.,authority,Il faut respecter l'autorité des institutions.,We must respect the authority of institutions.,A1,General,2.5
+614,avantage,avɑ̃taʒ,n.m.,advantage / benefit,Ce poste offre de nombreux avantages.,This position offers many benefits.,A1,Work,2.5
+615,avenir,avəniʀ,n.m.,future,Les jeunes s'inquiètent pour leur avenir professionnel.,Young people worry about their professional future.,A1,General,2.5
+616,bénéfice,benefis,n.m.,profit / benefit,L'entreprise a réalisé d'importants bénéfices.,The company made significant profits.,A1,Work,2.5
+617,bilan,bilɑ̃,n.m.,balance sheet / assessment,Le directeur a fait le bilan de l'année écoulée.,The director reviewed the past year.,A1,Work,2.5
+618,budget,bydʒɛ,n.m.,budget,Nous devons respecter le budget alloué.,We must respect the allocated budget.,A1,Work,2.5
+619,capacité,kapasite,n.f.,capacity / ability,Elle a une grande capacité d'adaptation.,She has a great capacity for adaptation.,A1,General,2.5
+620,capital,kapital,n.m.,capital / main,Paris est la capitale de la France.,Paris is the capital of France.,A1,General,2.5
+621,carrière,kaʀjɛʀ,n.f.,career,Il a fait toute sa carrière dans le même secteur.,He spent his entire career in the same sector.,A1,Work,2.5
+622,cause,koz,n.f.,cause / reason,Quelle est la cause de ce problème ?,What is the cause of this problem?,A1,General,2.5
+623,centre,sɑ̃tʀ,n.m.,centre / middle,Le centre-ville est très animé le week-end.,The town centre is very lively at the weekend.,A1,Travel,2.5
+624,chance,ʃɑ̃s,n.f.,luck / chance,Tu as de la chance d'avoir un tel emploi.,You are lucky to have such a job.,A1,Emotions,2.5
+625,changement,ʃɑ̃ʒmɑ̃,n.m.,change,Le changement climatique est une réalité.,Climate change is a reality.,A1,General,2.5
+626,choix,ʃwa,n.m.,choice / selection,Il y a un grand choix de restaurants dans ce quartier.,There is a wide choice of restaurants in this neighbourhood.,A1,General,2.5
+627,citoyenneté,sitwajɛnte,n.f.,citizenship,La citoyenneté implique des droits et des devoirs.,Citizenship implies rights and duties.,A1,General,2.5
+628,civilisation,sivilizasjɔ̃,n.f.,civilisation,Nous étudions les grandes civilisations antiques.,We are studying the great ancient civilisations.,A1,General,2.5
+629,cohérence,koeʀɑ̃s,n.f.,coherence / consistency,Il manque de cohérence dans son raisonnement.,There is a lack of coherence in his reasoning.,A1,General,2.5
+630,communication,kɔmynikasjɔ̃,n.f.,communication,La communication est essentielle en entreprise.,Communication is essential in business.,A1,Work,2.5
+631,compétence,kɔ̃petɑ̃s,n.f.,skill / competence,Elle possède de nombreuses compétences techniques.,She has many technical skills.,A1,Work,2.5
+632,comportement,kɔ̃pɔʀtəmɑ̃,n.m.,behaviour,Son comportement en réunion est exemplaire.,His behaviour in meetings is exemplary.,A1,General,2.5
+633,concept,kɔ̃sɛp,n.m.,concept,Ce concept est difficile à expliquer simplement.,This concept is difficult to explain simply.,A1,General,2.5
+634,condition,kɔ̃disjɔ̃,n.f.,condition / term,Les conditions de travail se sont améliorées.,Working conditions have improved.,A1,Work,2.5
+635,confiance,kɔ̃fjɑ̃s,n.f.,confidence / trust,Il faut avoir confiance en soi pour réussir.,You need self-confidence to succeed.,A1,Emotions,2.5
+636,conflit,kɔ̃fli,n.m.,conflict,Il faut éviter les conflits au sein de l'équipe.,We must avoid conflicts within the team.,A1,Work,2.5
+637,connaissance,kɔnɛsɑ̃s,n.f.,knowledge / acquaintance,Ses connaissances en finance sont impressionnantes.,Her knowledge of finance is impressive.,A1,General,2.5
+638,conséquence,kɔ̃sekɑ̃s,n.f.,consequence,Cette décision aura des conséquences importantes.,This decision will have important consequences.,A1,General,2.5
+639,contexte,kɔ̃tɛkst,n.m.,context,Il faut replacer les événements dans leur contexte.,We must place events in their context.,A1,General,2.5
+640,coopération,kɔɔpeʀasjɔ̃,n.f.,cooperation,La coopération internationale est indispensable.,International cooperation is indispensable.,A1,General,2.5
+641,crise,kʀiz,n.f.,crisis,La crise économique a touché de nombreux secteurs.,The economic crisis affected many sectors.,A1,General,2.5
+642,critère,kʀitɛʀ,n.m.,criterion,Quels sont les critères de sélection ?,What are the selection criteria?,A1,Work,2.5
+643,culture,kyltɥʀ,n.f.,culture,La culture française est reconnue dans le monde entier.,French culture is recognised throughout the world.,A1,General,2.5
+644,défi,defi,n.m.,challenge,Relever ce défi demande du courage.,Meeting this challenge requires courage.,A1,General,2.5
+645,démarche,demaʀʃ,n.f.,approach / process / step,Il faut suivre les démarches administratives.,We must follow the administrative procedures.,A1,Work,2.5
+646,démocratie,demɔkʀasi,n.f.,democracy,La démocratie garantit la liberté d'expression.,Democracy guarantees freedom of expression.,A1,General,2.5
+647,domaine,dɔmɛn,n.m.,field / domain / area,Il est expert dans son domaine.,He is an expert in his field.,A1,Work,2.5
+648,données,dɔne,n.f.pl.,data,Les données montrent une tendance positive.,The data shows a positive trend.,A1,Work,2.5
+649,droit,dʀwa,n.m.,right / law,Chacun a le droit à une éducation de qualité.,Everyone has the right to a quality education.,A1,General,2.5
+650,durée,dyʀe,n.f.,duration / length,La durée du trajet est d'environ deux heures.,The journey duration is approximately two hours.,A1,General,2.5
+651,économie,ekɔnɔmi,n.f.,economy / economics / saving,L'économie mondiale est en pleine transformation.,The world economy is undergoing full transformation.,A1,General,2.5
+652,éducation,edykasjɔ̃,n.f.,education,L'éducation est la clé du développement.,Education is the key to development.,A1,General,2.5
+653,efficacité,efikasite,n.f.,efficiency / effectiveness,Il faut améliorer l'efficacité de notre système.,We need to improve the efficiency of our system.,A1,Work,2.5
+654,effort,efɔʀ,n.m.,effort,Il a fourni de gros efforts pour réussir.,He made great efforts to succeed.,A1,General,2.5
+655,élection,elɛksjɔ̃,n.f.,election,Les élections présidentielles ont lieu tous les cinq ans.,Presidential elections take place every five years.,A1,General,2.5
+656,emploi,ɑ̃plwa,n.m.,employment / job / use,Le taux d'emploi a augmenté ce trimestre.,The employment rate increased this quarter.,A1,Work,2.5
+657,encouragement,ɑ̃kuʀaʒmɑ̃,n.m.,encouragement,Ses encouragements m'ont beaucoup aidé.,His encouragements helped me a great deal.,A1,Emotions,2.5
+658,engagement,ɑ̃ɡaʒmɑ̃,n.m.,commitment / engagement,Son engagement dans le projet est total.,His commitment to the project is total.,A1,Work,2.5
+659,enquête,ɑ̃kɛt,n.f.,survey / investigation,Une enquête a révélé les causes de l'accident.,An investigation revealed the causes of the accident.,A1,General,2.5
+660,environnement,ɑ̃viʀɔnmɑ̃,n.m.,environment,Il faut protéger l'environnement pour les générations futures.,We must protect the environment for future generations.,A1,Nature,2.5
+661,équilibre,ekilibʀ,n.m.,balance / equilibrium,Il est difficile de trouver l'équilibre entre vie pro et perso.,It is difficult to find the balance between professional and personal life.,A1,General,2.5
+662,équipe,ekip,n.f.,team,Nous formons une équipe très soudée.,We form a very close-knit team.,A1,Work,2.5
+663,espace,ɛspas,n.m.,space / area,Cet appartement manque d'espace.,This apartment lacks space.,A1,General,2.5
+664,évolution,evolysjɔ̃,n.f.,evolution / change,L'évolution technologique va très vite.,Technological change is happening very fast.,A1,General,2.5
+665,exemple,ɛɡzɑ̃pl,n.m.,example,Donnez-moi un exemple concret.,Give me a concrete example.,A1,General,2.5
+666,expérience,ɛkspɛʀjɑ̃s,n.f.,experience / experiment,Il a dix ans d'expérience dans ce secteur.,He has ten years of experience in this sector.,A1,Work,2.5
+667,explication,ɛksplikasjɔ̃,n.f.,explanation,Cette explication est claire et précise.,This explanation is clear and precise.,A1,General,2.5
+668,facteur,faktœʀ,n.m.,factor / postman,Plusieurs facteurs expliquent ce phénomène.,Several factors explain this phenomenon.,A1,General,2.5
+669,finalité,finalite,n.f.,purpose / aim,Quelle est la finalité de ce projet ?,What is the purpose of this project?,A1,General,2.5
+670,financement,finɑ̃smɑ̃,n.m.,funding / financing,Le financement du projet est assuré par l'État.,The project's funding is provided by the State.,A1,Work,2.5
+671,fonctionnement,fɔ̃ksjɔnmɑ̃,n.m.,functioning / operation,Le fonctionnement de l'organisation est efficace.,The functioning of the organisation is efficient.,A1,Work,2.5
+672,force,fɔʀs,n.f.,strength / force,La force de cette équipe réside dans sa cohésion.,The strength of this team lies in its cohesion.,A1,General,2.5
+673,formation,fɔʀmasjɔ̃,n.f.,training / education / forming,Il a suivi une formation en management.,He completed a management training course.,A1,Work,2.5
+674,frontière,fʀɔ̃tjɛʀ,n.f.,border / boundary,La frontière entre la France et l'Espagne traverse les Pyrénées.,The border between France and Spain crosses the Pyrenees.,A1,Travel,2.5
+675,gestion,ʒɛstjɔ̃,n.f.,management / handling,La gestion du temps est une compétence clé.,Time management is a key skill.,A1,Work,2.5
+676,gouvernement,ɡuvɛʀnəmɑ̃,n.m.,government,Le gouvernement a présenté son programme économique.,The government presented its economic programme.,A1,General,2.5
+677,identité,idɑ̃tite,n.f.,identity,La carte d'identité est obligatoire pour voyager en Europe.,An identity card is compulsory for travelling in Europe.,A1,General,2.5
+678,image,imaʒ,n.f.,image / picture,L'entreprise travaille sur son image de marque.,The company is working on its brand image.,A1,Work,2.5
+679,impact,ɛ̃pakt,n.m.,impact,L'impact de cette décision sera important.,The impact of this decision will be significant.,A1,General,2.5
+680,inégalité,ineɡalite,n.f.,inequality,Les inégalités sociales restent un défi majeur.,Social inequalities remain a major challenge.,A1,General,2.5
+681,initiative,initiativ,n.f.,initiative,Il faut prendre des initiatives pour avancer.,We need to take initiatives to move forward.,A1,Work,2.5
+682,innovation,inɔvasjɔ̃,n.f.,innovation,L'innovation est au cœur de notre stratégie.,Innovation is at the heart of our strategy.,A1,Work,2.5
+683,institution,ɛ̃stitysjɔ̃,n.f.,institution,Les institutions démocratiques doivent être respectées.,Democratic institutions must be respected.,A1,General,2.5
+684,intégration,ɛ̃teɡʀasjɔ̃,n.f.,integration,L'intégration des nouveaux employés est facilitée par un tuteur.,The integration of new employees is facilitated by a mentor.,A1,Work,2.5
+685,intérêt,ɛ̃teʀɛ,n.m.,interest,Il manifeste un grand intérêt pour ce projet.,He shows a great interest in this project.,A1,Emotions,2.5
+686,liberté,libɛʀte,n.f.,freedom / liberty,La liberté d'expression est un droit fondamental.,Freedom of expression is a fundamental right.,A1,General,2.5
+687,lieu,ljø,n.m.,place / location,Le lieu de la réunion sera confirmé demain.,The meeting venue will be confirmed tomorrow.,A1,General,2.5
+688,logement,lɔʒmɑ̃,n.m.,housing / accommodation,Le problème du logement est crucial dans les grandes villes.,The housing problem is crucial in large cities.,A1,Home,2.5
+689,loi,lwa,n.f.,law,Une nouvelle loi sur le travail a été adoptée.,A new labour law has been adopted.,A1,General,2.5
+690,marché,maʀʃe,n.m.,market,L'entreprise cherche à conquérir de nouveaux marchés.,The company seeks to conquer new markets.,A1,Work,2.5
+691,médias,medja,n.m.pl.,media,Les médias jouent un rôle clé dans la société.,The media plays a key role in society.,A1,General,2.5
+692,méthode,metɔd,n.f.,method,Il faut adopter une méthode de travail efficace.,We need to adopt an efficient working method.,A1,Work,2.5
+693,milieu,miljø,n.m.,environment / middle / background,Il vient d'un milieu modeste.,He comes from a modest background.,A1,General,2.5
+694,mode,mɔd,n.f./m.,fashion / mode / method,La mode française est connue dans le monde entier.,French fashion is known throughout the world.,A1,General,2.5
+695,mondialisation,mɔ̃djalizasjɔ̃,n.f.,globalisation,La mondialisation a transformé l'économie mondiale.,Globalisation has transformed the world economy.,A1,General,2.5
+696,moyen,mwajɛ̃,n.m.,means / way / medium,Nous devons trouver un moyen de résoudre ce problème.,We need to find a way to solve this problem.,A1,General,2.5
+697,nécessité,nesesite,n.f.,necessity / need,Il y a une nécessité urgente d'agir.,There is an urgent need to act.,A1,General,2.5
+698,niveau,nivo,n.m.,level / standard,Son niveau de français est excellent.,His level of French is excellent.,A1,General,2.5
+699,objectif,ɔbʒɛktif,n.m.,objective / goal / target,Nous avons atteint nos objectifs annuels.,We have achieved our annual objectives.,A1,Work,2.5
+700,obligation,ɔbliɡasjɔ̃,n.f.,obligation / duty,Il a l'obligation de respecter les règles.,He has an obligation to respect the rules.,A1,General,2.5
+701,opportunité,ɔpɔʀtynite,n.f.,opportunity,C'est une excellente opportunité professionnelle.,It is an excellent professional opportunity.,A1,Work,2.5
+702,organisation,ɔʀɡanizasjɔ̃,n.f.,organisation,L'organisation du travail est essentielle.,The organisation of work is essential.,A1,Work,2.5
+703,orientation,ɔʀjɑ̃tasjɔ̃,n.f.,direction / orientation,Il cherche une orientation professionnelle claire.,He is looking for a clear professional direction.,A1,Work,2.5
+704,participation,paʀtisipasjɔ̃,n.f.,participation,La participation des citoyens est encouragée.,Citizens' participation is encouraged.,A1,General,2.5
+705,partenariat,paʀtənaʀja,n.m.,partnership,Nous avons établi un partenariat avec une entreprise étrangère.,We have established a partnership with a foreign company.,A1,Work,2.5
+706,patrimoine,patʀimwan,n.m.,heritage / patrimony,Le patrimoine culturel doit être préservé.,Cultural heritage must be preserved.,A1,General,2.5
+707,perspective,pɛʀspɛktiv,n.f.,perspective / prospect,Les perspectives d'emploi sont encourageantes.,Employment prospects are encouraging.,A1,Work,2.5
+708,phénomène,fenɔmɛn,n.m.,phenomenon,Ce phénomène social mérite une analyse approfondie.,This social phenomenon deserves a thorough analysis.,A1,General,2.5
+709,politique,pɔlitik,n.f./adj.,politics / policy / political,La politique économique du gouvernement est contestée.,The government's economic policy is disputed.,A1,General,2.5
+710,position,pozisjɔ̃,n.f.,position / stance,Quelle est votre position sur ce sujet ?,What is your position on this subject?,A1,General,2.5
+711,pouvoir,puvwaʀ,n.m.,power,Le pouvoir de décision appartient au directeur.,The decision-making power belongs to the director.,A1,General,2.5
+712,pratique,pʀatik,n.f./adj.,practice / practical,Il faut mettre la théorie en pratique.,We need to put theory into practice.,A1,General,2.5
+713,principe,pʀɛ̃sip,n.m.,principle,Il agit toujours selon ses principes.,He always acts according to his principles.,A1,General,2.5
+714,priorité,pʀijɔʀite,n.f.,priority,La santé est ma priorité absolue.,Health is my absolute priority.,A1,General,2.5
+715,problématique,pʀɔblematik,n.f.,issue / problematic,La problématique du logement est complexe.,The housing issue is complex.,A1,General,2.5
+716,processus,pʀɔsesys,n.m.,process,Le processus de recrutement prend plusieurs semaines.,The recruitment process takes several weeks.,A1,Work,2.5
+717,progrès,pʀɔɡʀɛ,n.m.,progress,Les progrès scientifiques ont changé notre vie.,Scientific progress has changed our lives.,A1,General,2.5
+718,projet,pʀɔʒɛ,n.m.,project / plan,Notre projet sera terminé fin décembre.,Our project will be finished at the end of December.,A1,Work,2.5
+719,qualité,kalite,n.f.,quality,Nous mettons l'accent sur la qualité de nos produits.,We focus on the quality of our products.,A1,Work,2.5
+720,question,kɛstjɔ̃,n.f.,question / issue,C'est une question complexe qui mérite réflexion.,It is a complex issue that deserves reflection.,A1,General,2.5
+721,rapport,ʀapɔʀ,n.m.,report / relationship / ratio,Il a rédigé un rapport détaillé sur la situation.,He wrote a detailed report on the situation.,A1,Work,2.5
+722,réalité,ʀealite,n.f.,reality,Il faut faire face à la réalité des faits.,We must face the reality of the facts.,A1,General,2.5
+723,recherche,ʀəʃɛʀʃ,n.f.,research / search,La recherche scientifique avance rapidement.,Scientific research is advancing rapidly.,A1,General,2.5
+724,réforme,ʀefɔʀm,n.f.,reform,La réforme du système éducatif est nécessaire.,Reform of the educational system is necessary.,A1,General,2.5
+725,relation,ʀəlasjɔ̃,n.f.,relationship / connection,Les relations entre les deux pays sont bonnes.,Relations between the two countries are good.,A1,General,2.5
+726,réseau,ʀezo,n.m.,network,Il dispose d'un solide réseau professionnel.,He has a solid professional network.,A1,Work,2.5
+727,résultat,ʀezylta,n.m.,result / outcome,Les résultats de l'étude sont positifs.,The results of the study are positive.,A1,Work,2.5
+728,rôle,ʀol,n.m.,role,Quel est le rôle de l'État dans l'économie ?,What is the role of the State in the economy?,A1,General,2.5
+729,secteur,sɛktœʀ,n.m.,sector / area,Il travaille dans le secteur public.,He works in the public sector.,A1,Work,2.5
+730,situation,sitɥasjɔ̃,n.f.,situation,La situation économique s'améliore progressivement.,The economic situation is improving gradually.,A1,General,2.5
+731,société,sɔsjete,n.f.,society / company,La société moderne évolue très rapidement.,Modern society is evolving very rapidly.,A1,General,2.5
+732,solution,sɔlysjɔ̃,n.f.,solution,Il faut trouver une solution à ce problème rapidement.,We must find a solution to this problem quickly.,A1,General,2.5
+733,soutien,sutjɛ̃,n.m.,support,Il a bénéficié du soutien de ses collègues.,He benefited from the support of his colleagues.,A1,Emotions,2.5
+734,stratégie,stʀateʒi,n.f.,strategy,L'entreprise a adopté une nouvelle stratégie commerciale.,The company adopted a new commercial strategy.,A1,Work,2.5
+735,structure,stʀyktɥʀ,n.f.,structure,La structure de l'organisation est très hiérarchisée.,The structure of the organisation is very hierarchical.,A1,Work,2.5
+736,sujet,syʒɛ,n.m.,subject / topic,Quel est le sujet de votre thèse ?,What is the subject of your thesis?,A1,General,2.5
+737,système,sistɛm,n.m.,system,Le système de santé français est reconnu mondialement.,The French health system is recognised worldwide.,A1,General,2.5
+738,tendance,tɑ̃dɑ̃s,n.f.,trend / tendency,La tendance actuelle favorise le travail à distance.,The current trend favours remote working.,A1,Work,2.5
+739,terrain,tɛʀɛ̃,n.m.,ground / field / plot,Les négociations ont trouvé un terrain d'entente.,The negotiations found common ground.,A1,General,2.5
+740,théorie,teoʀi,n.f.,theory,En théorie c'est simple mais en pratique c'est complexe.,In theory it is simple but in practice it is complex.,A1,General,2.5
+741,tradition,tʀadisjɔ̃,n.f.,tradition,Les traditions régionales sont très vivantes en France.,Regional traditions are very much alive in France.,A1,General,2.5
+742,transformation,tʀɑ̃sfɔʀmasjɔ̃,n.f.,transformation,La transformation numérique change le monde du travail.,Digital transformation is changing the world of work.,A1,Work,2.5
+743,transparence,tʀɑ̃spɑʀɑ̃s,n.f.,transparency,La transparence est essentielle dans la gestion publique.,Transparency is essential in public management.,A1,General,2.5
+744,valeur,valœʀ,n.f.,value,Le respect est une valeur fondamentale.,Respect is a fundamental value.,A1,General,2.5
+745,vision,vizjɔ̃,n.f.,vision,Le directeur a une vision claire de l'avenir.,The director has a clear vision of the future.,A1,Work,2.5
+746,volonté,vɔlɔ̃te,n.f.,will / willingness,Il faut avoir la volonté de réussir.,You need the will to succeed.,A1,Emotions,2.5
+747,zone,zon,n.f.,zone / area,Cette zone est réservée aux piétons.,This area is reserved for pedestrians.,A1,General,2.5
+748,abondant,abɔ̃dɑ̃,adj. — abondante (f.),abundant / plentiful,La région est riche en ressources naturelles abondantes.,The region is rich in plentiful natural resources.,A1,Nature,2.5
+749,abstrait,abstʀɛ,adj. — abstraite (f.),abstract,Ce concept est trop abstrait pour être facilement compris.,This concept is too abstract to be easily understood.,A1,General,2.5
+750,actuel,aktɥɛl,adj. — actuelle (f.),current / present,La situation actuelle est préoccupante.,The current situation is worrying.,A1,General,2.5
