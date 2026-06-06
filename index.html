@@ -203,13 +203,21 @@ function App() {
     });
   }
 
-  const newWords       = words.filter(w => !progress[w.id]);                                    // never seen
-  const introducedWords = words.filter(w => progress[w.id]);                                   // seen in New Words
+  function markCorrect(wordId) {
+    setProgress(p => {
+      const prev = p[wordId] || {};
+      const correctCount = (prev.correctCount || 0) + 1;
+      return { ...p, [wordId]: { ...prev, correctCount, lastSeen: new Date().toISOString() } };
+    });
+  }
+
+  const newWords        = words.filter(w => !progress[w.id]);
+  const introducedWords = words.filter(w => progress[w.id]);
   const introducedCount = introducedWords.length;
-  const learntCount    = words.filter(w => (progress[w.id]?.easyCount || 0) >= 3).length;
-  const learnedCount   = learntCount;
-  const userLevel      = computeLevel(learntCount);
-  const streak         = 7; // placeholder
+  const learntCount     = words.filter(w => (progress[w.id]?.correctCount || 0) >= 3).length;
+  const learnedCount    = learntCount;
+  const userLevel       = computeLevel(learntCount);
+  const streak          = 7; // placeholder
 
   const [isOnline, setIsOnline] = useState(() => navigator.onLine);
   useEffect(() => {
@@ -255,7 +263,7 @@ function App() {
             </div>
           )}
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
-            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} setView={setView} introducedWords={introducedWords} />}
+            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} setView={setView} introducedWords={introducedWords} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
@@ -601,7 +609,7 @@ function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficult
 }
 
 // ── Flashcards ─────────────────────────────────────────────────────────────
-function Flashcards({ words, progress, settings, setDifficulty, setView, introducedWords }) {
+function Flashcards({ words, progress, settings, setDifficulty, markCorrect, setView, introducedWords }) {
   const isReview = settings.sessionType === "review";
   const isWriting = settings.activeSessionMode === "writing";
 
@@ -676,7 +684,7 @@ function Flashcards({ words, progress, settings, setDifficulty, setView, introdu
   if (isWriting) return (
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
-      onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty}
+      onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect}
       isLearn={!isReview} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} />
   );
 
@@ -880,7 +888,7 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
-function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning }) {
+function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning }) {
   const [input, setInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
@@ -905,6 +913,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
     const isCorrect = input.trim().toLowerCase() === answerText.toLowerCase();
     setCorrect(isCorrect);
     setChecked(true);
+    if (isCorrect && !isLearn) markCorrect(word.id);
   }
 
   function handleNext(diff) {
