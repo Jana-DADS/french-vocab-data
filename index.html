@@ -97,6 +97,8 @@ function loadVocab() { try { return JSON.parse(localStorage.getItem("frVocab")||
 function saveVocab(v) { try { localStorage.setItem("frVocab",JSON.stringify(v)); localStorage.setItem("frVocabLoaded", new Date().toISOString()); } catch {} }
 function loadVocabMeta() { return { url: localStorage.getItem("frVocabUrl")||"", loaded: localStorage.getItem("frVocabLoaded")||"" }; }
 function saveVocabUrl(url) { localStorage.setItem("frVocabUrl", url); }
+function loadLastNewWordId() { try { return parseInt(localStorage.getItem("frLastNewWordId")||"0"); } catch { return 0; } }
+function saveLastNewWordId(id) { try { localStorage.setItem("frLastNewWordId", String(id)); } catch {} }
 
 // ── CSV parser ─────────────────────────────────────────────────────────────
 function parseCSV(text) {
@@ -195,6 +197,13 @@ function App() {
   useEffect(() => { saveProgress(progress); }, [progress]);
   useEffect(() => { saveSettings(settings); }, [settings]);
 
+  function markIntroduced(wordId) {
+    setProgress(p => {
+      if (p[wordId]) return p; // already introduced
+      return { ...p, [wordId]: { difficulty: "Default", nextReview: computeNextReview("Default"), lastSeen: new Date().toISOString(), easyCount: 0, correctCount: 0 } };
+    });
+  }
+
   function setDifficulty(wordId, diff) {
     setProgress(p => {
       const prev = p[wordId] || {};
@@ -218,15 +227,6 @@ function App() {
   const learnedCount    = learntCount;
   const userLevel       = computeLevel(learntCount);
   const streak          = 7; // placeholder
-
-  const [isOnline, setIsOnline] = useState(() => navigator.onLine);
-  useEffect(() => {
-    const up = () => setIsOnline(true);
-    const down = () => setIsOnline(false);
-    window.addEventListener("online", up);
-    window.addEventListener("offline", down);
-    return () => { window.removeEventListener("online", up); window.removeEventListener("offline", down); };
-  }, []);
 
   return (
     <div style={{ display:"flex", flexDirection:"column", height:"100vh", background:"var(--bg)", color:"var(--text)", fontFamily:"'DM Sans',sans-serif" }}>
@@ -263,12 +263,18 @@ function App() {
             </div>
           )}
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
-            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} setView={setView} introducedWords={introducedWords} />}
+            {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markIntroduced={markIntroduced} setView={setView} introducedWords={introducedWords} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
         </div>
-        {isOnline && <ChatPanel userName={settings.userName} />}
+        <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"10px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
+          <span style={{ fontSize:13, color:"var(--text2)" }}>💬 Need help with French?</span>
+          <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" style={{
+            padding:"7px 18px", background:"var(--accent)", color:"#fff", borderRadius:8,
+            fontSize:13, fontWeight:600, textDecoration:"none"
+          }}>Ask French Assistant →</a>
+        </div>
       </div>
     </div>
   );
@@ -609,7 +615,7 @@ function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficult
 }
 
 // ── Flashcards ─────────────────────────────────────────────────────────────
-function Flashcards({ words, progress, settings, setDifficulty, markCorrect, setView, introducedWords }) {
+function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markIntroduced, setView, introducedWords }) {
   const isReview = settings.sessionType === "review";
   const isWriting = settings.activeSessionMode === "writing";
 
@@ -619,26 +625,27 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, set
     const fc = isRev ? settings.reviewFilterCategory : settings.learnFilterCategory;
     const cnt = isRev ? settings.reviewCount : settings.sessionCount;
 
-    // Pool: review = introduced only, learn = unseen only
-    let pool = isRev
-      ? [...introducedWords]
-      : words.filter(w => !progress[w.id]);
-
-    if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
-
     if (isRev) {
-      // Sort by due first, then by last seen
+      // Review: introduced words sorted by due date
+      let pool = [...introducedWords];
+      if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
       pool.sort((a, b) => {
         const aDue = isDue({...a, ...progress[a.id]}) ? 0 : 1;
         const bDue = isDue({...b, ...progress[b.id]}) ? 0 : 1;
         return aDue - bDue || Math.random() - 0.5;
       });
+      return pool.slice(0, cnt);
     } else {
-      // Sort new words by ID (frequency order)
+      // New Words: unseen only, sorted by ID (frequency), continue from lastNewWordId
+      const lastId = loadLastNewWordId();
+      let pool = words.filter(w => !progress[w.id]);
+      if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
       pool.sort((a, b) => a.id - b.id);
+      // Find position after lastId
+      const startIdx = lastId === 0 ? 0 : pool.findIndex(w => w.id > lastId);
+      const sliced = startIdx === -1 ? [] : pool.slice(startIdx, startIdx + cnt);
+      return sliced;
     }
-
-    return pool.slice(0, cnt);
   }
 
   const [queue] = useState(() => buildQueue());
@@ -674,7 +681,14 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, set
     </div>
   );
 
-  function next() { if (idx+1>=queue.length) setDone(true); else { setIdx(i=>i+1); setFlipped(false); } }
+  function next() {
+    if (!isReview) {
+      markIntroduced(word.id);
+      saveLastNewWordId(word.id);
+    }
+    if (idx+1>=queue.length) setDone(true);
+    else { setIdx(i=>i+1); setFlipped(false); }
+  }
 
   const frontText = isFR_first ? word.fr : word.en;
   const backText  = isFR_first ? word.en : word.fr;
@@ -1052,131 +1066,6 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
           )}
         </div>
       </div>
-    </div>
-  );
-}
-
-// ── ChatPanel ──────────────────────────────────────────────────────────────
-function ChatPanel({ userName }) {
-  const [messages, setMessages] = useState([
-    { role: "assistant", text: "Bonjour ! I'm your French assistant. Ask me anything — vocabulary, grammar, example sentences, or just practice chatting in French! 🇫🇷" }
-  ]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [expanded, setExpanded] = useState(true);
-  const bottomRef = useRef(null);
-  const inputRef = useRef(null);
-
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
-
-  const SUGGESTIONS = [
-    "Give me a French sentence with 'bonjour'",
-    "How do I conjugate 'avoir'?",
-    "What's the difference between tu and vous?",
-  ];
-
-  async function send(text) {
-    const userText = (text || input).trim();
-    if (!userText || loading) return;
-    setInput("");
-    setMessages(m => [...m, { role: "user", text: userText }]);
-    setLoading(true);
-    try {
-      const history = messages.map(m => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.text }));
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "anthropic-dangerous-direct-browser-ipc": "true" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: `You are a friendly French language assistant embedded in a vocabulary learning app. The user's name is ${userName}. 
-Help with French vocabulary, grammar, example sentences, conjugations, and pronunciation. 
-Keep answers concise and practical. Use French words with their translations when relevant.
-If the user writes in French, respond in French and gently correct any mistakes.`,
-          messages: [...history, { role: "user", content: userText }]
-        })
-      });
-      if (!res.ok) throw new Error(`API error ${res.status}`);
-      const data = await res.json();
-      const reply = data.content?.map(c => c.text || "").join("") || "Sorry, I couldn't get a response.";
-      setMessages(m => [...m, { role: "assistant", text: reply }]);
-    } catch {
-      setMessages(m => [...m, { role: "assistant", text: "Sorry, something went wrong. Please try again." }]);
-    }
-    setLoading(false);
-  }
-
-  return (
-    <div style={{
-      borderTop: "1px solid var(--border)", background: "var(--surface)",
-      display: "flex", flexDirection: "column",
-      height: expanded ? 260 : 44, transition: "height 0.25s ease", flexShrink: 0
-    }}>
-      {/* Header bar */}
-      <div onClick={() => setExpanded(e => !e)} style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 20px", height: 44, cursor: "pointer", flexShrink: 0,
-        borderBottom: expanded ? "1px solid var(--border)" : "none"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 16 }}>💬</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text)" }}>French Assistant</span>
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--easy)", display: "inline-block" }} title="Online" />
-        </div>
-        <span style={{ fontSize: 11, color: "var(--text2)" }}>{expanded ? "▼" : "▲"}</span>
-      </div>
-
-      {expanded && (
-        <>
-          {/* Messages */}
-          <div style={{ flex: 1, overflowY: "auto", padding: "12px 20px", display: "flex", flexDirection: "column", gap: 8 }}>
-            {messages.map((m, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
-                <div style={{
-                  maxWidth: "75%", padding: "8px 12px", borderRadius: 10, fontSize: 13, lineHeight: 1.5,
-                  background: m.role === "user" ? "var(--accent)" : "var(--surface2)",
-                  color: m.role === "user" ? "#fff" : "var(--text)",
-                  borderBottomRightRadius: m.role === "user" ? 3 : 10,
-                  borderBottomLeftRadius: m.role === "user" ? 10 : 3,
-                  whiteSpace: "pre-wrap"
-                }}>{m.text}</div>
-              </div>
-            ))}
-            {loading && (
-              <div style={{ display: "flex", justifyContent: "flex-start" }}>
-                <div style={{ background: "var(--surface2)", borderRadius: 10, padding: "8px 14px", fontSize: 18, color: "var(--text2)" }}>…</div>
-              </div>
-            )}
-            {messages.length === 1 && !loading && (
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
-                {SUGGESTIONS.map(s => (
-                  <button key={s} onClick={() => send(s)} style={{
-                    padding: "4px 12px", borderRadius: 20, fontSize: 12, border: "1px solid var(--border)",
-                    background: "var(--surface)", color: "var(--text2)", transition: "all 0.15s"
-                  }}>{s}</button>
-                ))}
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
-
-          {/* Input */}
-          <div style={{ display: "flex", gap: 8, padding: "8px 16px 10px", borderTop: "1px solid var(--border)", flexShrink: 0 }}>
-            <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
-              placeholder="Ask anything about French…"
-              style={{
-                flex: 1, padding: "8px 14px", borderRadius: 20, border: "1px solid var(--border)",
-                background: "var(--surface2)", fontSize: 13, outline: "none", color: "var(--text)"
-              }} />
-            <button onClick={() => send()} disabled={!input.trim() || loading} style={{
-              width: 36, height: 36, borderRadius: "50%", background: input.trim() ? "var(--accent)" : "var(--border)",
-              color: "#fff", border: "none", fontSize: 16, display: "flex", alignItems: "center", justifyContent: "center",
-              transition: "background 0.15s", flexShrink: 0
-            }}>↑</button>
-          </div>
-        </>
-      )}
     </div>
   );
 }
