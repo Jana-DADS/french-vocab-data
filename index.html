@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🇫🇷 Mon Vocab</title>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <style>
     body { margin: 0; padding: 0; }
     #root { height: 100vh; display: flex; flex-direction: column; }
@@ -14,11 +14,9 @@
 <body>
   <div id="root"></div>
   <script>
-const {
-  useState,
-  useEffect,
-  useRef
-} = React;
+var useState = React.useState;
+var useEffect = React.useEffect;
+var useRef = React.useRef;
 
 // ── Spaced-repetition ──────────────────────────────────────────────────────
 const DIFFICULTY_INTERVALS = {
@@ -2390,7 +2388,8 @@ If the user writes in French, respond in French and gently correct any mistakes.
     }
   }, "\u2191"))));
 }
-const root = ReactDOM.createRoot(document.getElementById('root'));
+var domNode = document.getElementById('root');
+var root = ReactDOM.createRoot(domNode);
 root.render(React.createElement(App));
 
   </script>
