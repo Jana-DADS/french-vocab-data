@@ -819,6 +819,11 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   const curDiff = prog.difficulty||"Default";
   const sessionLabel = isReview ? "Review" : "New Words";
   const sessionIcon = isReview ? "↺" : "✦";
+  const filterLabel = !isReview
+    ? (settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All"
+        ? settings.learnFilterCategory
+        : "All")
+    : null;
 
   if (done||!word) return (
     <div style={{ textAlign:"center", padding:"80px 20px" }}>
@@ -876,7 +881,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       <div style={{ maxWidth:620, margin:"0 auto" }}>
         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
           <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
-          <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pm}</span>
+          <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pm} · {filterLabel}</span>
           <div style={{ flex:1 }} />
           <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
         </div>
@@ -923,7 +928,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       {/* Header */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
-        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm}</span>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm}{!isReview ? ` · ${filterLabel}` : ""}</span>
         <div style={{ flex:1 }} />
         {isReview
           ? <span style={{ fontSize:13, color:"var(--text2)" }}>due: {queue.filter(w => isDue({...w, ...progress[w.id]})).length}</span>
