@@ -365,7 +365,28 @@ function App() {
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
             {view==="flashcards" && <Flashcards key={settings.sessionType + settings.learnFilterMode + settings.learnFilterCategory + settings.reviewFilterMode + settings.reviewFilterCategory} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
-            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={(t,td,l,s) => { const sorted=[...words].sort((a,b)=>a.id-b.id); const newProg={...progress}; if(t>Object.keys(newProg).length){for(const w of sorted){if(Object.keys(newProg).length>=t)break;if(!newProg[w.id])newProg[w.id]={difficulty:"Default",nextReview:computeNextReview("Default"),lastSeen:new Date().toISOString(),easyCount:0,correctCount:0};}}else if(t<Object.keys(newProg).length){const ids=Object.keys(newProg).map(Number).sort((a,b)=>a-b);while(ids.length>t){const id=ids.pop();delete newProg[id];}const rem=Object.keys(newProg).map(Number).sort((a,b)=>a-b);saveLastNewWordId(rem.length>0?rem[rem.length-1]:0);}setProgress(newProg);const today=new Date().toDateString();const capped=Math.min(td,t);saveTaughtToday({date:today,count:capped});setTaughtToday({date:today,count:capped});const sv={days:s,lastDay:today,reached10:capped>=10};saveStreak(sv);setStreakData(sv);}} />
+            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={(t,td,l,s) => {
+              const sorted = [...words].sort((a,b) => a.id - b.id);
+              const newProg = {};
+              // Build progress for exactly t words (first t words by id)
+              for (let i = 0; i < Math.min(t, sorted.length); i++) {
+                const w = sorted[i];
+                newProg[w.id] = progress[w.id] || { difficulty:"Default", nextReview:computeNextReview("Default"), lastSeen:new Date().toISOString(), easyCount:0, correctCount:0 };
+              }
+              setProgress(newProg);
+              // lastNewWordId = id of the t-th word (next session starts from t+1)
+              const newLastId = t === 0 ? 0 : (sorted[Math.min(t, sorted.length) - 1]?.id || 0);
+              saveLastNewWordId(newLastId);
+              // taught today
+              const today = new Date().toDateString();
+              const capped = Math.min(td, t);
+              saveTaughtToday({date:today, count:capped});
+              setTaughtToday({date:today, count:capped});
+              // streak
+              const sv = {days:s, lastDay:today, reached10:capped>=10};
+              saveStreak(sv);
+              setStreakData(sv);
+            }} />
             {view==="webpages"    && <WebPages />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
