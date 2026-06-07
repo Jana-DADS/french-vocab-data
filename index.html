@@ -95,7 +95,7 @@ const LEVELS = ["All","A1","A2","B1","B2"];
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/refs/heads/main/french-vocab.csv";
-const APP_VERSION = "2.1";
+const APP_VERSION = "2.2";
 // Reset stats on new version
 (function() {
   if (localStorage.getItem("frAppVersion") !== APP_VERSION) {
@@ -748,7 +748,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return; // don't intercept when typing
-      if (e.key === " " || e.code === "Space") { e.preventDefault(); if (isReview) { if (flipped) next(); } else { if (flipped) next(); else setFlipped(true); } }
+      if (e.key === " " || e.code === "Space") { e.preventDefault(); if (isReview) { if (flipped) next(); } else if (isWriting) { next(); } else { if (flipped) next(); else setFlipped(true); } }
       if (e.key === "Enter") { if (!flipped && !isWriting) setFlipped(true); }
     }
     window.addEventListener("keydown", handleKey);
@@ -881,7 +881,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         <div style={{ flex:1 }} />
         {isReview
           ? <span style={{ fontSize:13, color:"var(--text2)" }}>due: {queue.filter(w => isDue({...w, ...progress[w.id]})).length}</span>
-          : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {idx} today</span>
+          : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
         }
       </div>
 
