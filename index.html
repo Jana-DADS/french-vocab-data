@@ -845,7 +845,9 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     ? (settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All"
         ? `By Topic · ${settings.learnFilterCategory}`
         : "By Frequency")
-    : null;
+    : (settings.reviewFilterMode === "topic" && settings.reviewFilterCategory !== "All"
+        ? `By Topic · ${settings.reviewFilterCategory}`
+        : "By Frequency");
 
   if (done||!word) return (
     <div style={{ textAlign:"center", padding:"80px 20px" }}>
@@ -892,7 +894,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
       onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong}
-      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} />
+      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedCount} />
   );
 
   // New Words Writing: show both sides immediately + PracticeField (no input step)
@@ -952,7 +954,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       {/* Header */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
-        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm}{!isReview ? ` · ${filterLabel}` : ""}</span>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm} · {filterLabel}</span>
         <div style={{ flex:1 }} />
         {isReview
           ? <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedCount} reviewed</span>
@@ -1363,7 +1365,7 @@ function PracticeField({ correctAnswer, isFR, onCorrect }) {
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
-function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, markWrong, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning }) {
+function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, markWrong, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning, filterLabel, reviewedCount }) {
   const [input, setInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
@@ -1421,11 +1423,9 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
       {/* Progress bar */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={onBack} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
-        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {pairMode}</span>
-        <div style={{ flex:1, height:4, background:"var(--border)", borderRadius:2 }}>
-          <div style={{ height:"100%", background:"var(--accent)", borderRadius:2, width:`${((idx+1)/total)*100}%`, transition:"width 0.3s" }} />
-        </div>
-        <span style={{ fontSize:13, color:"var(--text2)" }}>{idx+1}/{total}</span>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pairMode}{filterLabel ? ` · ${filterLabel}` : ""}</span>
+        <div style={{ flex:1 }} />
+        <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedCount || 0} reviewed</span>
       </div>
 
       <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
