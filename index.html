@@ -7,16 +7,12 @@
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
-  <style>
-    body { margin: 0; padding: 0; }
-    #root { height: 100vh; display: flex; flex-direction: column; }
-  </style>
+  <style>body{margin:0;padding:0;}#root{height:100vh;display:flex;flex-direction:column;}</style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
-
 // ── Spaced-repetition ──────────────────────────────────────────────────────
 const DIFFICULTY_INTERVALS = { Hard: 1, Default: 3, Easy: 7 };
 function isDue(word) {
@@ -732,13 +728,21 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         return (aHard - bHard) || (aWrong - bWrong) || (aDue - bDue) || Math.random() - 0.5;
       });
       return pool; // no limit - infinite cycling
+    } else if (fm === "topic" && fc !== "All") {
+      // By Topic: untaught in topic first (id>lastId), then untaught (id<=lastId), then taught as reminder
+      // Does NOT count towards taught/lastNewWordId
+      const lastId = loadLastNewWordId();
+      const allInTopic = words.filter(w => w.category === fc);
+      const untaught = allInTopic.filter(w => !progress[w.id]).sort((a,b) => a.id - b.id);
+      const taught = allInTopic.filter(w => progress[w.id]).sort((a,b) => a.id - b.id);
+      const untaughtNew = untaught.filter(w => w.id > lastId);
+      const untaughtOld = untaught.filter(w => w.id <= lastId);
+      return [...untaughtNew, ...untaughtOld, ...taught];
     } else {
-      // New Words: unseen only, sorted by ID (frequency), continue from lastNewWordId
+      // By Frequency: unseen only, sorted by ID, continue from lastNewWordId
       const lastId = loadLastNewWordId();
       let pool = words.filter(w => !progress[w.id]);
-      if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
       pool.sort((a, b) => a.id - b.id);
-      // Find position after lastId and load all remaining
       const startIdx = lastId === 0 ? 0 : pool.findIndex(w => w.id > lastId);
       return startIdx === -1 ? [] : pool.slice(startIdx);
     }
@@ -792,8 +796,10 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     </div>
   );
 
+  const isByTopic = !isReview && settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All";
+
   function next() {
-    if (!isReview) {
+    if (!isReview && !isByTopic) {
       markIntroduced(word.id);
       saveLastNewWordId(word.id);
       incrementTaughtToday();
@@ -1344,7 +1350,6 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
     </div>
   );
 }
-
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
