@@ -264,22 +264,26 @@ function App() {
       const current = prev.date === today ? prev : { date: today, count: 0 };
       const updated = { ...current, count: current.count + 1 };
       saveTaughtToday(updated);
-      // Update streak: +1 when crossing 10 for the first time today
+
+      // Streak: +1 exactly when count crosses 10 for the first time today
       if (updated.count === 10) {
-        setStreakData(s => {
-          const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
-          let days;
-          if (s.lastDay === today) {
-            days = s.days; // already counted today
-          } else if (s.lastDay === yesterdayStr) {
-            days = (s.days || 0) + 1; // consecutive day
-          } else {
-            days = 1; // new streak
-          }
-          const newStreak = { days, lastDay: today, reached10: true };
-          saveStreak(newStreak);
-          return newStreak;
-        });
+        // Read streak fresh from localStorage to avoid stale closure
+        const freshStreak = loadStreak();
+        const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
+        let days;
+        if (freshStreak.lastDay === today && freshStreak.reached10) {
+          // Already incremented today — do nothing
+          days = freshStreak.days;
+        } else if (freshStreak.lastDay === yesterdayStr) {
+          // Consecutive day
+          days = (freshStreak.days || 0) + 1;
+        } else {
+          // New streak or gap
+          days = (freshStreak.days || 0) + 1;
+        }
+        const newStreak = { days, lastDay: today, reached10: true };
+        saveStreak(newStreak);
+        setStreakData(newStreak);
       }
       return updated;
     });
@@ -313,7 +317,9 @@ function App() {
     const capped = Math.min(td, t);
     saveTaughtToday({ date:today, count:capped });
     setTaughtToday({ date:today, count:capped });
-    const sv = { days:s, lastDay:today, reached10:capped >= 10 };
+    // Don't set lastDay=today unless already reached 10 today
+    // Otherwise the next session can't increment the streak
+    const sv = { days:s, lastDay: capped >= 10 ? today : null, reached10: capped >= 10 };
     saveStreak(sv);
     setStreakData(sv);
   }
