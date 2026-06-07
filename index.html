@@ -266,25 +266,23 @@ function App() {
       const current = prev.date === today ? prev : { date: today, count: 0 };
       const updated = { ...current, count: current.count + 1 };
       saveTaughtToday(updated);
-      // Update streak
-      setStreakData(s => {
-        const todayStr = today;
-        const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
-        let days = s.days || 0;
-        if (s.lastDay === todayStr) {
-          // already counted today — just check if threshold reached
-          days = updated.count >= 10 ? Math.max(days, s.daysBeforeToday || 0) + (s.lastDay === todayStr && s.reached10 ? 0 : 0) : days;
-        } else if (s.lastDay === yesterdayStr) {
-          days = updated.count >= 10 ? days + 1 : days;
-        } else {
-          days = updated.count >= 10 ? 1 : 0;
-        }
-        const reached10 = updated.count >= 10;
-        const newStreak = { days: reached10 ? Math.max(s.lastDay === todayStr ? s.days : (s.lastDay === yesterdayStr ? s.days + 1 : 1), 1) : (s.lastDay === yesterdayStr ? s.days : 0), lastDay: todayStr, reached10, daysBeforeToday: s.days };
-        if (!reached10 && s.lastDay !== todayStr) newStreak.days = s.lastDay === yesterdayStr ? s.days : 0;
-        saveStreak(newStreak);
-        return newStreak;
-      });
+      // Update streak: +1 when crossing 10 for the first time today
+      if (updated.count === 10) {
+        setStreakData(s => {
+          const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
+          let days;
+          if (s.lastDay === today) {
+            days = s.days; // already counted today
+          } else if (s.lastDay === yesterdayStr) {
+            days = (s.days || 0) + 1; // consecutive day
+          } else {
+            days = 1; // new streak
+          }
+          const newStreak = { days, lastDay: today, reached10: true };
+          saveStreak(newStreak);
+          return newStreak;
+        });
+      }
       return updated;
     });
   }
@@ -324,10 +322,42 @@ function App() {
       `}</style>
 
       <div style={{ display:"flex", flexDirection:"column", flex:1, minHeight:0 }}>
-        <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0" }}>
+        <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
           <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} userLevel={userLevel}
-            userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))} />
-          <div style={{ flex:1, minWidth:0, paddingLeft:20 }}>
+            userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
+            onUpdateProgress={(newIntroducedCount, newTodayCount, newLearntCount, newStreak) => {
+              // Update taught total: add dummy progress entries up to newIntroducedCount
+              if (newIntroducedCount !== introducedCount) {
+                const sortedWords = [...words].sort((a,b) => a.id - b.id);
+                const newProg = { ...progress };
+                let added = 0;
+                for (const w of sortedWords) {
+                  if (Object.keys(newProg).length >= newIntroducedCount) break;
+                  if (!newProg[w.id]) {
+                    newProg[w.id] = { difficulty:"Default", nextReview: computeNextReview("Default"), lastSeen: new Date().toISOString(), easyCount:0, correctCount:0 };
+                    added++;
+                  }
+                }
+                // Remove entries if decreasing
+                const currentIds = Object.keys(newProg).map(Number).sort((a,b)=>a-b);
+                while (currentIds.length > newIntroducedCount) {
+                  const idToRemove = currentIds.pop();
+                  delete newProg[idToRemove];
+                }
+                setProgress(newProg);
+              }
+              // Update taught today
+              const today = new Date().toDateString();
+              const cappedToday = Math.min(newTodayCount, newIntroducedCount);
+              const todayData = { date: today, count: cappedToday };
+              saveTaughtToday(todayData);
+              setTaughtToday(todayData);
+              // Update streak
+              const streakVal = { days: newStreak, lastDay: today, reached10: cappedToday >= 10 };
+              saveStreak(streakVal);
+              setStreakData(streakVal);
+            }} />
+          <div style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
             {view==="dashboard"  && words.length === 0 && (
             <div style={{ textAlign:"center", padding:"60px 20px" }}>
               <div style={{ fontSize:48, marginBottom:16 }}>📚</div>
@@ -339,7 +369,7 @@ function App() {
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
             {view==="flashcards" && <Flashcards words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
-            {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
+            {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={(t,td,l,s) => { const newProg = {}; const sorted = [...words].sort((a,b)=>a.id-b.id); for (let i=0;i<Math.min(t,sorted.length);i++) { const w=sorted[i]; newProg[w.id] = progress[w.id] || { difficulty:'Default', nextReview: computeNextReview('Default'), lastSeen: new Date().toISOString(), easyCount:0, correctCount:0 }; } setProgress(newProg); const today=new Date().toDateString(); const capped=Math.min(td,t); saveTaughtToday({date:today,count:capped}); setTaughtToday({date:today,count:capped}); const sv={days:s,lastDay:today,reached10:capped>=10}; saveStreak(sv); setStreakData(sv); }} />}
           </div>
         </div>
         <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"10px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
@@ -355,7 +385,7 @@ function App() {
 }
 
 // ── Sidebar ────────────────────────────────────────────────────────────────
-function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayCount, learntCount, streak, userName, onUserNameChange, userLevel }) {
+function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayCount, learntCount, streak, userName, onUserNameChange, userLevel, onUpdateProgress }) {
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState(userName);
   const nameInputRef = useRef(null);
@@ -392,7 +422,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
   }
 
   return (
-    <aside style={{ width:200, background:"var(--sidebar)", display:"flex", flexDirection:"column", padding:"12px 10px 24px", flexShrink:0, alignSelf:"flex-start", borderRadius:"0 0 14px 0" }}>
+    <aside style={{ width:200, background:"var(--sidebar)", display:"flex", flexDirection:"column", padding:"12px 10px 24px", flexShrink:0, alignSelf:"stretch", borderRadius:"0 0 14px 0", overflowY:"auto" }}>
       {/* Logo */}
       <div style={{ padding:"0 6px 10px", borderBottom:"1px solid rgba(255,255,255,0.1)", marginBottom:8 }}>
         <div style={{ color:"#fff", fontFamily:"'Lora',serif", fontSize:16, fontWeight:600 }}>🇫🇷 Mon Vocab</div>
@@ -428,7 +458,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
         {[
           { icon:"📚", value: introducedCount,    label:"words taught total" },
           { icon:"📖", value: taughtTodayCount,   label:"words taught today" },
-          { icon:"✓",  value: learntCount,         label:"words learnt total" },
+          { icon:"🎯", value: learntCount,         label:"words learnt total" },
           { icon:"🔥", value: streak === 1 ? "1 day" : `${streak} days`, label:"current streak" },
         ].map(s => (
           <div key={s.label} style={{ display:"flex", alignItems:"center", gap:8, padding:"3px 6px" }}>
@@ -440,9 +470,9 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
           </div>
         ))}
       </div>
-      {/* Upload Vocabulary */}
+      {/* Settings */}
       <div style={{ borderTop:"1px solid rgba(255,255,255,0.1)", marginTop:8, paddingTop:8 }}>
-        <div style={{ fontSize:9, textTransform:"uppercase", letterSpacing:"0.1em", color:"rgba(255,255,255,0.35)", padding:"0 6px 6px" }}>Upload Vocabulary</div>
+        <div style={{ fontSize:9, textTransform:"uppercase", letterSpacing:"0.1em", color:"rgba(255,255,255,0.35)", padding:"0 6px 6px" }}>Settings</div>
         <button onClick={() => setView("upload")} style={{
           display:"flex", alignItems:"center", gap:10, width:"100%", padding:"6px 16px",
           background: view==="upload" ? "var(--sidebar-active-bg)" : "transparent",
@@ -451,7 +481,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
           textAlign:"left", transition:"all 0.15s",
           borderLeft: view==="upload" ? "3px solid var(--accent2)" : "3px solid transparent",
         }}>
-          <span style={{ fontSize:13 }}>⬆</span>Upload vocabulary
+          <span style={{ fontSize:13 }}>⚙</span>Settings
         </button>
       </div>
     </aside>
@@ -718,7 +748,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return; // don't intercept when typing
-      if (e.key === " " || e.code === "Space") { e.preventDefault(); if (flipped || isWriting) next(); else setFlipped(true); }
+      if (e.key === " " || e.code === "Space") { e.preventDefault(); if (isReview) { if (flipped) next(); } else { if (flipped) next(); else setFlipped(true); } }
       if (e.key === "Enter") { if (!flipped && !isWriting) setFlipped(true); }
     }
     window.addEventListener("keydown", handleKey);
@@ -728,6 +758,15 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
+
+  // Load taughtToday count from localStorage to stay in sync across sessions
+  const taughtTodayFromStorage = (() => {
+    try {
+      const data = JSON.parse(localStorage.getItem("frTaughtToday")||"{}");
+      const today = new Date().toDateString();
+      return data.date === today ? data.count : 0;
+    } catch { return 0; }
+  })();
 
   const word = queue[idx];
   const prog = word ? progress[word.id]||{} : {};
@@ -774,12 +813,58 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   const frontSentence = isFR_first ? word.frSentence : word.enSentence;
   const backSentence  = isFR_first ? word.enSentence : word.frSentence;
 
-  if (isWriting) return (
+  if (isWriting && isReview) return (
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
       onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong}
-      isLearn={!isReview} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} />
+      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} />
   );
+
+  // New Words Writing: show both sides immediately + PracticeField (no input step)
+  if (isWriting && !isReview) {
+    const frontT = isFR_first ? word.fr : word.en;
+    const backT  = isFR_first ? word.en : word.fr;
+    const frontS = isFR_first ? word.frSentence : word.enSentence;
+    const backS  = isFR_first ? word.enSentence : word.frSentence;
+    return (
+      <div style={{ maxWidth:620, margin:"0 auto" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
+          <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+          <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pm}</span>
+          <div style={{ flex:1 }} />
+          <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
+        </div>
+        <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
+          {/* Front */}
+          <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "Français" : "English"}</div>
+          <div style={{ fontSize:30, fontWeight:600, color:"var(--accent)", marginBottom:4, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+            {frontT}{isFR_first && <SpeakBtn text={frontT} style={{ fontSize:18 }} />}
+          </div>
+          {isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
+          {word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginBottom:6 }}>{word.info}</div>}
+          <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:20 }}>{frontS}</div>
+          {/* Back */}
+          <div style={{ borderTop:"1px solid var(--border)", paddingTop:20, marginBottom:4 }}>
+            <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "English" : "Français"}</div>
+            <div style={{ fontSize:26, fontWeight:600, color:"var(--text)", marginBottom:4, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+              {backT}{!isFR_first && <SpeakBtn text={backT} style={{ fontSize:18 }} />}
+            </div>
+            {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
+            <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
+          </div>
+          {/* Practice */}
+          <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} />
+          {/* Buttons */}
+          <div style={{ marginTop:16 }}>
+            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
+            <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
+              Next <span style={{fontSize:10,opacity:0.7}}>[Space]</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth:620, margin:"0 auto" }}>
@@ -792,11 +877,11 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       {/* Header */}
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
         <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
-        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {pm}</span>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm}</span>
         <div style={{ flex:1 }} />
         {isReview
           ? <span style={{ fontSize:13, color:"var(--text2)" }}>due: {queue.filter(w => isDue({...w, ...progress[w.id]})).length}</span>
-          : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {idx} taught today</span>
+          : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {idx} today</span>
         }
       </div>
 
@@ -836,6 +921,11 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         )}
       </div>
 
+      {isWriting && !isReview && !flipped && (
+        <div style={{ marginTop:16 }}>
+          <PracticeField correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} />
+        </div>
+      )}
       {flipped && !isReview && (
         <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} />
       )}
@@ -865,18 +955,19 @@ function Dictionary({ words, progress, setDifficulty }) {
   const [filterLvl, setFilterLvl] = useState("All");
 
   const filtered = words.filter(w => {
-    const q = search.toLowerCase();
-    return (!q || w.fr.toLowerCase().includes(q) || w.en.toLowerCase().includes(q))
+    const q = search.toLowerCase().trim();
+    const idMatch = /^\d+$/.test(q) && w.id === parseInt(q);
+    return (!q || idMatch || w.fr.toLowerCase().includes(q) || w.en.toLowerCase().includes(q))
       && (filterCat==="All" || w.category===filterCat)
       && (filterLvl==="All" || w.level===filterLvl);
   });
 
   return (
-    <div>
-      <h2 style={{ fontSize:22, marginBottom:20, color:"var(--text)", fontFamily:"'Lora',serif" }}>Dictionary</h2>
+    <div style={{ height:"calc(100vh - 120px)", display:"flex", flexDirection:"column" }}>
+      <h2 style={{ fontSize:22, marginBottom:16, color:"var(--text)", fontFamily:"'Lora',serif", flexShrink:0 }}>Dictionary</h2>
       <FrenchVoiceHint />
-      <div style={{ display:"flex", gap:10, marginBottom:20, flexWrap:"wrap" }}>
-        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search FR or EN…"
+      <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap", flexShrink:0 }}>
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search FR, EN or #id…"
           style={{ padding:"8px 14px", borderRadius:8, border:"1px solid var(--border)", background:"var(--surface)", fontSize:14, minWidth:200, outline:"none" }} />
         <select value={filterCat} onChange={e => setFilterCat(e.target.value)}
           style={{ padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", background:"var(--surface)", fontSize:14, outline:"none" }}>
@@ -888,34 +979,32 @@ function Dictionary({ words, progress, setDifficulty }) {
         </select>
         <span style={{ fontSize:13, color:"var(--text2)", alignSelf:"center" }}>{filtered.length} words</span>
       </div>
-      <div style={{ overflowX:"auto", background:"var(--surface)", borderRadius:12, border:"1px solid var(--border)", boxShadow:"var(--shadow)" }}>
+      <div style={{ flex:1, overflowY:"auto", overflowX:"auto", background:"var(--surface)", borderRadius:12, border:"1px solid var(--border)", boxShadow:"var(--shadow)" }}>
         <table style={{ width:"100%", borderCollapse:"collapse", fontSize:14 }}>
-          <thead>
+          <thead style={{ position:"sticky", top:0, zIndex:10 }}>
             <tr style={{ background:"var(--surface2)", borderBottom:"2px solid var(--border)" }}>
-              {["FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category"].map(h => (
-                <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12 }}>{h}</th>
+              {["#","FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category"].map(h => (
+                <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12, background:"var(--surface2)" }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {filtered.map((w,i) => {
-              return (
-                <tr key={w.id} style={{ borderBottom:"1px solid var(--border)", background: i%2===0?"var(--surface)":"var(--surface2)" }}>
-                  <td style={{ padding:"10px 14px", fontWeight:600, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
-                    <span style={{ display:"flex", alignItems:"center", gap:4 }}>
-                      {w.fr}
-                      <SpeakBtn text={w.fr} />
-                    </span>
-                  </td>
-                  <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic" }}>[{w.pron}]</td>
-                  <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12 }}>{w.info}</td>
-                  <td style={{ padding:"10px 14px" }}>{w.en}</td>
-                  <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.frSentence}</td>
-                  <td style={{ padding:"10px 14px" }}><span style={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:4, padding:"2px 8px", fontSize:11 }}>{w.level}</span></td>
-                  <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:13 }}>{w.category}</td>
-                </tr>
-              );
-            })}
+            {filtered.map((w,i) => (
+              <tr key={w.id} style={{ borderBottom:"1px solid var(--border)", background: i%2===0?"var(--surface)":"var(--surface2)" }}>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12, fontWeight:500 }}>{w.id}</td>
+                <td style={{ padding:"10px 14px", fontWeight:600, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}>
+                    {w.fr}<SpeakBtn text={w.fr} />
+                  </span>
+                </td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic" }}>[{w.pron}]</td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12 }}>{w.info}</td>
+                <td style={{ padding:"10px 14px" }}>{w.en}</td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.frSentence}</td>
+                <td style={{ padding:"10px 14px" }}><span style={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:4, padding:"2px 8px", fontSize:11 }}>{w.level}</span></td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:13 }}>{w.category}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -924,9 +1013,27 @@ function Dictionary({ words, progress, setDifficulty }) {
 }
 
 // ── VocabSettings ──────────────────────────────────────────────────────────
-function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount }) {
+function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount, introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress }) {
   const meta = loadVocabMeta();
   const [url, setUrl] = useState(meta.url || DEFAULT_VOCAB_URL);
+
+  // Update Progress state
+  const [pTaught, setPTaught] = useState(String(introducedCount));
+  const [pToday, setPToday] = useState(String(taughtTodayCount));
+  const [pLearnt, setPLearnt] = useState(String(learntCount));
+  const [pStreak, setPStreak] = useState(String(streak));
+  const [saved, setSaved] = useState(false);
+
+  function handleSave() {
+    const taught = Math.max(0, parseInt(pTaught) || 0);
+    const today = Math.min(Math.max(0, parseInt(pToday) || 0), taught);
+    const learnt = Math.max(0, parseInt(pLearnt) || 0);
+    const s = Math.max(0, parseInt(pStreak) || 0);
+    setPToday(String(today));
+    onUpdateProgress(taught, today, learnt, s);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
 
   function handleLoad() {
     const trimmed = url.trim();
@@ -939,8 +1046,36 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 
   return (
     <div style={{ maxWidth:600 }}>
-      <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Vocabulary source</h2>
-      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:24, lineHeight:1.6 }}>
+      <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Settings</h2>
+
+      {/* Update Progress */}
+      <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:12, padding:"20px 24px", marginBottom:28 }}>
+        <div style={{ fontSize:15, fontWeight:600, color:"var(--text)", marginBottom:4 }}>Update Progress</div>
+        <p style={{ color:"var(--text2)", fontSize:13, marginBottom:16, lineHeight:1.5 }}>
+          Manually set your progress — useful for advanced learners or after an accidental reset.
+          <br/><em style={{fontSize:12}}>Note: "Words taught today" cannot exceed "Words taught total".</em>
+        </p>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
+          {[
+            { label:"Words taught total", val:pTaught, set:setPTaught },
+            { label:"Words taught today", val:pToday, set:setPToday },
+            { label:"Words learnt total", val:pLearnt, set:setPLearnt },
+            { label:"Current streak (days)", val:pStreak, set:setPStreak },
+          ].map(f => (
+            <div key={f.label}>
+              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:4 }}>{f.label}</label>
+              <input type="number" min="0" value={f.val} onChange={e => f.set(e.target.value)}
+                style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
+            </div>
+          ))}
+        </div>
+        <button onClick={handleSave} style={{ padding:"10px 24px", background: saved ? "var(--easy)" : "var(--accent)", color:"#fff", border:"none", borderRadius:8, fontSize:14, fontWeight:600, transition:"background 0.2s" }}>
+          {saved ? "✓ Saved!" : "Save progress"}
+        </button>
+      </div>
+
+      <div style={{ fontSize:15, fontWeight:600, color:"var(--text)", marginBottom:6 }}>Upload vocabulary</div>
+      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:16, lineHeight:1.6 }}>
         Enter the URL of your CSV vocabulary file (e.g. a GitHub raw file link). The vocabulary will be downloaded and stored locally — internet is only needed when reloading.
       </p>
 
@@ -984,7 +1119,7 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 
 // ── PracticeField ─────────────────────────────────────────────────────────
 const FR_CHARS_PRACTICE = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
-function PracticeField({ correctAnswer, isFR }) {
+function PracticeField({ correctAnswer, isFR, onCorrect }) {
   const [val, setVal] = useState("");
   const [lastAttempt, setLastAttempt] = useState(null); // { text, ok }
   const inputRef = useRef(null);
@@ -994,6 +1129,7 @@ function PracticeField({ correctAnswer, isFR }) {
     const ok = val.trim().toLowerCase() === correctAnswer.toLowerCase();
     setLastAttempt({ text: val, ok });
     setVal("");
+    if (ok && onCorrect) onCorrect();
     inputRef.current?.focus();
   }
 
