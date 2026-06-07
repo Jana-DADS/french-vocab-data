@@ -258,6 +258,26 @@ function App() {
   const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
   const [sessionStartKey, setSessionStartKey] = useState(0);
 
+  const DEFAULT_WEB_PAGES = [
+    { id:1, name:"Ask French Assistant", url:"https://claude.ai" },
+    { id:2, name:"Linguee",              url:"https://www.linguee.com/french-english" },
+    { id:3, name:"Reverso Context",      url:"https://context.reverso.net/translation/french-english" },
+    { id:4, name:"WordReference",        url:"https://www.wordreference.com/fren/" },
+    { id:5, name:"Larousse",             url:"https://www.larousse.fr/dictionnaires/francais" },
+    { id:6, name:"Bescherelle",          url:"https://bescherelle.com" },
+    { id:7, name:"RFI Savoirs",          url:"https://savoirs.rfi.fr" },
+  ];
+  const [webPages, setWebPages] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("frWebPages") || "null");
+      return stored || DEFAULT_WEB_PAGES;
+    } catch { return DEFAULT_WEB_PAGES; }
+  });
+  function saveWebPages(pages) {
+    try { localStorage.setItem("frWebPages", JSON.stringify(pages)); } catch {}
+    setWebPages(pages);
+  }
+
   function incrementTaughtToday() {
     setTaughtToday(prev => {
       const today = new Date().toDateString();
@@ -394,16 +414,17 @@ function App() {
             {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={handleUpdateProgress} />}
-            {view==="webpages"    && <WebPages />}
+            {view==="webpages"    && <WebPages webPages={webPages} saveWebPages={saveWebPages} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
         </div>
-        <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"10px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
-          <span style={{ fontSize:13, color:"var(--text2)" }}>💬 Need help with French?</span>
-          <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" style={{
-            padding:"7px 18px", background:"var(--accent)", color:"#fff", borderRadius:8,
-            fontSize:13, fontWeight:600, textDecoration:"none"
-          }}>Ask French Assistant →</a>
+        <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"8px 24px", display:"flex", alignItems:"center", gap:8, flexShrink:0, flexWrap:"wrap" }}>
+          {webPages.map(page => (
+            <a key={page.id} href={page.url} target="_blank" rel="noopener noreferrer" style={{
+              padding:"6px 14px", background:"var(--accent)", color:"#fff", borderRadius:8,
+              fontSize:13, fontWeight:600, textDecoration:"none", whiteSpace:"nowrap"
+            }}>{page.name} →</a>
+          ))}
         </div>
       </div>
     </div>
@@ -821,8 +842,8 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   const sessionIcon = isReview ? "↺" : "✦";
   const filterLabel = !isReview
     ? (settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All"
-        ? settings.learnFilterCategory
-        : "All")
+        ? `By Topic · ${settings.learnFilterCategory}`
+        : "By Frequency")
     : null;
 
   if (done||!word) return (
@@ -1116,13 +1137,113 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
 }
 
 // ── WebPages ───────────────────────────────────────────────────────────────
-function WebPages() {
+function WebPages({ webPages, saveWebPages }) {
+  const [editingId, setEditingId] = useState(null);
+  const [editName, setEditName] = useState("");
+  const [editUrl, setEditUrl] = useState("");
+  const [dragIdx, setDragIdx] = useState(null);
+  const [dragOverIdx, setDragOverIdx] = useState(null);
+  const SOFT_LIMIT = 10;
+
+  function startEdit(page) {
+    setEditingId(page.id);
+    setEditName(page.name);
+    setEditUrl(page.url);
+  }
+
+  function saveEdit() {
+    if (!editName.trim() || !editUrl.trim()) return;
+    const url = editUrl.trim().startsWith("http") ? editUrl.trim() : "https://" + editUrl.trim();
+    saveWebPages(webPages.map(p => p.id === editingId ? { ...p, name: editName.trim(), url } : p));
+    setEditingId(null);
+  }
+
+  function deleteLink(id) {
+    saveWebPages(webPages.filter(p => p.id !== id));
+  }
+
+  function addLink() {
+    if (webPages.length >= SOFT_LIMIT) return;
+    const newId = Date.now();
+    const newPages = [...webPages, { id: newId, name: "New link", url: "https://" }];
+    saveWebPages(newPages);
+    setEditingId(newId);
+    setEditName("New link");
+    setEditUrl("https://");
+  }
+
+  function onDragStart(idx) { setDragIdx(idx); }
+  function onDragOver(e, idx) { e.preventDefault(); setDragOverIdx(idx); }
+  function onDrop(idx) {
+    if (dragIdx === null || dragIdx === idx) { setDragIdx(null); setDragOverIdx(null); return; }
+    const reordered = [...webPages];
+    const [moved] = reordered.splice(dragIdx, 1);
+    reordered.splice(idx, 0, moved);
+    saveWebPages(reordered);
+    setDragIdx(null);
+    setDragOverIdx(null);
+  }
+
   return (
-    <div style={{ maxWidth:500 }}>
+    <div style={{ maxWidth:520 }}>
       <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Web Pages</h2>
-      <p style={{ color:"var(--text2)", fontSize:14, lineHeight:1.6 }}>
-        Coming soon — you will be able to manage your favourite French learning links here.
+      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:20, lineHeight:1.6 }}>
+        Manage your favourite French learning links. They appear as buttons in the bottom bar.
+        Drag to reorder. {webPages.length >= SOFT_LIMIT && <span style={{ color:"var(--hard)" }}>Maximum {SOFT_LIMIT} links reached.</span>}
       </p>
+
+      <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:16 }}>
+        {webPages.map((page, idx) => (
+          <div key={page.id}
+            draggable
+            onDragStart={() => onDragStart(idx)}
+            onDragOver={e => onDragOver(e, idx)}
+            onDrop={() => onDrop(idx)}
+            onDragEnd={() => { setDragIdx(null); setDragOverIdx(null); }}
+            style={{
+              background: dragOverIdx === idx ? "var(--surface2)" : "var(--surface)",
+              border: `1px solid ${dragOverIdx === idx ? "var(--accent)" : "var(--border)"}`,
+              borderRadius:10, padding:"10px 14px",
+              display:"flex", alignItems:"center", gap:10,
+              cursor:"grab", transition:"border-color 0.15s",
+              opacity: dragIdx === idx ? 0.5 : 1,
+            }}>
+            <span style={{ color:"var(--text2)", fontSize:16, cursor:"grab" }}>⠿</span>
+
+            {editingId === page.id ? (
+              <div style={{ flex:1, display:"flex", flexDirection:"column", gap:6 }}>
+                <input value={editName} onChange={e => setEditName(e.target.value)}
+                  placeholder="Name" style={{ padding:"5px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none", background:"var(--surface2)", color:"var(--text)" }} />
+                <input value={editUrl} onChange={e => setEditUrl(e.target.value)}
+                  placeholder="https://..." style={{ padding:"5px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none", background:"var(--surface2)", color:"var(--text)" }} />
+                <div style={{ display:"flex", gap:8 }}>
+                  <button onClick={saveEdit} style={{ padding:"4px 14px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12, fontWeight:600 }}>Save</button>
+                  <button onClick={() => setEditingId(null)} style={{ padding:"4px 14px", background:"var(--surface2)", color:"var(--text2)", border:"1px solid var(--border)", borderRadius:6, fontSize:12 }}>Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontWeight:600, fontSize:14, color:"var(--text)", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{page.name}</div>
+                <div style={{ fontSize:12, color:"var(--text2)", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{page.url}</div>
+              </div>
+            )}
+
+            {editingId !== page.id && (
+              <div style={{ display:"flex", gap:6, flexShrink:0 }}>
+                <button onClick={() => startEdit(page)} title="Edit" style={{ background:"none", border:"none", cursor:"pointer", fontSize:16, padding:"2px 6px", color:"var(--text2)" }}>✎</button>
+                <button onClick={() => deleteLink(page.id)} title="Delete" style={{ background:"none", border:"none", cursor:"pointer", fontSize:16, padding:"2px 6px", color:"var(--hard)" }}>✕</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {webPages.length < SOFT_LIMIT && (
+        <button onClick={addLink} style={{
+          padding:"9px 20px", background:"var(--surface)", border:"1px dashed var(--border)",
+          borderRadius:10, fontSize:14, color:"var(--text2)", cursor:"pointer", width:"100%"
+        }}>+ Add link</button>
+      )}
     </div>
   );
 }
