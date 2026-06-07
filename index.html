@@ -384,7 +384,7 @@ function App() {
               <button onClick={() => setView("upload")} style={{ padding:"11px 28px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:10, fontSize:14, fontWeight:600 }}>Go to Settings</button>
             </div>
           )}
-          {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
+          {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} setSessionStartKey={setSessionStartKey} />}
             {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={handleUpdateProgress} />}
@@ -516,7 +516,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
 }
 
 // ── Dashboard ──────────────────────────────────────────────────────────────
-function Dashboard({ words, progress, settings, setSettings, introducedWords, newWords, learnedCount, streak, setView, userName }) {
+function Dashboard({ words, progress, settings, setSettings, introducedWords, newWords, learnedCount, streak, setView, userName, setSessionStartKey }) {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
