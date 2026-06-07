@@ -255,6 +255,7 @@ function App() {
 
   const [taughtToday, setTaughtToday] = useState(loadTaughtToday);
   const [streakData, setStreakData] = useState(loadStreak);
+  const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
 
   function incrementTaughtToday() {
     setTaughtToday(prev => {
@@ -306,6 +307,7 @@ function App() {
     setProgress(newProg);
     const newLastId = t === 0 ? 0 : (sorted[Math.min(t, sorted.length) - 1]?.id || 0);
     saveLastNewWordId(newLastId);
+    setLastNewWordId(newLastId);
     const today = new Date().toDateString();
     const capped = Math.min(td, t);
     saveTaughtToday({ date:today, count:capped });
@@ -382,7 +384,7 @@ function App() {
             </div>
           )}
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
-            {view==="flashcards" && <Flashcards key={settings.sessionType + settings.learnFilterMode + settings.learnFilterCategory + settings.reviewFilterMode + settings.reviewFilterCategory} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} />}
+            {view==="flashcards" && <Flashcards key={settings.sessionType + settings.learnFilterMode + settings.learnFilterCategory + settings.reviewFilterMode + settings.reviewFilterCategory + lastNewWordId} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={handleUpdateProgress} />}
             {view==="webpages"    && <WebPages />}
@@ -730,7 +732,7 @@ function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficult
 }
 
 // ── Flashcards ─────────────────────────────────────────────────────────────
-function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markWrong, markIntroduced, incrementTaughtToday, setView, introducedWords }) {
+function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markWrong, markIntroduced, incrementTaughtToday, setView, introducedWords, lastNewWordId, setLastNewWordId }) {
   const isReview = settings.sessionType === "review";
   const isWriting = settings.activeSessionMode === "writing";
 
@@ -769,7 +771,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     } else {
       // By Frequency: ALL unseen words sorted by ID, continue from lastNewWordId
       // Completely ignores topic filter — topic never affects this queue
-      const lastId = loadLastNewWordId();
+      const lastId = lastNewWordId !== undefined ? lastNewWordId : loadLastNewWordId();
       const pool = words.filter(w => !progress[w.id]).sort((a, b) => a.id - b.id);
       if (pool.length === 0) return [];
       if (lastId === 0) return pool;
@@ -832,6 +834,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     if (!isReview && !isByTopic) {
       markIntroduced(word.id);
       saveLastNewWordId(word.id);
+      if (setLastNewWordId) setLastNewWordId(word.id);
       incrementTaughtToday();
     }
     if (isReview) {
