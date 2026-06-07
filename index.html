@@ -256,6 +256,7 @@ function App() {
   const [taughtToday, setTaughtToday] = useState(loadTaughtToday);
   const [streakData, setStreakData] = useState(loadStreak);
   const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
+  const [sessionStartKey, setSessionStartKey] = useState(0);
 
   function incrementTaughtToday() {
     setTaughtToday(prev => {
@@ -384,7 +385,7 @@ function App() {
             </div>
           )}
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} />}
-            {view==="flashcards" && <Flashcards key={settings.sessionType + settings.learnFilterMode + settings.learnFilterCategory + settings.reviewFilterMode + settings.reviewFilterCategory + lastNewWordId} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
+            {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
             {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={handleUpdateProgress} />}
             {view==="webpages"    && <WebPages />}
@@ -536,7 +537,7 @@ function Dashboard({ words, progress, settings, setSettings, introducedWords, ne
           onFilterMode={m => setSettings(s => ({ ...s, learnFilterMode: m }))}
           filterCategory={settings.learnFilterCategory}
           onFilterCategory={c => setSettings(s => ({ ...s, learnFilterCategory: c }))}
-          onStart={() => { setSettings(s => ({ ...s, sessionType:"learn", activeSessionMode: s.learnSessionMode })); setView("flashcards"); }}
+          onStart={() => { setSettings(s => ({ ...s, sessionType:"learn", activeSessionMode: s.learnSessionMode })); setSessionStartKey(k => k+1); setView("flashcards"); }}
           sessionMode={settings.learnSessionMode}
           onSessionMode={m => setSettings(s => ({ ...s, learnSessionMode: m }))}
         />
@@ -547,7 +548,7 @@ function Dashboard({ words, progress, settings, setSettings, introducedWords, ne
           onFilterMode={m => setSettings(s => ({ ...s, reviewFilterMode: m }))}
           filterCategory={settings.reviewFilterCategory}
           onFilterCategory={c => setSettings(s => ({ ...s, reviewFilterCategory: c }))}
-          onStart={() => { setSettings(s => ({ ...s, sessionType:"review", activeSessionMode: s.reviewSessionMode })); setView("flashcards"); }}
+          onStart={() => { setSettings(s => ({ ...s, sessionType:"review", activeSessionMode: s.reviewSessionMode })); setSessionStartKey(k => k+1); setView("flashcards"); }}
           sessionMode={settings.reviewSessionMode}
           onSessionMode={m => setSettings(s => ({ ...s, reviewSessionMode: m }))}
         />
@@ -761,7 +762,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     } else if (fm === "topic" && fc !== "All") {
       // By Topic: untaught in topic first (id>lastId), then untaught (id<=lastId), then taught as reminder
       // Does NOT count towards taught/lastNewWordId
-      const lastId = loadLastNewWordId();
+      const lastId = loadLastNewWordId(); // always fresh from localStorage
       const allInTopic = words.filter(w => w.category === fc);
       const untaught = allInTopic.filter(w => !progress[w.id]).sort((a,b) => a.id - b.id);
       const taught = allInTopic.filter(w => progress[w.id]).sort((a,b) => a.id - b.id);
@@ -771,7 +772,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     } else {
       // By Frequency: ALL unseen words sorted by ID, continue from lastNewWordId
       // Completely ignores topic filter — topic never affects this queue
-      const lastId = lastNewWordId !== undefined ? lastNewWordId : loadLastNewWordId();
+      const lastId = loadLastNewWordId(); // always fresh from localStorage
       const pool = words.filter(w => !progress[w.id]).sort((a, b) => a.id - b.id);
       if (pool.length === 0) return [];
       if (lastId === 0) return pool;
