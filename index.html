@@ -318,7 +318,8 @@ function App() {
   const newWords        = words.filter(w => !progress[w.id]);
   const introducedWords = words.filter(w => progress[w.id]);
   const introducedCount = introducedWords.length;
-  const learntCount     = words.filter(w => (progress[w.id]?.correctCount || 0) >= 3).length;
+  const learntThreshold = settings.learntThreshold || 3;
+  const learntCount     = words.filter(w => (progress[w.id]?.correctCount || 0) >= learntThreshold).length;
   const learnedCount    = learntCount;
   const userLevel       = computeLevel(progress, words);
 
@@ -413,7 +414,7 @@ function App() {
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} setSessionStartKey={setSessionStartKey} />}
             {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
-            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} onUpdateProgress={handleUpdateProgress} />}
+            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} learntThreshold={settings.learntThreshold || 3} onUpdateProgress={handleUpdateProgress} onSaveThreshold={(v) => setSettings(s => ({...s, learntThreshold: v}))} />}
             {view==="webpages"    && <WebPages webPages={webPages} saveWebPages={saveWebPages} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
@@ -1090,11 +1091,12 @@ function Dictionary({ words, progress, setDifficulty }) {
 }
 
 // ── UpdateProgress ────────────────────────────────────────────────────────
-function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress }) {
+function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress, learntThreshold, onSaveThreshold }) {
   const [pTaught, setPTaught] = useState(String(introducedCount));
   const [pToday, setPToday] = useState(String(taughtTodayCount));
   const [pLearnt, setPLearnt] = useState(String(learntCount));
   const [pStreak, setPStreak] = useState(String(streak));
+  const [pThreshold, setPThreshold] = useState(String(learntThreshold));
   const [saved, setSaved] = useState(false);
 
   function handleSave() {
@@ -1103,6 +1105,9 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
     const learnt = Math.max(0, parseInt(pLearnt) || 0);
     const s = Math.max(0, parseInt(pStreak) || 0);
     setPToday(String(today));
+    const threshold = Math.min(10, Math.max(1, parseInt(pThreshold) || 3));
+    setPThreshold(String(threshold));
+    onSaveThreshold(threshold);
     onUpdateProgress(taught, today, learnt, s);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -1122,10 +1127,11 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
             { label:"Words taught today", val:pToday, set:setPToday },
             { label:"Words learnt total", val:pLearnt, set:setPLearnt },
             { label:"Current streak (days)", val:pStreak, set:setPStreak },
+            { label:"Correct answers to mark as learnt (1–10)", val:pThreshold, set:setPThreshold, min:1, max:10 },
           ].map(f => (
             <div key={f.label}>
               <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:4 }}>{f.label}</label>
-              <input type="number" min="0" value={f.val} onChange={e => f.set(e.target.value)}
+              <input type="number" min={f.min ?? 0} max={f.max ?? undefined} value={f.val} onChange={e => f.set(e.target.value)}
                 style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
             </div>
           ))}
