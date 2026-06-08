@@ -847,14 +847,24 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         ? `By Topic · ${settings.reviewFilterCategory}`
         : "By Frequency");
 
+  const isByTopicDone = !isReview && settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All";
+  const topicName = settings.learnFilterCategory;
+  const topicHasTaught = isByTopicDone && queue.length > 0;
+
   if (done||!word) return (
     <div style={{ textAlign:"center", padding:"80px 20px" }}>
-      <div style={{ fontSize:48, marginBottom:16 }}>🎉</div>
+      <div style={{ fontSize:48, marginBottom:16 }}>{isByTopicDone && !topicHasTaught ? "📭" : "🎉"}</div>
       <h2 style={{ fontSize:26, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
-        {isReview ? "Session complete!" : "All words taught! 🎓"}
+        {isReview ? "Session complete!" : isByTopicDone ? `Topic: ${topicName}` : "All words taught! 🎓"}
       </h2>
       <p style={{ color:"var(--text2)", marginTop:8 }}>
-        {isReview ? `You reviewed ${queue.length} words.` : "You have gone through all available words in the dictionary. Congratulations! 🎉"}
+        {isReview
+          ? `You reviewed ${reviewedIds.size} words.`
+          : isByTopicDone && !topicHasTaught
+            ? `None of the words from topic "${topicName}" have been taught yet. Study them first in New Words → By Frequency.`
+            : isByTopicDone && topicHasTaught
+              ? `These are all the words from topic "${topicName}" which have been taught so far.`
+              : "You have gone through all available words in the dictionary. Congratulations! 🎉"}
       </p>
       <div style={{ display:"flex", gap:12, justifyContent:"center", marginTop:24 }}>
         <button onClick={() => setView("dashboard")} style={{ padding:"11px 24px", background:"var(--surface2)", color:"var(--text)", border:"1px solid var(--border)", borderRadius:10, fontSize:14 }}>← Back</button>
@@ -1122,7 +1132,7 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
         <br/><em style={{fontSize:12}}>Note: "Words taught today" cannot exceed "Words taught total".</em>
       </p>
       <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:12, padding:"20px 24px", marginBottom:20 }}>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
           {[
             { label:"Words taught total", val:pTaught, set:setPTaught, desc:"Words studied in New Words → By Frequency (Flashcard or Writing). By Topic sessions do not count." },
             { label:"Words taught today", val:pToday, set:setPToday, desc:"Same as above, but only for today. Resets at midnight." },
