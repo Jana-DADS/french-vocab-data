@@ -249,7 +249,7 @@ function App() {
   function markWrong(wordId) {
     setProgress(p => {
       const prev = p[wordId] || {};
-      return { ...p, [wordId]: { ...prev, lastWrong: true, lastSeen: new Date().toISOString() } };
+      return { ...p, [wordId]: { ...prev, correctCount: 0, lastWrong: true, lastSeen: new Date().toISOString() } };
     });
   }
 
@@ -286,7 +286,7 @@ function App() {
       saveTaughtToday(updated);
 
       // Streak: +1 exactly when count crosses 10 for the first time today
-      if (updated.count === 10) {
+      if (updated.count === (settings.streakThreshold || 10)) {
         // Read streak fresh from localStorage to avoid stale closure
         const freshStreak = loadStreak();
         const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
@@ -414,7 +414,7 @@ function App() {
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} setSessionStartKey={setSessionStartKey} />}
             {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
-            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} learntThreshold={settings.learntThreshold || 3} onUpdateProgress={handleUpdateProgress} onSaveThreshold={(v) => setSettings(s => ({...s, learntThreshold: v}))} />}
+            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} learntThreshold={settings.learntThreshold || 3} streakThreshold={settings.streakThreshold || 10} onUpdateProgress={handleUpdateProgress} onSaveThreshold={(v) => setSettings(s => ({...s, learntThreshold: v}))} onSaveStreakThreshold={(v) => setSettings(s => ({...s, streakThreshold: v}))} />}
             {view==="webpages"    && <WebPages webPages={webPages} saveWebPages={saveWebPages} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
@@ -1091,12 +1091,13 @@ function Dictionary({ words, progress, setDifficulty }) {
 }
 
 // ── UpdateProgress ────────────────────────────────────────────────────────
-function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress, learntThreshold, onSaveThreshold }) {
+function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress, learntThreshold, onSaveThreshold, streakThreshold, onSaveStreakThreshold }) {
   const [pTaught, setPTaught] = useState(String(introducedCount));
   const [pToday, setPToday] = useState(String(taughtTodayCount));
   const [pLearnt, setPLearnt] = useState(String(learntCount));
   const [pStreak, setPStreak] = useState(String(streak));
   const [pThreshold, setPThreshold] = useState(String(learntThreshold));
+  const [pStreakThreshold, setPStreakThreshold] = useState(String(streakThreshold));
   const [saved, setSaved] = useState(false);
 
   function handleSave() {
@@ -1105,9 +1106,12 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
     const learnt = Math.max(0, parseInt(pLearnt) || 0);
     const s = Math.max(0, parseInt(pStreak) || 0);
     setPToday(String(today));
-    const threshold = Math.min(10, Math.max(1, parseInt(pThreshold) || 3));
+    const threshold = Math.max(1, parseInt(pThreshold) || 3);
     setPThreshold(String(threshold));
     onSaveThreshold(threshold);
+    const streakThr = Math.max(1, parseInt(pStreakThreshold) || 10);
+    setPStreakThreshold(String(streakThr));
+    onSaveStreakThreshold(streakThr);
     onUpdateProgress(taught, today, learnt, s);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -1123,15 +1127,30 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
       <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:12, padding:"20px 24px", marginBottom:20 }}>
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
           {[
-            { label:"Words taught total", val:pTaught, set:setPTaught },
-            { label:"Words taught today", val:pToday, set:setPToday },
-            { label:"Words learnt total", val:pLearnt, set:setPLearnt },
-            { label:"Current streak (days)", val:pStreak, set:setPStreak },
-            { label:"Correct answers to mark as learnt (1–10)", val:pThreshold, set:setPThreshold, min:1, max:10 },
+            { label:"Words taught total", val:pTaught, set:setPTaught, desc:"Words studied in New Words → By Frequency (Flashcard or Writing). By Topic sessions do not count." },
+            { label:"Words taught today", val:pToday, set:setPToday, desc:"Same as above, but only for today. Resets at midnight." },
+            { label:"Words learnt total", val:pLearnt, set:setPLearnt, desc:"Words answered correctly N times in a row in Review (N = threshold below)." },
+            { label:"Current streak (days)", val:pStreak, set:setPStreak, desc:"Increases by 1 when you reach your daily target (see threshold below) in a single day." },
           ].map(f => (
             <div key={f.label}>
-              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:4 }}>{f.label}</label>
+              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:2 }}>{f.label}</label>
+              {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, marginBottom:4, lineHeight:1.4 }}>{f.desc}</div>}
               <input type="number" min={f.min ?? 0} max={f.max ?? undefined} value={f.val} onChange={e => f.set(e.target.value)}
+                style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
+            </div>
+          ))}
+        </div>
+        {/* Learning Rules */}
+        <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", margin:"16px 0 8px" }}>Learning Rules</div>
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
+          {[
+            { label:"Correct answers in a row to mark as learnt", val:pThreshold, set:setPThreshold, desc:"How many consecutive correct answers in Review to count a word as learnt. Default: 3", min:1 },
+            { label:"Taught words per day to increase streak", val:pStreakThreshold, set:setPStreakThreshold, desc:"How many New Words (By Frequency only) you must study in a day for your streak to go up by 1. Default: 10", min:1 },
+          ].map(f => (
+            <div key={f.label}>
+              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:2 }}>{f.label}</label>
+              {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, marginBottom:4, lineHeight:1.4 }}>{f.desc}</div>}
+              <input type="number" min={f.min ?? 1} value={f.val} onChange={e => f.set(e.target.value)}
                 style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
             </div>
           ))}
