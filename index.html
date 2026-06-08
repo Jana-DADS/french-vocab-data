@@ -788,15 +788,12 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       });
       return pool; // no limit - infinite cycling
     } else if (fm === "topic" && fc !== "All") {
-      // By Topic: untaught in topic first (id>lastId), then untaught (id<=lastId), then taught as reminder
-      // Does NOT count towards taught/lastNewWordId
-      const lastId = loadLastNewWordId(); // always fresh from localStorage
+      // By Topic: ALL untaught words in topic first, then taught as reminder
+      // Completely independent of lastNewWordId — does NOT count towards taught
       const allInTopic = words.filter(w => w.category === fc);
       const untaught = allInTopic.filter(w => !progress[w.id]).sort((a,b) => a.id - b.id);
       const taught = allInTopic.filter(w => progress[w.id]).sort((a,b) => a.id - b.id);
-      const untaughtNew = untaught.filter(w => w.id > lastId);
-      const untaughtOld = untaught.filter(w => w.id <= lastId);
-      return [...untaughtNew, ...untaughtOld, ...taught];
+      return [...untaught, ...taught];
     } else {
       // By Frequency: ALL unseen words sorted by ID, continue from lastNewWordId
       // Completely ignores topic filter — topic never affects this queue
@@ -821,7 +818,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   });
   const [tooFewWarning] = useState(null);
   const [idx, setIdx] = useState(0);
-  const [reviewedCount, setReviewedCount] = useState(0);
+  const [reviewedIds, setReviewedIds] = useState(new Set());
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -857,7 +854,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         {isReview ? "Session complete!" : "All words taught! 🎓"}
       </h2>
       <p style={{ color:"var(--text2)", marginTop:8 }}>
-        {isReview ? `You reviewed ${queue.length} words.` : "You have gone through all available new words. Come back tomorrow or practise with Review!"}
+        {isReview ? `You reviewed ${queue.length} words.` : "You have gone through all available words in the dictionary. Congratulations! 🎉"}
       </p>
       <div style={{ display:"flex", gap:12, justifyContent:"center", marginTop:24 }}>
         <button onClick={() => setView("dashboard")} style={{ padding:"11px 24px", background:"var(--surface2)", color:"var(--text)", border:"1px solid var(--border)", borderRadius:10, fontSize:14 }}>← Back</button>
@@ -869,7 +866,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
   function next() {
     if (isReview) {
-      setReviewedCount(c => c + 1);
+      setReviewedIds(ids => new Set([...ids, word.id]));
     } else if (!isByTopic) {
       markIntroduced(word.id);
       saveLastNewWordId(word.id);
@@ -895,7 +892,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
       onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong}
-      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedCount} />
+      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedIds.size} />
   );
 
   // New Words Writing: show both sides immediately + PracticeField (no input step)
@@ -958,7 +955,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
         <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm} · {filterLabel}</span>
         <div style={{ flex:1 }} />
         {isReview
-          ? <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedCount} reviewed</span>
+          ? <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedIds.size} reviewed</span>
           : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
         }
       </div>
