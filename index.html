@@ -806,7 +806,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     }
   }
 
-  const [queue] = useState(() => buildQueue());
+  const queue = React.useMemo(() => buildQueue(), [words.length]);
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return; // don't intercept when typing
@@ -1129,26 +1129,30 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
             { label:"Words learnt total", val:pLearnt, set:setPLearnt, desc:"Words answered correctly N times in a row in Review (N = threshold below)." },
             { label:"Current streak (days)", val:pStreak, set:setPStreak, desc:"Increases by 1 when you reach your daily target (see threshold below) in a single day." },
           ].map(f => (
-            <div key={f.label}>
-              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:2 }}>{f.label}</label>
-              {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, marginBottom:4, lineHeight:1.4 }}>{f.desc}</div>}
+            <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
               <input type="number" min={f.min ?? 0} max={f.max ?? undefined} value={f.val} onChange={e => f.set(e.target.value)}
-                style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
+                style={{ width:64, padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)", flexShrink:0 }} />
+              <div>
+                <div style={{ fontSize:13, color:"var(--text)", fontWeight:500 }}>{f.label}</div>
+                {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, lineHeight:1.4, marginTop:2 }}>{f.desc}</div>}
+              </div>
             </div>
           ))}
         </div>
         {/* Learning Rules */}
         <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", margin:"16px 0 8px" }}>Learning Rules</div>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
           {[
             { label:"Correct answers in a row to mark as learnt", val:pThreshold, set:setPThreshold, desc:"How many consecutive correct answers in Review to count a word as learnt. Default: 3", min:1 },
             { label:"Taught words per day to increase streak", val:pStreakThreshold, set:setPStreakThreshold, desc:"How many New Words (By Frequency only) you must study in a day for your streak to go up by 1. Default: 10", min:1 },
           ].map(f => (
-            <div key={f.label}>
-              <label style={{ fontSize:12, color:"var(--text2)", display:"block", marginBottom:2 }}>{f.label}</label>
-              {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, marginBottom:4, lineHeight:1.4 }}>{f.desc}</div>}
+            <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
               <input type="number" min={f.min ?? 1} value={f.val} onChange={e => f.set(e.target.value)}
-                style={{ width:"100%", padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)" }} />
+                style={{ width:64, padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)", flexShrink:0 }} />
+              <div>
+                <div style={{ fontSize:13, color:"var(--text)", fontWeight:500 }}>{f.label}</div>
+                {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, lineHeight:1.4, marginTop:2 }}>{f.desc}</div>}
+              </div>
             </div>
           ))}
         </div>
