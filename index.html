@@ -86,8 +86,8 @@ function FrenchVoiceHint() {
 
 
 
-const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","Shopping","Work","Body & Health","Nature","Home","Emotions","Verbs","Adjectives","Colors","Numbers","General"];
 const LEVELS = ["All","A1","A2","B1","B2"];
+const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","Shopping","Work","Body & Health","Nature","Home","Emotions","Animals","Arts","Education","Geography","Language","People","Sport","Technology","Verbs","Adjectives","Colors","Numbers","General"];
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/refs/heads/main/french-vocab.csv";
@@ -187,7 +187,7 @@ function App() {
     filterLevel: "All", sessionCount: 20, reviewCount: 20,
     learnPairMode: "FR → EN", reviewPairMode: "FR → EN",
     learnFilterMode: "frequency", learnFilterCategory: "All",
-    reviewFilterMode: "frequency", reviewFilterCategory: "All",
+    reviewFilterMode: "frequency", reviewFilterCategory: "All", reviewFilterLevel: "All",
     learnSessionMode: "flashcards", reviewSessionMode: "flashcards",
     userName: "Marie",
     ...loadSettings()
@@ -586,7 +586,7 @@ function Dashboard({ words, progress, settings, setSettings, introducedWords, ne
 }
 
 // ── Shared filter/mode UI ─────────────────────────────────────────────────
-function TileFilters({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, sessionMode, onSessionMode }) {
+function TileFilters({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, filterLevel, onFilterLevel, isReview, sessionMode, onSessionMode }) {
   return (<>
     <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
       {PAIR_MODES.map(m => (
@@ -600,23 +600,31 @@ function TileFilters({ pairMode, onPairMode, filterMode, onFilterMode, filterCat
       ))}
     </div>
     <div style={{ display:"flex", gap:6, alignItems:"center", flexWrap:"wrap" }}>
-      {["frequency","topic"].map(m => (
+      {(isReview ? ["frequency","topic","level"] : ["frequency","topic"]).map(m => (
         <button key={m} onClick={() => onFilterMode(m)} style={{
           padding:"4px 12px", borderRadius:20, fontSize:12, fontWeight:500,
           background: filterMode===m ? "var(--accent-light)" : "var(--surface2)",
           color: filterMode===m ? "var(--accent)" : "var(--text2)",
           border: filterMode===m ? "1px solid var(--accent)" : "1px solid var(--border)",
           transition:"all 0.15s"
-        }}>{m==="frequency" ? "By Frequency" : "By Topic"}</button>
+        }}>{m==="frequency" ? "By Frequency" : m==="topic" ? "By Topic" : "By Level"}</button>
       ))}
-      <select value={filterMode==="frequency" ? "All" : filterCategory}
-        onChange={e => { if (filterMode==="topic") onFilterCategory(e.target.value); }}
-        disabled={filterMode==="frequency"}
-        style={{ padding:"4px 10px", borderRadius:20, fontSize:12, border:"1px solid var(--border)",
-          background:"var(--surface2)", color: filterMode==="frequency" ? "var(--text2)" : "var(--text)",
-          outline:"none", opacity: filterMode==="frequency" ? 0.5 : 1 }}>
-        {CATEGORIES.map(c => <option key={c}>{c}</option>)}
-      </select>
+      {filterMode==="topic" && (
+        <select value={filterCategory}
+          onChange={e => onFilterCategory(e.target.value)}
+          style={{ padding:"4px 10px", borderRadius:20, fontSize:12, border:"1px solid var(--border)",
+            background:"var(--surface2)", color:"var(--text)", outline:"none" }}>
+          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+        </select>
+      )}
+      {filterMode==="level" && isReview && (
+        <select value={filterLevel || "All"}
+          onChange={e => onFilterLevel(e.target.value)}
+          style={{ padding:"4px 10px", borderRadius:20, fontSize:12, border:"1px solid var(--border)",
+            background:"var(--surface2)", color:"var(--text)", outline:"none" }}>
+          {LEVELS.map(l => <option key={l}>{l}</option>)}
+        </select>
+      )}
     </div>
     <div style={{ display:"flex", gap:6 }}>
       {[{key:"flashcards", label:"🃏 Flashcards"}, {key:"writing", label:"✏️ Writing"}].map(m => (
@@ -773,8 +781,10 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
     if (isRev) {
       // Review: Hard first, then wrong last time, then due, then random
+      const fl = settings.reviewFilterLevel || "All";
       let pool = [...introducedWords];
       if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
+      if (fm === "level" && fl !== "All") pool = pool.filter(w => w.level === fl);
       pool.sort((a, b) => {
         const pa = progress[a.id] || {};
         const pb = progress[b.id] || {};
@@ -788,12 +798,10 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       });
       return pool; // no limit - infinite cycling
     } else if (fm === "topic" && fc !== "All") {
-      // By Topic: ALL untaught words in topic first, then taught as reminder
-      // Completely independent of lastNewWordId — does NOT count towards taught
-      const allInTopic = words.filter(w => w.category === fc);
-      const untaught = allInTopic.filter(w => !progress[w.id]).sort((a,b) => a.id - b.id);
-      const taught = allInTopic.filter(w => progress[w.id]).sort((a,b) => a.id - b.id);
-      return [...untaught, ...taught];
+      // By Topic: ONLY taught words in topic (words that went through New Words → By Frequency)
+      // Does NOT count towards taught — purely a filter/review of already taught words
+      const taught = words.filter(w => w.category === fc && progress[w.id]).sort((a,b) => a.id - b.id);
+      return taught;
     } else {
       // By Frequency: ALL unseen words sorted by ID, continue from lastNewWordId
       // Completely ignores topic filter — topic never affects this queue
@@ -843,12 +851,16 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     ? (settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All"
         ? `By Topic · ${settings.learnFilterCategory}`
         : "By Frequency")
-    : (settings.reviewFilterMode === "topic" && settings.reviewFilterCategory !== "All"
+    : settings.reviewFilterMode === "topic" && settings.reviewFilterCategory !== "All"
         ? `By Topic · ${settings.reviewFilterCategory}`
-        : "By Frequency");
+        : settings.reviewFilterMode === "level"
+          ? `By Level · ${settings.reviewFilterLevel || "All"}`
+          : "By Frequency";
 
   const isByTopicDone = !isReview && settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All";
+  const isByLevelDone = isReview && settings.reviewFilterMode === "level";
   const topicName = settings.learnFilterCategory;
+  const levelName = settings.reviewFilterLevel || "All";
   const topicHasTaught = isByTopicDone && queue.length > 0;
 
   if (done||!word) return (
@@ -859,7 +871,9 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       </h2>
       <p style={{ color:"var(--text2)", marginTop:8 }}>
         {isReview
-          ? `You reviewed ${reviewedIds.size} words.`
+          ? isByLevelDone && queue.length === 0
+            ? `No taught words found at level ${levelName}. Try studying some ${levelName} words first in New Words.`
+            : `You reviewed ${reviewedIds.size} words.`
           : isByTopicDone && !topicHasTaught
             ? `None of the words from topic "${topicName}" have been taught yet. Study them first in New Words → By Frequency.`
             : isByTopicDone && topicHasTaught
