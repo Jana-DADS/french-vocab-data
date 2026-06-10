@@ -106,6 +106,15 @@ const APP_VERSION = "2.2";
 // ── localStorage ───────────────────────────────────────────────────────────
 function loadProgress() { try { return JSON.parse(localStorage.getItem("frProgress")||"{}"); } catch { return {}; } }
 function saveProgress(p) { try { localStorage.setItem("frProgress",JSON.stringify(p)); } catch {} }
+function loadDailyReview() {
+  try {
+    const d = JSON.parse(localStorage.getItem("frDailyReview") || "{}");
+    const today = new Date().toDateString();
+    if (d.date !== today) return { correct: 0, total: 0, date: today };
+    return d;
+  } catch { return { correct: 0, total: 0, date: new Date().toDateString() }; }
+}
+function saveDailyReview(d) { try { localStorage.setItem("frDailyReview", JSON.stringify(d)); } catch {} }
 function loadSettings() { try { return JSON.parse(localStorage.getItem("frSettings")||"{}"); } catch { return {}; } }
 function saveSettings(s) { try { localStorage.setItem("frSettings",JSON.stringify(s)); } catch {} }
 function loadVocab() { try { return JSON.parse(localStorage.getItem("frVocab")||"null"); } catch { return null; } }
@@ -182,6 +191,7 @@ async function fetchVocabFromUrl(url) {
 function App() {
   const [view, setView] = useState("dashboard");
   const [progress, setProgress] = useState(loadProgress);
+  const [dailyReview, setDailyReview] = useState(loadDailyReview);
   const [settings, setSettings] = useState(() => ({
     pairMode: "FR → EN", filterMode: "frequency", filterCategory: "All",
     filterLevel: "All", sessionCount: 20, reviewCount: 20,
@@ -235,6 +245,16 @@ function App() {
       const prev = p[wordId] || {};
       const easyCount = diff === "Easy" ? (prev.easyCount || 0) + 1 : (prev.easyCount || 0);
       return { ...p, [wordId]: { ...prev, difficulty: diff, nextReview: computeNextReview(diff), lastSeen: new Date().toISOString(), easyCount } };
+    });
+  }
+
+  function incrementDailyReview(isCorrect) {
+    setDailyReview(d => {
+      const today = new Date().toDateString();
+      const base = d.date === today ? d : { correct: 0, total: 0, date: today };
+      const updated = { ...base, total: base.total + 1, correct: isCorrect ? base.correct + 1 : base.correct };
+      saveDailyReview(updated);
+      return updated;
     });
   }
 
@@ -368,7 +388,7 @@ function App() {
 
       <div style={{ display:"flex", flexDirection:"column", flex:1, minHeight:0 }}>
         <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
-          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} userLevel={userLevel}
+          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} dailyReview={dailyReview} streak={streak} userLevel={userLevel}
             userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
             onUpdateProgress={(newIntroducedCount, newTodayCount, newLearntCount, newStreak) => {
               // Update taught total: add dummy progress entries up to newIntroducedCount
@@ -412,9 +432,9 @@ function App() {
             </div>
           )}
           {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} setSessionStartKey={setSessionStartKey} />}
-            {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
+            {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} incrementDailyReview={incrementDailyReview} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
             {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
-            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} learntCount={learntCount} streak={streak} learntThreshold={settings.learntThreshold || 3} streakThreshold={settings.streakThreshold || 10} onUpdateProgress={handleUpdateProgress} onSaveThreshold={(v) => setSettings(s => ({...s, learntThreshold: v}))} onSaveStreakThreshold={(v) => setSettings(s => ({...s, streakThreshold: v}))} />}
+            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} streak={streak} streakThreshold={settings.streakThreshold || 10} onUpdateProgress={handleUpdateProgress} onSaveStreakThreshold={(v) => setSettings(s => ({...s, streakThreshold: v}))} />}
             {view==="webpages"    && <WebPages webPages={webPages} saveWebPages={saveWebPages} />}
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
@@ -433,7 +453,7 @@ function App() {
 }
 
 // ── Sidebar ────────────────────────────────────────────────────────────────
-function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayCount, learntCount, streak, userName, onUserNameChange, userLevel, onUpdateProgress }) {
+function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayCount, dailyReview, streak, userName, onUserNameChange, userLevel, onUpdateProgress }) {
   const [editingName, setEditingName] = useState(false);
   const [nameDraft, setNameDraft] = useState(userName);
   const nameInputRef = useRef(null);
@@ -506,7 +526,14 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
         {[
           { icon:"📚", value: introducedCount,    label:"words taught total" },
           { icon:"📖", value: taughtTodayCount,   label:"words taught today" },
-          { icon:"🎯", value: learntCount,         label:"words learnt total" },
+          { icon:"📊", value: (() => {
+            const dr = dailyReview || { correct:0, total:0 };
+            const today = new Date().toDateString();
+            const d = (dr.date === today) ? dr : { correct:0, total:0 };
+            if (d.total === 0) return "–";
+            const pct = Math.round((d.correct / d.total) * 100);
+            return `${d.correct}/${d.total} (${pct}%)`;
+          })(), label:"Today's Review" },
           { icon:"🔥", value: streak === 1 ? "1 day" : `${streak} days`, label:"current streak" },
         ].map(s => (
           <div key={s.label} style={{ display:"flex", alignItems:"center", gap:8, padding:"3px 6px" }}>
@@ -769,7 +796,7 @@ function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficult
 }
 
 // ── Flashcards ─────────────────────────────────────────────────────────────
-function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markWrong, markIntroduced, incrementTaughtToday, setView, introducedWords, lastNewWordId, setLastNewWordId }) {
+function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markWrong, markIntroduced, incrementTaughtToday, incrementDailyReview, setView, introducedWords, lastNewWordId, setLastNewWordId }) {
   const isReview = settings.sessionType === "review";
   const isWriting = settings.activeSessionMode === "writing";
 
@@ -916,7 +943,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
       prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
       onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong}
-      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedIds.size} />
+      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedIds.size} incrementDailyReview={incrementDailyReview} />
   );
 
   // New Words Writing: show both sides immediately + PracticeField (no input step)
@@ -1112,12 +1139,10 @@ function Dictionary({ words, progress, setDifficulty }) {
 }
 
 // ── UpdateProgress ────────────────────────────────────────────────────────
-function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak, onUpdateProgress, learntThreshold, onSaveThreshold, streakThreshold, onSaveStreakThreshold }) {
+function UpdateProgress({ introducedCount, taughtTodayCount, streak, onUpdateProgress, streakThreshold, onSaveStreakThreshold }) {
   const [pTaught, setPTaught] = useState(String(introducedCount));
   const [pToday, setPToday] = useState(String(taughtTodayCount));
-  const [pLearnt, setPLearnt] = useState(String(learntCount));
   const [pStreak, setPStreak] = useState(String(streak));
-  const [pThreshold, setPThreshold] = useState(String(learntThreshold));
   const [pStreakThreshold, setPStreakThreshold] = useState(String(streakThreshold));
   const [saved, setSaved] = useState(false);
 
@@ -1127,13 +1152,10 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
     const learnt = Math.max(0, parseInt(pLearnt) || 0);
     const s = Math.max(0, parseInt(pStreak) || 0);
     setPToday(String(today));
-    const threshold = Math.max(1, parseInt(pThreshold) || 3);
-    setPThreshold(String(threshold));
-    onSaveThreshold(threshold);
     const streakThr = Math.max(1, parseInt(pStreakThreshold) || 10);
     setPStreakThreshold(String(streakThr));
     onSaveStreakThreshold(streakThr);
-    onUpdateProgress(taught, today, learnt, s);
+    onUpdateProgress(taught, today, 0, s);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -1150,7 +1172,6 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
           {[
             { label:"Words taught total", val:pTaught, set:setPTaught, desc:"Words studied in New Words → By Frequency (Flashcard or Writing). By Topic sessions do not count." },
             { label:"Words taught today", val:pToday, set:setPToday, desc:"Same as above, but only for today. Resets at midnight." },
-            { label:"Words learnt total", val:pLearnt, set:setPLearnt, desc:"Words answered correctly N times in a row in Review (N = threshold below)." },
             { label:"Current streak (days)", val:pStreak, set:setPStreak, desc:"Increases by 1 when you reach your daily target (see threshold below) in a single day." },
           ].map(f => (
             <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
@@ -1167,7 +1188,6 @@ function UpdateProgress({ introducedCount, taughtTodayCount, learntCount, streak
         <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", margin:"16px 0 8px" }}>Learning Rules</div>
         <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
           {[
-            { label:"Correct answers in a row to mark as learnt", val:pThreshold, set:setPThreshold, desc:"How many consecutive correct answers in Review to count a word as learnt. Default: 3", min:1 },
             { label:"Taught words per day to increase streak", val:pStreakThreshold, set:setPStreakThreshold, desc:"How many New Words (By Frequency only) you must study in a day for your streak to go up by 1. Default: 10", min:1 },
           ].map(f => (
             <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
@@ -1415,7 +1435,7 @@ function PracticeField({ correctAnswer, isFR, onCorrect }) {
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
-function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, markWrong, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning, filterLabel, reviewedCount }) {
+function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, markWrong, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning, filterLabel, reviewedCount, incrementDailyReview }) {
   const [input, setInput] = useState("");
   const [checked, setChecked] = useState(false);
   const [correct, setCorrect] = useState(false);
@@ -1442,6 +1462,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
     setChecked(true);
     if (isCorrect && !isLearn) markCorrect(word.id);
     if (!isCorrect && !isLearn && markWrong) markWrong(word.id);
+    if (!isLearn && incrementDailyReview) incrementDailyReview(isCorrect);
   }
 
   useEffect(() => {
