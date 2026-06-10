@@ -91,7 +91,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.2";
+const APP_VERSION = "2.3";
 // Reset stats on new version
 (function() {
   if (localStorage.getItem("frAppVersion") !== APP_VERSION) {
@@ -566,6 +566,9 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
           </button>
         ))}
       </div>
+      <div style={{ marginTop:"auto", paddingTop:12, textAlign:"center" }}>
+        <span style={{ fontSize:10, color:"var(--text2)", opacity:0.5 }}>v{APP_VERSION}</span>
+      </div>
     </aside>
   );
 }
@@ -678,7 +681,10 @@ function NewWordsTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCa
         <span style={{ fontWeight:700, fontSize:13, letterSpacing:"0.05em", color:"var(--text)" }}>NEW WORDS</span>
       </div>
       <TileFilters pairMode={pairMode} onPairMode={onPairMode} filterMode={filterMode} onFilterMode={onFilterMode}
-        filterCategory={filterCategory} onFilterCategory={onFilterCategory} sessionMode={sessionMode} onSessionMode={onSessionMode} />
+        filterCategory={filterCategory} onFilterCategory={onFilterCategory}
+        filterLevel={filterLevel} onFilterLevel={onFilterLevel}
+        isReview={true}
+        sessionMode={sessionMode} onSessionMode={onSessionMode} />
       <button onClick={onStart} style={{
         width:"100%", padding:"13px 0", background:"var(--accent)", color:"#fff",
         border:"none", borderRadius:10, fontSize:14, fontWeight:700, letterSpacing:"0.06em"
@@ -696,7 +702,10 @@ function ReviewTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCate
         <span style={{ fontWeight:700, fontSize:13, letterSpacing:"0.05em", color:"var(--text)" }}>REVIEW</span>
       </div>
       <TileFilters pairMode={pairMode} onPairMode={onPairMode} filterMode={filterMode} onFilterMode={onFilterMode}
-        filterCategory={filterCategory} onFilterCategory={onFilterCategory} sessionMode={sessionMode} onSessionMode={onSessionMode} />
+        filterCategory={filterCategory} onFilterCategory={onFilterCategory}
+        filterLevel={filterLevel} onFilterLevel={onFilterLevel}
+        isReview={true}
+        sessionMode={sessionMode} onSessionMode={onSessionMode} />
       <button onClick={onStart} style={{
         width:"100%", padding:"13px 0", background:"var(--accent)", color:"#fff",
         border:"none", borderRadius:10, fontSize:14, fontWeight:700, letterSpacing:"0.06em"
