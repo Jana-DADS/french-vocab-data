@@ -603,6 +603,8 @@ function Dashboard({ words, progress, settings, setSettings, introducedWords, ne
           onFilterMode={m => setSettings(s => ({ ...s, reviewFilterMode: m }))}
           filterCategory={settings.reviewFilterCategory}
           onFilterCategory={c => setSettings(s => ({ ...s, reviewFilterCategory: c }))}
+          filterLevel={settings.reviewFilterLevel || "All"}
+          onFilterLevel={l => setSettings(s => ({ ...s, reviewFilterLevel: l }))}
           onStart={() => { setSettings(s => ({ ...s, sessionType:"review", activeSessionMode: s.reviewSessionMode })); setSessionStartKey(k => k+1); setView("flashcards"); }}
           sessionMode={settings.reviewSessionMode}
           onSessionMode={m => setSettings(s => ({ ...s, reviewSessionMode: m }))}
@@ -686,7 +688,7 @@ function NewWordsTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCa
 }
 
 // ── ReviewTile ─────────────────────────────────────────────────────────────
-function ReviewTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, onStart, sessionMode, onSessionMode }) {
+function ReviewTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, filterLevel, onFilterLevel, onStart, sessionMode, onSessionMode }) {
   return (
     <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:14, padding:20, boxShadow:"var(--shadow)", display:"flex", flexDirection:"column", gap:12 }}>
       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
