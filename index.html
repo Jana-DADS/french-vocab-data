@@ -991,7 +991,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
           </div>
           {/* Practice */}
-          <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+          <PracticeField key={word.id} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
           {/* Buttons */}
           <div style={{ marginTop:16 }}>
             <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
@@ -1066,11 +1066,11 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
       {isWriting && !isReview && !flipped && (
         <div style={{ marginTop:16 }}>
-          <PracticeField correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} onNext={next} />
+          <PracticeField key={word.id} correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} onNext={next} />
         </div>
       )}
       {flipped && !isReview && (
-        <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+        <PracticeField key={word.id} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
       )}
       {flipped && (
         <div style={{ marginTop:16 }}>
@@ -1600,7 +1600,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
                   {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
                 </div>
                 {!isFR_first && <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>[{word.pron}]</div>}
-                <PracticeField correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
+                <PracticeField key={word.id} correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
               </div>
             )}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
