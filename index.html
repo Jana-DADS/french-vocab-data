@@ -91,7 +91,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.3";
+const APP_VERSION = "2.4";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -1113,7 +1113,9 @@ function Dictionary({ words, progress, setDifficulty }) {
           <thead style={{ position:"sticky", top:0, zIndex:10 }}>
             <tr style={{ background:"var(--surface2)", borderBottom:"2px solid var(--border)" }}>
               {["#","FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category"].map(h => (
-                <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12, background:"var(--surface2)" }}>{h}</th>
+                <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12, background:"var(--surface2)" }}>
+                  {h}{(h==="Level"||h==="Category") && <span style={{ fontSize:10, opacity:0.5, marginLeft:4 }}>▼</span>}
+                </th>
               ))}
             </tr>
           </thead>
@@ -1412,19 +1414,17 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
-      if (lastAttempt?.ok && onNext) {
-        e.preventDefault();
-        onNext();
-      } else {
-        check();
-      }
+      check();
+    } else if (e.key === "Tab" && onNext) {
+      e.preventDefault();
+      onNext();
     }
   }
 
   return (
     <div style={{ marginTop:12, padding:"10px 12px", background:"rgba(0,0,0,0.04)", borderRadius:8 }}>
       <div style={{ fontSize:12, color:"var(--text2)", marginBottom:6 }}>
-        Practice writing it:{lastAttempt?.ok && onNext && <span style={{ color:"var(--accent)", marginLeft:6 }}>↵ Enter → next word</span>}
+        Practice writing it:{onNext && <span style={{ color:"var(--accent)", marginLeft:6 }}>⇥ Tab → next word</span>}
       </div>
       {lastAttempt && (
         <div style={{ fontSize:13, marginBottom:6, color: lastAttempt.ok ? "var(--easy)" : "var(--hard)", fontWeight:500 }}>
@@ -1435,7 +1435,7 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
       <div style={{ display:"flex", gap:6, alignItems:"center" }}>
         <input ref={inputRef} value={val} onChange={e => setVal(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={lastAttempt?.ok ? "Keep practising… or press Enter for next" : `Type "${correctAnswer}"…`}
+          placeholder={lastAttempt?.ok ? "Keep practising… or press Tab for next" : `Type "${correctAnswer}"…`}
           style={{ flex:1, padding:"6px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none" }} />
         <button onClick={check} style={{ padding:"6px 12px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12 }}>Check</button>
       </div>
