@@ -91,7 +91,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.5";
+const APP_VERSION = "2.4.1";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -923,10 +923,8 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       setReviewedIds(ids => new Set([...ids, word.id]));
     } else if (!isByTopic) {
       markIntroduced(word.id);
-      if (word.id > (lastNewWordId || 0)) {
-        saveLastNewWordId(word.id);
-        if (setLastNewWordId) setLastNewWordId(word.id);
-      }
+      saveLastNewWordId(word.id);
+      if (setLastNewWordId) setLastNewWordId(word.id);
       incrementTaughtToday();
     }
     if (isReview) {
@@ -937,10 +935,6 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
       if (idx+1>=queue.length) setDone(true);
       else { setIdx(i=>i+1); setFlipped(false); }
     }
-  }
-
-  function prev() {
-    if (idx > 0) { setIdx(i => i-1); setFlipped(false); }
   }
 
   const frontText = isFR_first ? word.fr : word.en;
@@ -969,9 +963,6 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
           <div style={{ flex:1 }} />
           <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
         </div>
-        {idx === 0 && (
-          <div style={{ fontSize:12, color:"var(--text2)", opacity:0.7, marginBottom:8 }}>This is the first word.</div>
-        )}
         <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
           {/* Front */}
           <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "Français" : "English"}</div>
@@ -991,18 +982,13 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
           </div>
           {/* Practice */}
-          <PracticeField key={word.id} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+          <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
           {/* Buttons */}
           <div style={{ marginTop:16 }}>
             <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
-            <div style={{ display:"flex", gap:8, marginTop:8 }}>
-              <button onClick={prev} disabled={idx===0} style={{ flexShrink:0, padding:"13px 18px", borderRadius:10, fontSize:15, fontWeight:600, background: idx===0 ? "var(--surface2)" : "var(--surface2)", color: idx===0 ? "var(--text2)" : "var(--text)", border:"1px solid var(--border)", opacity: idx===0 ? 0.4 : 1, cursor: idx===0 ? "not-allowed" : "pointer" }}>
-                ← Previous
-              </button>
-              <button onClick={next} style={{ flex:1, padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none" }}>
-                Next <span style={{fontSize:10,opacity:0.7}}>[Space]</span>
-              </button>
-            </div>
+            <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
+              Next <span style={{fontSize:10,opacity:0.7}}>[Space]</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1066,11 +1052,11 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
       {isWriting && !isReview && !flipped && (
         <div style={{ marginTop:16 }}>
-          <PracticeField key={word.id} correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} onNext={next} />
+          <PracticeField correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} onNext={next} />
         </div>
       )}
       {flipped && !isReview && (
-        <PracticeField key={word.id} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+        <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
       )}
       {flipped && (
         <div style={{ marginTop:16 }}>
@@ -1437,7 +1423,9 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
 
   return (
     <div style={{ marginTop:12, padding:"10px 12px", background:"rgba(0,0,0,0.04)", borderRadius:8 }}>
-      <div style={{ fontSize:12, color:"var(--text2)", marginBottom:6 }}>Practice writing it:</div>
+      <div style={{ fontSize:12, color:"var(--text2)", marginBottom:6 }}>
+        Practice writing it:
+      </div>
       {lastAttempt && (
         <div style={{ fontSize:13, marginBottom:6, color: lastAttempt.ok ? "var(--easy)" : "var(--hard)", fontWeight:500 }}>
           {lastAttempt.ok ? "✓" : "✗"} {lastAttempt.text}
@@ -1447,10 +1435,10 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
       <div style={{ display:"flex", gap:6, alignItems:"center" }}>
         <input ref={inputRef} value={val} onChange={e => setVal(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={lastAttempt?.ok ? "Keep practising… or press Tab for next" : `Type "${correctAnswer}"…`}
+          placeholder={lastAttempt?.ok ? "Keep practising…" : `Type "${correctAnswer}"…`}
           style={{ flex:1, padding:"6px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none" }} />
         <button onClick={check} style={{ padding:"6px 12px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12 }}>Check</button>
-        {onNext && <span style={{ fontSize:11, color:"var(--accent)", whiteSpace:"nowrap" }}>⇥ Tab → next</span>}
+        {onNext && <span style={{ fontSize:12, color:"var(--text2)", whiteSpace:"nowrap" }}>→ Tab → next</span>}
       </div>
       {isFR && (
         <div style={{ display:"flex", gap:3, flexWrap:"wrap", marginTop:6 }}>
@@ -1600,7 +1588,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
                   {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
                 </div>
                 {!isFR_first && <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>[{word.pron}]</div>}
-                <PracticeField key={word.id} correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
+                <PracticeField correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
               </div>
             )}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
