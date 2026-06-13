@@ -1429,7 +1429,6 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
       {lastAttempt && (
         <div style={{ fontSize:13, marginBottom:6, color: lastAttempt.ok ? "var(--easy)" : "var(--hard)", fontWeight:500 }}>
           {lastAttempt.ok ? "✓" : "✗"} {lastAttempt.text}
-          {lastAttempt.ok && <span style={{ color:"var(--easy)", marginLeft:6 }}>— {correctAnswer}</span>}
         </div>
       )}
       <div style={{ display:"flex", gap:6, alignItems:"center" }}>
