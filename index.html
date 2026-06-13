@@ -1402,6 +1402,11 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
   const [val, setVal] = useState("");
   const [lastAttempt, setLastAttempt] = useState(null); // { text, ok }
   const inputRef = useRef(null);
+  useEffect(() => {
+    setVal("");
+    setLastAttempt(null);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }, [correctAnswer]);
 
   function check() {
     if (!val.trim()) return;
