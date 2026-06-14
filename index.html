@@ -92,7 +92,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.4.4";
+const APP_VERSION = "2.4.5";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -129,6 +129,15 @@ function loadTaughtToday() {
 function saveTaughtToday(data) { try { localStorage.setItem("frTaughtToday", JSON.stringify(data)); } catch {} }
 function loadStreak() { try { return JSON.parse(localStorage.getItem("frStreak")||"{}"); } catch { return {}; } }
 function saveStreak(s) { try { localStorage.setItem("frStreak", JSON.stringify(s)); } catch {} }
+function loadReviewedToday() {
+  try {
+    const d = JSON.parse(localStorage.getItem("frReviewedToday")||"null");
+    const today = new Date().toDateString();
+    if (!d || d.date !== today) return { date: today, ids: [] };
+    return d;
+  } catch { return { date: new Date().toDateString(), ids: [] }; }
+}
+function saveReviewedToday(d) { try { localStorage.setItem("frReviewedToday", JSON.stringify(d)); } catch {} }
 
 // ── CSV parser ─────────────────────────────────────────────────────────────
 function parseCSV(text) {
@@ -782,22 +791,28 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
     if (isRev) {
       // Review: Hard first, then wrong last time, then due, then random
+      // Words already shown today go to the end of the queue
       const fl = settings.reviewFilterLevel || "All";
       let pool = [...introducedWords];
       if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
       if (fm === "level" && fl !== "All") pool = pool.filter(w => w.level === fl);
-      pool.sort((a, b) => {
-        const pa = progress[a.id] || {};
-        const pb = progress[b.id] || {};
-        const aHard = pa.difficulty === "Hard" ? 0 : 1;
-        const bHard = pb.difficulty === "Hard" ? 0 : 1;
-        const aWrong = pa.lastWrong ? 0 : 1;
-        const bWrong = pb.lastWrong ? 0 : 1;
-        const aDue = isDue({...a, ...pa}) ? 0 : 1;
-        const bDue = isDue({...b, ...pb}) ? 0 : 1;
-        return (aHard - bHard) || (aWrong - bWrong) || (aDue - bDue) || Math.random() - 0.5;
-      });
-      return pool; // no limit - infinite cycling
+      const reviewedTodayIds = new Set(loadReviewedToday().ids);
+      const notYetToday = pool.filter(w => !reviewedTodayIds.has(w.id));
+      const alreadyToday = pool.filter(w => reviewedTodayIds.has(w.id));
+      function sortPool(p) {
+        return p.sort((a, b) => {
+          const pa = progress[a.id] || {};
+          const pb = progress[b.id] || {};
+          const aHard = pa.difficulty === "Hard" ? 0 : 1;
+          const bHard = pb.difficulty === "Hard" ? 0 : 1;
+          const aWrong = pa.lastWrong ? 0 : 1;
+          const bWrong = pb.lastWrong ? 0 : 1;
+          const aDue = isDue({...a, ...pa}) ? 0 : 1;
+          const bDue = isDue({...b, ...pb}) ? 0 : 1;
+          return (aHard - bHard) || (aWrong - bWrong) || (aDue - bDue) || Math.random() - 0.5;
+        });
+      }
+      return [...sortPool(notYetToday), ...sortPool(alreadyToday)]; // no limit - infinite cycling
     } else if (fm === "topic" && fc !== "All") {
       // By Topic: ONLY taught words in topic (words that went through New Words → By Frequency)
       // Does NOT count towards taught — purely a filter/review of already taught words
@@ -892,6 +907,10 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   function next() {
     if (isReview) {
       setReviewedIds(ids => new Set([...ids, word.id]));
+      const rt = loadReviewedToday();
+      if (!rt.ids.includes(word.id)) {
+        saveReviewedToday({ date: rt.date, ids: [...rt.ids, word.id] });
+      }
     } else if (!isByTopic) {
       markIntroduced(word.id);
       saveLastNewWordId(word.id);
