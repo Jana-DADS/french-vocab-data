@@ -848,7 +848,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return; // don't intercept when typing
-      if (e.key === " " || e.code === "Space") { e.preventDefault(); if (isReview) { if (flipped) next(); } else if (isWriting) { next(); } else { if (flipped) next(); else setFlipped(true); } }
+      if (e.key === "Tab") { e.preventDefault(); if (isReview) { if (flipped) next(); } else if (isWriting) { next(); } else { if (flipped) next(); else setFlipped(true); } }
       if (e.key === "Enter") { if (!flipped && !isWriting) setFlipped(true); }
     }
     window.addEventListener("keydown", handleKey);
@@ -987,7 +987,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
           <div style={{ marginTop:16 }}>
             <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
             <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
-              Next <span style={{fontSize:10,opacity:0.7}}>[Space]</span>
+              Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span>
             </button>
           </div>
         </div>
@@ -1070,7 +1070,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
           <button onClick={next} style={{
             width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
             background:"var(--accent)", color:"#fff", border:"none", letterSpacing:"0.02em"
-          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Space]</span></button>
+          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
         </div>
       )}
     </div>
@@ -1442,7 +1442,6 @@ function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
           placeholder={lastAttempt?.ok ? "Keep practising…" : `Type "${correctAnswer}"…`}
           style={{ flex:1, padding:"6px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none" }} />
         <button onClick={check} style={{ padding:"6px 12px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12 }}>Check</button>
-        {onNext && <span style={{ fontSize:12, color:"var(--text2)", whiteSpace:"nowrap" }}>→ Tab → next</span>}
       </div>
       {isFR && (
         <div style={{ display:"flex", gap:3, flexWrap:"wrap", marginTop:6 }}>
@@ -1492,7 +1491,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
   useEffect(() => {
     function handleKey(e) {
       if (e.target.tagName === "INPUT") return;
-      if ((e.key === " " || e.code === "Space") && checked) { e.preventDefault(); handleNext(null); }
+      if (e.key === "Tab" && checked) { e.preventDefault(); handleNext(null); }
     }
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
