@@ -267,33 +267,6 @@ function App() {
     });
   }
 
-  function handleUpdateProgress(newIntroducedCount, newTodayCount, newLearntCount, newStreak) {
-    if (newIntroducedCount !== introducedCount) {
-      const sortedWords = [...words].sort((a,b) => a.id - b.id);
-      const newProg = { ...progress };
-      for (const w of sortedWords) {
-        if (Object.keys(newProg).length >= newIntroducedCount) break;
-        if (!newProg[w.id]) {
-          newProg[w.id] = { difficulty:"Default", nextReview: computeNextReview("Default"), lastSeen: new Date().toISOString(), easyCount:0, correctCount:0 };
-        }
-      }
-      const currentIds = Object.keys(newProg).map(Number).sort((a,b)=>a-b);
-      while (currentIds.length > newIntroducedCount) {
-        const idToRemove = currentIds.pop();
-        delete newProg[idToRemove];
-      }
-      setProgress(newProg);
-    }
-    const today = new Date().toDateString();
-    const cappedToday = Math.min(newTodayCount, newIntroducedCount);
-    const todayData = { date: today, count: cappedToday };
-    saveTaughtToday(todayData);
-    setTaughtToday(todayData);
-    const streakVal = { days: newStreak, lastDay: today, reached10: cappedToday >= 10 };
-    saveStreak(streakVal);
-    setStreakData(streakVal);
-  }
-
   const [taughtToday, setTaughtToday] = useState(loadTaughtToday);
   const [streakData, setStreakData] = useState(loadStreak);
   const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
