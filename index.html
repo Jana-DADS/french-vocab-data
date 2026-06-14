@@ -267,6 +267,33 @@ function App() {
     });
   }
 
+  function handleUpdateProgress(newIntroducedCount, newTodayCount, newLearntCount, newStreak) {
+    if (newIntroducedCount !== introducedCount) {
+      const sortedWords = [...words].sort((a,b) => a.id - b.id);
+      const newProg = { ...progress };
+      for (const w of sortedWords) {
+        if (Object.keys(newProg).length >= newIntroducedCount) break;
+        if (!newProg[w.id]) {
+          newProg[w.id] = { difficulty:"Default", nextReview: computeNextReview("Default"), lastSeen: new Date().toISOString(), easyCount:0, correctCount:0 };
+        }
+      }
+      const currentIds = Object.keys(newProg).map(Number).sort((a,b)=>a-b);
+      while (currentIds.length > newIntroducedCount) {
+        const idToRemove = currentIds.pop();
+        delete newProg[idToRemove];
+      }
+      setProgress(newProg);
+    }
+    const today = new Date().toDateString();
+    const cappedToday = Math.min(newTodayCount, newIntroducedCount);
+    const todayData = { date: today, count: cappedToday };
+    saveTaughtToday(todayData);
+    setTaughtToday(todayData);
+    const streakVal = { days: newStreak, lastDay: today, reached10: cappedToday >= 10 };
+    saveStreak(streakVal);
+    setStreakData(streakVal);
+  }
+
   const [taughtToday, setTaughtToday] = useState(loadTaughtToday);
   const [streakData, setStreakData] = useState(loadStreak);
   const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
@@ -384,38 +411,7 @@ function App() {
         <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
           <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} dailyReview={dailyReview} streak={streak} userLevel={userLevel}
             userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
-            onUpdateProgress={(newIntroducedCount, newTodayCount, newLearntCount, newStreak) => {
-              // Update taught total: add dummy progress entries up to newIntroducedCount
-              if (newIntroducedCount !== introducedCount) {
-                const sortedWords = [...words].sort((a,b) => a.id - b.id);
-                const newProg = { ...progress };
-                let added = 0;
-                for (const w of sortedWords) {
-                  if (Object.keys(newProg).length >= newIntroducedCount) break;
-                  if (!newProg[w.id]) {
-                    newProg[w.id] = { difficulty:"Default", nextReview: computeNextReview("Default"), lastSeen: new Date().toISOString(), easyCount:0, correctCount:0 };
-                    added++;
-                  }
-                }
-                // Remove entries if decreasing
-                const currentIds = Object.keys(newProg).map(Number).sort((a,b)=>a-b);
-                while (currentIds.length > newIntroducedCount) {
-                  const idToRemove = currentIds.pop();
-                  delete newProg[idToRemove];
-                }
-                setProgress(newProg);
-              }
-              // Update taught today
-              const today = new Date().toDateString();
-              const cappedToday = Math.min(newTodayCount, newIntroducedCount);
-              const todayData = { date: today, count: cappedToday };
-              saveTaughtToday(todayData);
-              setTaughtToday(todayData);
-              // Update streak
-              const streakVal = { days: newStreak, lastDay: today, reached10: cappedToday >= 10 };
-              saveStreak(streakVal);
-              setStreakData(streakVal);
-            }} />
+            onUpdateProgress={handleUpdateProgress} />
           <div style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
             {view==="dashboard"  && words.length === 0 && (
             <div style={{ textAlign:"center", padding:"60px 20px" }}>
