@@ -91,7 +91,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.4.2";
+const APP_VERSION = "2.4.3";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -1123,7 +1123,6 @@ function UpdateProgress({ introducedCount, taughtTodayCount, streak, onUpdatePro
   function handleSave() {
     const taught = Math.max(0, parseInt(pTaught) || 0);
     const today = Math.min(Math.max(0, parseInt(pToday) || 0), taught);
-    const learnt = Math.max(0, parseInt(pLearnt) || 0);
     const s = Math.max(0, parseInt(pStreak) || 0);
     setPToday(String(today));
     const streakThr = Math.max(1, parseInt(pStreakThreshold) || 10);
