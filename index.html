@@ -92,7 +92,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
-const APP_VERSION = "2.4.5";
+const APP_VERSION = "2.4.6";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -360,12 +360,13 @@ function App() {
     saveLastNewWordId(newLastId);
     setLastNewWordId(newLastId);
     const today = new Date().toDateString();
-    const capped = Math.min(td, t);
-    saveTaughtToday({ date:today, count:capped });
-    setTaughtToday({ date:today, count:capped });
-    // Don't set lastDay=today unless already reached 10 today
-    // Otherwise the next session can't increment the streak
-    const sv = { days:s, lastDay: capped >= 10 ? today : null, reached10: capped >= 10 };
+    // Save taught today as-is (user sees warning but decides themselves)
+    saveTaughtToday({ date:today, count:td });
+    setTaughtToday({ date:today, count:td });
+    // Preserve reached10 from current streak if it was already set today
+    const freshStreak = loadStreak();
+    const alreadyReached10Today = freshStreak.lastDay === today && freshStreak.reached10;
+    const sv = { days:s, lastDay: alreadyReached10Today ? today : null, reached10: alreadyReached10Today };
     saveStreak(sv);
     setStreakData(sv);
   }
