@@ -1620,7 +1620,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             <button onClick={() => { if (curDiffLocal !== "Default") setDifficulty(word.id, curDiffLocal); onNext(); }} style={{
               width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
               background:"var(--accent)", color:"#fff", border:"none"
-            }}>Next →</button>
+            }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
           ) : !checked ? (
             <button onClick={check} disabled={!input.trim()} style={{
               width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
@@ -1630,7 +1630,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             <button onClick={() => handleNext(null)} style={{
               width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
               background:"var(--accent)", color:"#fff", border:"none"
-            }}>Next →</button>
+            }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
           )}
         </div>
       </div>
