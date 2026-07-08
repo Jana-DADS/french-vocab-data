@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><title>&#127467;&#127479; Mon Vocab</title>#127467;<title>&#127467;&#127479; Mon Vocab</title>#127479; Mon Vocab [DEV]</title>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+  <style>body{margin:0;padding:0;}#root{height:100vh;display:flex;flex-direction:column;}</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+// ── Spaced-repetition ──────────────────────────────────────────────────────
+const DEFAULT_INTERVALS = { Hard: 1, Default: 3, Easy: 7 };
+function isDue(word) {
+  if (!word.nextReview) return true;
+  return new Date(word.nextReview) <= new Date();
+}
+function computeNextReview(difficulty, intervals) {
+  const iv = intervals || DEFAULT_INTERVALS;
+  const days = iv[difficulty] ?? DEFAULT_INTERVALS[difficulty];
+  const d = new Date(); d.setDate(d.getDate() + days);
+  return d.toISOString();
+}
+
+// ── Level computation ──────────────────────────────────────────────────────
+function computeLevel(progress, words) {
+  // Count taught words per level
+  const taughtIds = new Set(Object.keys(progress).map(Number));
+  const a1Taught = words.filter(w => w.id <= 800 && taughtIds.has(w.id)).length;
+  const a1Total  = words.filter(w => w.id <= 800).length;
+  const a2Taught = words.filter(w => w.id > 800 && w.id <= 2000 && taughtIds.has(w.id)).length;
+  const a2Total  = words.filter(w => w.id > 800 && w.id <= 2000).length;
+  const b1Taught = words.filter(w => w.id > 2000 && w.id <= 3000 && taughtIds.has(w.id)).length;
+  const b1Total  = words.filter(w => w.id > 2000 && w.id <= 3000).length;
+  if (b1Total > 0 && b1Taught >= b1Total) return "B2";
+  if (a2Total > 0 && a2Taught >= a2Total) return "B1";
+  if (a1Total > 0 && a1Taught >= a1Total) return "A2";
+  return "A1";
+}
+function speakFrench(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = "fr-FR";
+  utt.rate = 0.9;
+  window.speechSynthesis.speak(utt);
+}
+
+function hasFrenchVoice() {
+  if (!window.speechSynthesis) return false;
+  return window.speechSynthesis.getVoices().some(v => v.lang.startsWith("fr"));
+}
+
+function SpeakBtn({ text, style }) {
+  return (
+    <button onClick={e => { e.stopPropagation(); speakFrench(text); }}
+      title="Listen"
+      style={{ background:"none", border:"none", cursor:"pointer", padding:"0 4px", fontSize:15, lineHeight:1, color:"var(--accent2)", opacity:0.8, transition:"opacity 0.15s", ...style }}
+      onMouseEnter={e => e.currentTarget.style.opacity=1}
+      onMouseLeave={e => e.currentTarget.style.opacity=0.8}>
+      🔊
+    </button>
+  );
+}
+
+function FrenchVoiceHint() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    function check() { if (!hasFrenchVoice()) setShow(true); }
+    check();
+    window.speechSynthesis.addEventListener("voiceschanged", check);
+    return () => window.speechSynthesis.removeEventListener("voiceschanged", check);
+  }, []);
+  if (!show) return null;
+  return (
+    <div style={{ background:"#fffbea", border:"1px solid var(--accent2)", borderRadius:8, padding:"8px 14px", fontSize:12, color:"var(--text2)", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12, margin:"0 0 12px" }}>
+      <span>🔊 For French pronunciation, install a French voice in your system settings.</span>
+      <button onClick={() => setShow(false)} style={{ background:"none", border:"none", cursor:"pointer", color:"var(--text2)", fontSize:16, lineHeight:1 }}>×</button>
+    </div>
+  );
+}
+
+
+
+
+const LEVELS = ["All","A1","A2","B1","B2"];
+const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","Shopping","Work","Body & Health","Nature","Home","Emotions","Animals","Arts","Education","Geography","Language","People","Sport","Technology","Verbs","Adjectives","Colors","Numbers","General"];
+const PAIR_MODES = ["EN → FR","FR → EN"];
+
+const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
+const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/dev/version.json";
+const APP_VERSION = "2.5.1";
+// Reset stats on new version
+(function() {
+  localStorage.setItem("frAppVersion", APP_VERSION);
+})();
+
+// ── localStorage ───────────────────────────────────────────────────────────
+function loadProgress() { try { return JSON.parse(localStorage.getItem("frProgress")||"{}"); } catch { return {}; } }
+function saveProgress(p) { try { localStorage.setItem("frProgress",JSON.stringify(p)); } catch {} }
+function loadDailyReview() {
+  try {
+    const d = JSON.parse(localStorage.getItem("frDailyReview") || "{}");
+    const today = new Date().toDateString();
+    if (d.date !== today) return { correct: 0, total: 0, date: today };
+    return d;
+  } catch { return { correct: 0, total: 0, date: new Date().toDateString() }; }
+}
+function saveDailyReview(d) { try { localStorage.setItem("frDailyReview", JSON.stringify(d)); } catch {} }
+function loadSettings() { try { return JSON.parse(localStorage.getItem("frSettings")||"{}"); } catch { return {}; } }
+function saveSettings(s) { try { localStorage.setItem("frSettings",JSON.stringify(s)); } catch {} }
+function loadVocab() { try { return JSON.parse(localStorage.getItem("frVocab")||"null"); } catch { return null; } }
+function saveVocab(v) { try { localStorage.setItem("frVocab",JSON.stringify(v)); localStorage.setItem("frVocabLoaded", new Date().toISOString()); } catch {} }
+function loadVocabMeta() { return { url: localStorage.getItem("frVocabUrl")||"", loaded: localStorage.getItem("frVocabLoaded")||"" }; }
+function saveVocabUrl(url) { localStorage.setItem("frVocabUrl", url); }
+function loadVocabVersion() { return localStorage.getItem("frVocabVersion") || ""; }
+function saveVocabVersion(v) { localStorage.setItem("frVocabVersion", v); }
+function loadLastSeenAppVersion() { return localStorage.getItem("frLastSeenAppVersion") || ""; }
+function saveLastSeenAppVersion(v) { localStorage.setItem("frLastSeenAppVersion", v); }
+function loadLastNewWordId() { try { return parseInt(localStorage.getItem("frLastNewWordId")||"0"); } catch { return 0; } }
+function saveLastNewWordId(id) { try { localStorage.setItem("frLastNewWordId", String(id)); } catch {} }
+function loadTaughtToday() {
+  try {
+    const data = JSON.parse(localStorage.getItem("frTaughtToday")||"{}");
+    const today = new Date().toDateString();
+    if (data.date !== today) return { date: today, count: 0 };
+    return data;
+  } catch { return { date: new Date().toDateString(), count: 0 }; }
+}
+function saveTaughtToday(data) { try { localStorage.setItem("frTaughtToday", JSON.stringify(data)); } catch {} }
+function loadStreak() { try { return JSON.parse(localStorage.getItem("frStreak")||"{}"); } catch { return {}; } }
+function saveStreak(s) { try { localStorage.setItem("frStreak", JSON.stringify(s)); } catch {} }
+function loadReviewedToday() {
+  try {
+    const d = JSON.parse(localStorage.getItem("frReviewedToday")||"null");
+    const today = new Date().toDateString();
+    if (!d || d.date !== today) return { date: today, ids: [] };
+    return d;
+  } catch { return { date: new Date().toDateString(), ids: [] }; }
+}
+function saveReviewedToday(d) { try { localStorage.setItem("frReviewedToday", JSON.stringify(d)); } catch {} }
+
+// ── CSV parser ─────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  const lines = text.trim().split("\n");
+  if (lines.length < 2) throw new Error("CSV must have a header and at least one row");
+  
+  function parseLine(line) {
+    const result = [];
+    let cur = "", inQuote = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"' && !inQuote) { inQuote = true; }
+      else if (ch === '"' && inQuote) {
+        if (line[i+1] === '"') { cur += '"'; i++; }
+        else inQuote = false;
+      } else if (ch === ',' && !inQuote) { result.push(cur.trim()); cur = ""; }
+      else cur += ch;
+    }
+    result.push(cur.trim());
+    return result;
+  }
+
+  const headers = parseLine(lines[0]);
+  const words = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const vals = parseLine(lines[i]);
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h.trim()] = vals[idx] || ""; });
+    // Normalize fields
+    words.push({
+      id: obj.id ? parseInt(obj.id) : i,
+      fr: obj.fr || "",
+      pron: obj.pron || "",
+      info: obj.info || "-",
+      en: obj.en || obj["EN translation"] || "",
+      frSentence: obj.frSentence || obj["Fr sentence"] || "",
+      enSentence: obj.enSentence || obj["EN sentence"] || "",
+      level: obj.level || "A1",
+      category: obj.category || "General",
+      difficulty: parseFloat(obj.difficulty) || 2.5,
+    });
+  }
+  return words.filter(w => w.fr && w.en);
+}
+
+async function fetchVocabFromUrl(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const text = await res.text();
+  return parseCSV(text);
+}
+
+// ── App ────────────────────────────────────────────────────────────────────
+function App() {
+  const [view, setView] = useState("dashboard");
+  const [progress, setProgress] = useState(loadProgress);
+  const [dailyReview, setDailyReview] = useState(loadDailyReview);
+  const [settings, setSettings] = useState(() => ({
+    pairMode: "FR → EN", filterMode: "frequency", filterCategory: "All",
+    filterLevel: "All", sessionCount: 20, reviewCount: 20,
+    learnPairMode: "FR → EN", reviewPairMode: "FR → EN",
+    learnFilterMode: "frequency", learnFilterCategory: "All",
+    reviewFilterMode: "frequency", reviewFilterCategory: "All", reviewFilterLevel: "All",
+    learnSessionMode: "flashcards", reviewSessionMode: "flashcards",
+    userName: "Marie",
+    intervals: { Hard: 1, Default: 3, Easy: 7 },
+    ...loadSettings()
+  }));
+  const [words, setWords] = useState(() => loadVocab() || []);
+  const [vocabStatus, setVocabStatus] = useState(() => loadVocab() ? "loaded" : "empty"); // empty | loading | loaded | error
+  const [vocabError, setVocabError] = useState("");
+  const [vocabUpdateAvailable, setVocabUpdateAvailable] = useState(false);
+  const [latestVersion, setLatestVersion] = useState("");
+  const [whatsNew, setWhatsNew] = useState([]);
+  const [showWhatsNew, setShowWhatsNew] = useState(false);
+
+  function dismissWhatsNew() {
+    saveLastSeenAppVersion(APP_VERSION);
+    setShowWhatsNew(false);
+  }
+
+  async function loadVocabFromUrl(url) {
+    if (!url) { setVocabStatus("empty"); return; }
+    setVocabStatus("loading");
+    setVocabError("");
+    try {
+      const parsed = await fetchVocabFromUrl(url);
+      setWords(parsed);
+      saveVocab(parsed);
+      saveVocabUrl(url);
+      setVocabStatus("loaded");
+      if (latestVersion) saveVocabVersion(latestVersion);
+      setVocabUpdateAvailable(false);
+    } catch(e) {
+      setVocabError(e.message);
+      setVocabStatus("error");
+    }
+  }
+
+  // Auto-load on first run
+  useEffect(() => {
+    const cached = loadVocab();
+    if (cached) { setVocabStatus("loaded"); return; }
+    const savedUrl = loadVocabMeta().url || DEFAULT_VOCAB_URL;
+    if (savedUrl) loadVocabFromUrl(savedUrl);
+  }, []);
+
+  // Version check
+  useEffect(() => {
+    async function checkVersion() {
+      try {
+        const res = await fetch(VERSION_JSON_URL + "?t=" + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        // Vocab version check
+        const vocabVer = data.vocab?.version || data.version;
+        setLatestVersion(vocabVer);
+        const storedVocab = loadVocabVersion();
+        if (!storedVocab) { saveVocabVersion(vocabVer); }
+        else if (vocabVer !== storedVocab) { setVocabUpdateAvailable(true); }
+        // App version check (what's new)
+        const lastSeen = loadLastSeenAppVersion();
+        if (lastSeen !== APP_VERSION && data.app?.changes?.length) {
+          setWhatsNew(data.app.changes);
+          setShowWhatsNew(true);
+        }
+        saveLastSeenAppVersion(APP_VERSION);
+      } catch(e) {}
+    }
+    checkVersion();
+  }, []);
+
+  useEffect(() => { saveProgress(progress); }, [progress]);
+  useEffect(() => { saveSettings(settings); }, [settings]);
+
+  function markIntroduced(wordId) {
+    setProgress(p => {
+      if (p[wordId]) return p; // already introduced
+      return { ...p, [wordId]: { difficulty: "Default", nextReview: computeNextReview("Default", settings.intervals), lastSeen: new Date().toISOString(), easyCount: 0, correctCount: 0 } };
+    });
+  }
+
+  function setDifficulty(wordId, diff) {
+    setProgress(p => {
+      const prev = p[wordId] || {};
+      const easyCount = diff === "Easy" ? (prev.easyCount || 0) + 1 : (prev.easyCount || 0);
+      return { ...p, [wordId]: { ...prev, difficulty: diff, nextReview: computeNextReview(diff, settings.intervals), lastSeen: new Date().toISOString(), easyCount } };
+    });
+  }
+
+  function incrementDailyReview(isCorrect) {
+    setDailyReview(d => {
+      const today = new Date().toDateString();
+      const base = d.date === today ? d : { correct: 0, total: 0, date: today };
+      const updated = { ...base, total: base.total + 1, correct: isCorrect ? base.correct + 1 : base.correct };
+      saveDailyReview(updated);
+      return updated;
+    });
+  }
+
+  function markCorrect(wordId) {
+    setProgress(p => {
+      const prev = p[wordId] || {};
+      const correctCount = (prev.correctCount || 0) + 1;
+      return { ...p, [wordId]: { ...prev, correctCount, lastWrong: false, lastSeen: new Date().toISOString() } };
+    });
+  }
+
+  function markWrong(wordId) {
+    setProgress(p => {
+      const prev = p[wordId] || {};
+      return { ...p, [wordId]: { ...prev, correctCount: 0, lastWrong: true, lastSeen: new Date().toISOString() } };
+    });
+  }
+
+  const [taughtToday, setTaughtToday] = useState(loadTaughtToday);
+  const [streakData, setStreakData] = useState(loadStreak);
+  const [lastNewWordId, setLastNewWordId] = useState(loadLastNewWordId);
+  const [sessionStartKey, setSessionStartKey] = useState(0);
+
+  const DEFAULT_WEB_PAGES = [
+    { id:1, name:"Ask French Assistant", url:"https://claude.ai" },
+    { id:2, name:"Linguee",              url:"https://www.linguee.com/french-english" },
+    { id:3, name:"Reverso Context",      url:"https://context.reverso.net/translation/french-english" },
+    { id:4, name:"WordReference",        url:"https://www.wordreference.com/fren/" },
+    { id:5, name:"Larousse",             url:"https://www.larousse.fr/dictionnaires/francais" },
+    { id:6, name:"Bescherelle",          url:"https://bescherelle.com" },
+    { id:7, name:"RFI Savoirs",          url:"https://savoirs.rfi.fr" },
+  ];
+  const [webPages, setWebPages] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("frWebPages") || "null");
+      return stored || DEFAULT_WEB_PAGES;
+    } catch { return DEFAULT_WEB_PAGES; }
+  });
+  function saveWebPages(pages) {
+    try { localStorage.setItem("frWebPages", JSON.stringify(pages)); } catch {}
+    setWebPages(pages);
+  }
+
+  function incrementTaughtToday() {
+    setTaughtToday(prev => {
+      const today = new Date().toDateString();
+      const current = prev.date === today ? prev : { date: today, count: 0 };
+      const updated = { ...current, count: current.count + 1 };
+      saveTaughtToday(updated);
+
+      // Streak: +1 exactly when count crosses 10 for the first time today
+      if (updated.count === (settings.streakThreshold || 10)) {
+        // Read streak fresh from localStorage to avoid stale closure
+        const freshStreak = loadStreak();
+        const yesterdayStr = new Date(Date.now() - 86400000).toDateString();
+        let days;
+        if (freshStreak.lastDay === today && freshStreak.reached10) {
+          // Already incremented today — do nothing
+          days = freshStreak.days;
+        } else if (freshStreak.lastDay === yesterdayStr) {
+          // Consecutive day
+          days = (freshStreak.days || 0) + 1;
+        } else {
+          // New streak or gap
+          days = (freshStreak.days || 0) + 1;
+        }
+        const newStreak = { days, lastDay: today, reached10: true };
+        saveStreak(newStreak);
+        setStreakData(newStreak);
+      }
+      return updated;
+    });
+  }
+
+  const taughtTodayCount = (() => {
+    const today = new Date().toDateString();
+    return taughtToday.date === today ? taughtToday.count : 0;
+  })();
+  const streak = streakData.days || 0;
+
+  const newWords        = words.filter(w => !progress[w.id]);
+  const introducedWords = words.filter(w => progress[w.id]);
+  const introducedCount = introducedWords.length;
+  const learntThreshold = settings.learntThreshold || 3;
+  const learntCount     = words.filter(w => (progress[w.id]?.correctCount || 0) >= learntThreshold).length;
+  const learnedCount    = learntCount;
+  const userLevel       = computeLevel(progress, words);
+
+  function handleUpdateProgress(t, td, l, s) {
+    const sorted = [...words].sort((a, b) => a.id - b.id);
+    const newProg = {};
+    for (let i = 0; i < Math.min(t, sorted.length); i++) {
+      const w = sorted[i];
+      newProg[w.id] = progress[w.id] || { difficulty:"Default", nextReview:computeNextReview("Default", settings.intervals), lastSeen:new Date().toISOString(), easyCount:0, correctCount:0 };
+    }
+    setProgress(newProg);
+    const newLastId = t === 0 ? 0 : (sorted[Math.min(t, sorted.length) - 1]?.id || 0);
+    saveLastNewWordId(newLastId);
+    setLastNewWordId(newLastId);
+    const today = new Date().toDateString();
+    // Save taught today as-is (user sees warning but decides themselves)
+    saveTaughtToday({ date:today, count:td });
+    setTaughtToday({ date:today, count:td });
+    // Preserve reached10 from current streak if it was already set today
+    const freshStreak = loadStreak();
+    const alreadyReached10Today = freshStreak.lastDay === today && freshStreak.reached10;
+    const sv = { days:s, lastDay: alreadyReached10Today ? today : null, reached10: alreadyReached10Today };
+    saveStreak(sv);
+    setStreakData(sv);
+  }
+
+  return (
+    <div style={{ display:"flex", flexDirection:"column", height:"100vh", background:"var(--bg)", color:"var(--text)", fontFamily:"'DM Sans',sans-serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+        :root {
+          --bg:#f4f6f8; --surface:#ffffff; --surface2:#f0f2f5; --border:#e0e4ea;
+          --text:#1a2130; --text2:#6b7585; --sidebar:#1a4b3c; --sidebar-text:rgba(255,255,255,0.75);
+          --sidebar-active:#ffffff; --sidebar-active-bg:rgba(255,255,255,0.15);
+          --accent:#1a4b3c; --accent-light:#e8f5f0; --accent2:#c8a96e;
+          --hard:#e74c3c; --default:#c8a96e; --easy:#27ae60;
+          --blue:#3b82f6; --blue-light:#eff6ff;
+          --radius:10px; --shadow:0 1px 8px rgba(0,0,0,0.08);
+        }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        button { cursor:pointer; font-family:'DM Sans',sans-serif; }
+        select,input { font-family:'DM Sans',sans-serif; }
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:transparent; }
+        ::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+      `}</style>
+
+      <div style={{ display:"flex", flexDirection:"column", flex:1, minHeight:0 }}>
+        <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
+          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} dailyReview={dailyReview} streak={streak} userLevel={userLevel}
+            userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
+            onUpdateProgress={handleUpdateProgress} />
+          <div style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
+            {vocabUpdateAvailable && (
+              <div style={{ background:"var(--accent)", color:"#fff", padding:"10px 18px", display:"flex", alignItems:"center", justifyContent:"space-between", borderRadius:10, marginBottom:16, fontSize:14, gap:12 }}>
+                <span>📦 Nová verze slovníku je k dispozici!</span>
+                <button onClick={() => loadVocabFromUrl(loadVocabMeta().url || DEFAULT_VOCAB_URL)} style={{ background:"#fff", color:"var(--accent)", border:"none", borderRadius:8, padding:"6px 16px", fontWeight:600, cursor:"pointer", fontSize:13, whiteSpace:"nowrap" }}>
+                  Aktualizovat
+                </button>
+              </div>
+            )}
+            {showWhatsNew && (
+              <div style={{ background:"var(--surface)", border:"2px solid var(--accent)", borderRadius:12, padding:"16px 20px", marginBottom:16, fontSize:14 }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10 }}>
+                  <span style={{ fontWeight:700, color:"var(--accent)", fontSize:15 }}>🆕 Novinky ve verzi {APP_VERSION}</span>
+                  <button onClick={dismissWhatsNew} style={{ background:"none", border:"none", cursor:"pointer", color:"var(--text2)", fontSize:18, lineHeight:1, padding:"0 4px" }}>×</button>
+                </div>
+                <ul style={{ margin:0, paddingLeft:18, color:"var(--text)", lineHeight:1.7 }}>
+                  {whatsNew.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+              </div>
+            )}
+            {view==="dashboard"  && words.length === 0 && (
+            <div style={{ textAlign:"center", padding:"60px 20px" }}>
+              <div style={{ fontSize:48, marginBottom:16 }}>📚</div>
+              <h2 style={{ fontSize:22, color:"var(--accent)", fontFamily:"'Lora',serif", marginBottom:8 }}>No vocabulary loaded</h2>
+              <p style={{ color:"var(--text2)", fontSize:14, marginBottom:24 }}>Go to Settings to load your vocabulary CSV file.</p>
+              <button onClick={() => setView("upload")} style={{ padding:"11px 28px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:10, fontSize:14, fontWeight:600 }}>Go to Settings</button>
+            </div>
+          )}
+          {view==="dashboard"  && words.length > 0 && <Dashboard words={words} progress={progress} settings={settings} setSettings={setSettings} introducedWords={introducedWords} newWords={newWords} learnedCount={learnedCount} streak={streak} setView={setView} userName={settings.userName} setSessionStartKey={setSessionStartKey} />}
+            {view==="flashcards" && <Flashcards key={sessionStartKey} words={words} progress={progress} settings={settings} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong} markIntroduced={markIntroduced} incrementTaughtToday={incrementTaughtToday} incrementDailyReview={incrementDailyReview} setView={setView} introducedWords={introducedWords} lastNewWordId={lastNewWordId} setLastNewWordId={setLastNewWordId} />}
+            {view==="dictionary" && <Dictionary words={words} progress={progress} setDifficulty={setDifficulty} />}
+            {view==="update-progress" && <UpdateProgress introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} streak={streak} streakThreshold={settings.streakThreshold || 10} intervals={settings.intervals || { Hard:1, Default:3, Easy:7 }} onUpdateProgress={handleUpdateProgress} onSaveStreakThreshold={(v) => setSettings(s => ({...s, streakThreshold: v}))} onSaveIntervals={(iv) => setSettings(s => ({...s, intervals: iv}))} />}
+            {view==="webpages"    && <WebPages webPages={webPages} saveWebPages={saveWebPages} />}
+            {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
+          </div>
+        </div>
+        <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"8px 24px", display:"flex", alignItems:"center", gap:8, flexShrink:0, flexWrap:"wrap" }}>
+          {webPages.map(page => (
+            <a key={page.id} href={page.url} target="_blank" rel="noopener noreferrer" style={{
+              padding:"6px 14px", background:"var(--accent)", color:"#fff", borderRadius:8,
+              fontSize:13, fontWeight:600, textDecoration:"none", whiteSpace:"nowrap"
+            }}>{page.name} →</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayCount, dailyReview, streak, userName, onUserNameChange, userLevel, onUpdateProgress }) {
+  const [editingName, setEditingName] = useState(false);
+  const [nameDraft, setNameDraft] = useState(userName);
+  const nameInputRef = useRef(null);
+
+  useEffect(() => { if (editingName) nameInputRef.current?.select(); }, [editingName]);
+
+  function commitName() {
+    const n = nameDraft.trim();
+    if (n) onUserNameChange(n);
+    else setNameDraft(userName);
+    setEditingName(false);
+  }
+
+  const initial = (userName||"?")[0].toUpperCase();
+  const nav = [
+    { key:"dashboard", icon:"⊞", label:"Home" },
+    { key:"dictionary", icon:"📖", label:"Dictionary" },
+  ];
+
+  function NavBtn({ item }) {
+    const active = view === item.key;
+    return (
+      <button onClick={() => setView(item.key)} style={{
+        display:"flex", alignItems:"center", gap:10, width:"100%", padding:"8px 16px",
+        background: active ? "var(--sidebar-active-bg)" : "transparent",
+        color: active ? "#fff" : "var(--sidebar-text)",
+        border:"none", borderRadius:8, fontSize:14, fontWeight: active ? 600 : 400,
+        textAlign:"left", transition:"all 0.15s",
+        borderLeft: active ? "3px solid var(--accent2)" : "3px solid transparent",
+      }}>
+        <span style={{ fontSize:15, width:18, display:"inline-block", textAlign:"center", flexShrink:0 }}>{item.icon}</span>{item.label}
+      </button>
+    );
+  }
+
+  return (
+    <aside style={{ width:200, background:"var(--sidebar)", display:"flex", flexDirection:"column", padding:"12px 10px 24px", flexShrink:0, alignSelf:"stretch", borderRadius:"0 0 14px 0", overflowY:"auto" }}>
+      {/* Logo */}
+      <div style={{ padding:"0 6px 10px", borderBottom:"1px solid rgba(255,255,255,0.1)", marginBottom:8 }}>
+        <div style={{ color:"#fff", fontFamily:"'Lora',serif", fontSize:16, fontWeight:600 }}>🇫🇷 Mon Vocab</div>
+        <div style={{ color:"var(--accent2)", fontSize:10, marginTop:1 }}>FR · EN</div>
+      </div>
+
+      {/* User */}
+      <div style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 6px 10px", borderBottom:"1px solid rgba(255,255,255,0.1)", marginBottom:8 }}>
+        <div style={{ width:26, height:26, borderRadius:"50%", background:"var(--accent2)", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontWeight:700, fontSize:11, flexShrink:0 }}>{initial}</div>
+        <div style={{ flex:1, minWidth:0 }}>
+          {editingName ? (
+            <input ref={nameInputRef} value={nameDraft}
+              onChange={e => setNameDraft(e.target.value)}
+              onBlur={commitName}
+              onKeyDown={e => { if (e.key==="Enter") commitName(); if (e.key==="Escape") { setNameDraft(userName); setEditingName(false); } }}
+              style={{ background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.4)", borderRadius:6, color:"#fff", fontSize:12, fontWeight:600, padding:"2px 6px", width:"100%", outline:"none" }} />
+          ) : (
+            <div onClick={() => { setNameDraft(userName); setEditingName(true); }}
+              style={{ color:"#fff", fontSize:12, fontWeight:600, cursor:"pointer", display:"flex", alignItems:"center", gap:4 }}
+              title="Click to edit name">
+              {userName} <span style={{ fontSize:10, opacity:0.5 }}>✎</span>
+            </div>
+          )}
+          <div style={{ color:"var(--sidebar-text)", fontSize:10 }}>Level {userLevel}</div>
+        </div>
+      </div>
+
+      {nav.map(i => <NavBtn key={i.key} item={i} />)}
+
+      {/* Progress */}
+      <div style={{ borderTop:"1px solid rgba(255,255,255,0.1)", marginTop:10, paddingTop:8 }}>
+        <div style={{ fontSize:9, textTransform:"uppercase", letterSpacing:"0.1em", color:"rgba(255,255,255,0.35)", padding:"0 6px 6px" }}>My Progress</div>
+        {[
+          { icon:"📚", value: introducedCount,    label:"words taught total" },
+          { icon:"📖", value: taughtTodayCount,   label:"words taught today" },
+          { icon:"📊", value: (() => {
+            const dr = dailyReview || { correct:0, total:0 };
+            const today = new Date().toDateString();
+            const d = (dr.date === today) ? dr : { correct:0, total:0 };
+            if (d.total === 0) return "–";
+            const pct = Math.round((d.correct / d.total) * 100);
+            return `${d.correct}/${d.total} (${pct}%)`;
+          })(), label:"Today's Review" },
+          { icon:"🔥", value: streak === 1 ? "1 day" : `${streak} days`, label:"current streak" },
+        ].map(s => (
+          <div key={s.label} style={{ display:"flex", alignItems:"center", gap:8, padding:"3px 6px" }}>
+            <span style={{ fontSize:13 }}>{s.icon}</span>
+            <div>
+              <div style={{ color:"#fff", fontSize:13, fontWeight:600 }}>{s.value}</div>
+              <div style={{ color:"var(--sidebar-text)", fontSize:10 }}>{s.label}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Settings */}
+      <div style={{ borderTop:"1px solid rgba(255,255,255,0.1)", marginTop:8, paddingTop:8 }}>
+        <div style={{ fontSize:9, textTransform:"uppercase", letterSpacing:"0.1em", color:"rgba(255,255,255,0.35)", padding:"0 6px 6px" }}>Settings</div>
+        {[
+          { key:"update-progress", icon:"🎯", label:"Update Progress" },
+          { key:"upload",          icon:"📤", label:"Upload Vocabulary" },
+          { key:"webpages",        icon:"🌐", label:"Web Pages" },
+        ].map(item => (
+          <button key={item.key} onClick={() => setView(item.key)} style={{
+            display:"flex", alignItems:"center", gap:8, width:"100%", padding:"4px 8px",
+            background: view===item.key ? "var(--sidebar-active-bg)" : "transparent",
+            color: view===item.key ? "#fff" : "var(--sidebar-text)",
+            border:"none", borderRadius:8, fontSize:12,
+            fontWeight: view===item.key ? 600 : 400,
+            textAlign:"left", transition:"all 0.15s",
+            borderLeft: view===item.key ? "3px solid var(--accent2)" : "3px solid transparent",
+          }}>
+            <span style={{ fontSize:14, width:18, display:"inline-block", textAlign:"center", flexShrink:0 }}>{item.icon}</span>{item.label}
+          </button>
+        ))}
+      </div>
+      <div style={{ paddingTop:16, textAlign:"center" }}>
+        <span style={{ fontSize:10, color:"var(--text2)", opacity:0.4 }}>v{APP_VERSION}</span>
+      </div>
+    </aside>
+  );
+}
+
+// ── Dashboard ──────────────────────────────────────────────────────────────
+function Dashboard({ words, progress, settings, setSettings, introducedWords, newWords, learnedCount, streak, setView, userName, setSessionStartKey }) {
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ marginBottom:28 }}>
+        <h1 style={{ fontSize:26, fontWeight:600, color:"var(--text)", fontFamily:"'Lora',serif" }}>{greeting}, {userName}!</h1>
+      </div>
+      <FrenchVoiceHint />
+
+      {/* Two tiles */}
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20, marginBottom:28 }}>
+        <NewWordsTile
+          pairMode={settings.learnPairMode}
+          onPairMode={m => setSettings(s => ({ ...s, learnPairMode: m }))}
+          filterMode={settings.learnFilterMode}
+          onFilterMode={m => setSettings(s => ({ ...s, learnFilterMode: m }))}
+          filterCategory={settings.learnFilterCategory}
+          onFilterCategory={c => setSettings(s => ({ ...s, learnFilterCategory: c }))}
+          onStart={() => { setSettings(s => ({ ...s, sessionType:"learn", activeSessionMode: s.learnSessionMode })); setSessionStartKey(k => k+1); setView("flashcards"); }}
+          sessionMode={settings.learnSessionMode}
+          onSessionMode={m => setSettings(s => ({ ...s, learnSessionMode: m }))}
+        />
+        <ReviewTile
+          pairMode={settings.reviewPairMode}
+          onPairMode={m => setSettings(s => ({ ...s, reviewPairMode: m }))}
+          filterMode={settings.reviewFilterMode}
+          onFilterMode={m => setSettings(s => ({ ...s, reviewFilterMode: m }))}
+          filterCategory={settings.reviewFilterCategory}
+          onFilterCategory={c => setSettings(s => ({ ...s, reviewFilterCategory: c }))}
+          filterLevel={settings.reviewFilterLevel || "All"}
+          onFilterLevel={l => setSettings(s => ({ ...s, reviewFilterLevel: l }))}
+          onStart={() => { setSettings(s => ({ ...s, sessionType:"review", activeSessionMode: s.reviewSessionMode })); setSessionStartKey(k => k+1); setView("flashcards"); }}
+          sessionMode={settings.reviewSessionMode}
+          onSessionMode={m => setSettings(s => ({ ...s, reviewSessionMode: m }))}
+        />
+      </div>
+    </div>
+  );
+}
+
+// ── Shared filter/mode UI ─────────────────────────────────────────────────
+function TileFilters({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, filterLevel, onFilterLevel, isReview, sessionMode, onSessionMode }) {
+  return (<>
+    <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
+      {PAIR_MODES.map(m => (
+        <button key={m} onClick={() => onPairMode(m)} style={{
+          padding:"4px 12px", borderRadius:20, fontSize:12, fontWeight:500,
+          background: pairMode===m ? "var(--accent)" : "var(--surface2)",
+          color: pairMode===m ? "#fff" : "var(--text2)",
+          border: pairMode===m ? "1px solid var(--accent)" : "1px solid var(--border)",
+          transition:"all 0.15s"
+        }}>{m}</button>
+      ))}
+    </div>
+    <div style={{ display:"flex", gap:6, alignItems:"center", flexWrap:"wrap" }}>
+      {(isReview ? ["frequency","topic","level"] : ["frequency","topic"]).map(m => (
+        <button key={m} onClick={() => onFilterMode(m)} style={{
+          padding:"4px 12px", borderRadius:20, fontSize:12, fontWeight:500,
+          background: filterMode===m ? "var(--accent-light)" : "var(--surface2)",
+          color: filterMode===m ? "var(--accent)" : "var(--text2)",
+          border: filterMode===m ? "1px solid var(--accent)" : "1px solid var(--border)",
+          transition:"all 0.15s"
+        }}>{m==="frequency" ? "By Frequency" : m==="topic" ? "By Topic" : "By Level"}</button>
+      ))}
+      {filterMode==="topic" && (
+        <select value={filterCategory}
+          onChange={e => onFilterCategory(e.target.value)}
+          style={{ padding:"4px 10px", borderRadius:20, fontSize:12, border:"1px solid var(--border)",
+            background:"var(--surface2)", color:"var(--text)", outline:"none" }}>
+          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+        </select>
+      )}
+      {filterMode==="level" && isReview && (
+        <select value={filterLevel || "All"}
+          onChange={e => onFilterLevel(e.target.value)}
+          style={{ padding:"4px 10px", borderRadius:20, fontSize:12, border:"1px solid var(--border)",
+            background:"var(--surface2)", color:"var(--text)", outline:"none" }}>
+          {LEVELS.map(l => <option key={l}>{l}</option>)}
+        </select>
+      )}
+    </div>
+    <div style={{ display:"flex", gap:6 }}>
+      {[{key:"flashcards", label:"🃏 Flashcards"}, {key:"writing", label:"✏️ Writing"}].map(m => (
+        <button key={m.key} onClick={() => onSessionMode(m.key)} style={{
+          padding:"4px 14px", borderRadius:20, fontSize:12, fontWeight:500,
+          background: sessionMode===m.key ? "var(--accent)" : "var(--surface2)",
+          color: sessionMode===m.key ? "#fff" : "var(--text2)",
+          border: sessionMode===m.key ? "1px solid var(--accent)" : "1px solid var(--border)",
+          transition:"all 0.15s"
+        }}>{m.label}</button>
+      ))}
+    </div>
+  </>);
+}
+
+// ── NewWordsTile ───────────────────────────────────────────────────────────
+function NewWordsTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, onStart, sessionMode, onSessionMode }) {
+  return (
+    <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:14, padding:20, boxShadow:"var(--shadow)", display:"flex", flexDirection:"column", gap:12 }}>
+      <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+        <span style={{ fontSize:16, color:"var(--accent)" }}>✦</span>
+        <span style={{ fontWeight:700, fontSize:13, letterSpacing:"0.05em", color:"var(--text)" }}>NEW WORDS</span>
+      </div>
+      <TileFilters pairMode={pairMode} onPairMode={onPairMode} filterMode={filterMode} onFilterMode={onFilterMode}
+        filterCategory={filterCategory} onFilterCategory={onFilterCategory}
+        sessionMode={sessionMode} onSessionMode={onSessionMode} />
+      <button onClick={onStart} style={{
+        width:"100%", padding:"13px 0", background:"var(--accent)", color:"#fff",
+        border:"none", borderRadius:10, fontSize:14, fontWeight:700, letterSpacing:"0.06em"
+      }}>▷ START LEARNING</button>
+    </div>
+  );
+}
+
+// ── ReviewTile ─────────────────────────────────────────────────────────────
+function ReviewTile({ pairMode, onPairMode, filterMode, onFilterMode, filterCategory, onFilterCategory, filterLevel, onFilterLevel, onStart, sessionMode, onSessionMode }) {
+  return (
+    <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:14, padding:20, boxShadow:"var(--shadow)", display:"flex", flexDirection:"column", gap:12 }}>
+      <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+        <span style={{ fontSize:16, color:"var(--accent)" }}>↺</span>
+        <span style={{ fontWeight:700, fontSize:13, letterSpacing:"0.05em", color:"var(--text)" }}>REVIEW</span>
+      </div>
+      <TileFilters pairMode={pairMode} onPairMode={onPairMode} filterMode={filterMode} onFilterMode={onFilterMode}
+        filterCategory={filterCategory} onFilterCategory={onFilterCategory}
+        filterLevel={filterLevel} onFilterLevel={onFilterLevel}
+        isReview={true}
+        sessionMode={sessionMode} onSessionMode={onSessionMode} />
+      <button onClick={onStart} style={{
+        width:"100%", padding:"13px 0", background:"var(--accent)", color:"#fff",
+        border:"none", borderRadius:10, fontSize:14, fontWeight:700, letterSpacing:"0.06em"
+      }}>▷ START REVIEW</button>
+    </div>
+  );
+}
+
+// ── WordCountPicker ────────────────────────────────────────────────────────
+function WordCountPicker({ value, onChange }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(String(value));
+  const holdRef = useRef(null);
+  const delayRef = useRef(null);
+  const didHoldRef = useRef(false);
+  const valueRef = useRef(value);
+  const inputRef = useRef(null);
+
+  useEffect(() => { valueRef.current = value; }, [value]);
+
+  function startHold(dir) {
+    didHoldRef.current = false;
+    delayRef.current = setTimeout(() => {
+      didHoldRef.current = true;
+      holdRef.current = setInterval(() => {
+        onChange(Math.max(1, valueRef.current + dir * 5));
+      }, 200);
+    }, 500);
+  }
+
+  function endHold(dir) {
+    clearTimeout(delayRef.current);
+    clearInterval(holdRef.current);
+    if (!didHoldRef.current) onChange(Math.max(1, valueRef.current + dir));
+    didHoldRef.current = false;
+  }
+
+  function cancelHold() {
+    clearTimeout(delayRef.current);
+    clearInterval(holdRef.current);
+    didHoldRef.current = false;
+  }
+
+  function commitEdit() { const n = parseInt(draft); if (!isNaN(n) && n > 0) onChange(n); setEditing(false); }
+  useEffect(() => { if (editing) inputRef.current?.select(); }, [editing]);
+
+  return (
+    <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+      <button
+        onMouseDown={() => startHold(-1)}
+        onMouseUp={() => endHold(-1)}
+        onMouseLeave={cancelHold}
+        style={{ width:26, height:26, borderRadius:"50%", border:"1px solid var(--border)", background:"var(--surface2)", fontSize:16, color:"var(--text)", lineHeight:1 }}>−</button>
+      {editing ? (
+        <input ref={inputRef} value={draft} onChange={e => setDraft(e.target.value)}
+          onBlur={commitEdit} onKeyDown={e => e.key==="Enter" && commitEdit()}
+          style={{ width:46, textAlign:"center", fontSize:16, fontWeight:700, border:"2px solid var(--accent)", borderRadius:6, padding:"2px 4px", color:"var(--accent)", background:"var(--surface)" }} />
+      ) : (
+        <span onClick={() => { setDraft(String(value)); setEditing(true); }}
+          style={{ fontSize:18, fontWeight:700, color:"var(--accent)", cursor:"pointer", minWidth:32, textAlign:"center", borderBottom:"2px dashed var(--accent2)", lineHeight:1.4 }}>
+          {value}
+        </span>
+      )}
+      <button
+        onMouseDown={() => startHold(1)}
+        onMouseUp={() => endHold(1)}
+        onMouseLeave={cancelHold}
+        style={{ width:26, height:26, borderRadius:"50%", border:"1px solid var(--border)", background:"var(--surface2)", fontSize:16, color:"var(--text)", lineHeight:1 }}>+</button>
+    </div>
+  );
+}
+
+// ── DifficultyButtons ──────────────────────────────────────────────────────
+function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty }) {
+  const [localDiff, setLocalDiff] = useState("Default");
+  const activeDiff = isLearn ? localDiff : savedDiff;
+
+  return (
+    <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:10, alignItems:"center" }}>
+      <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
+      {["Easy","Default","Hard"].map(d => (
+        <button key={d} onClick={() => {
+          if (isLearn) {
+            setLocalDiff(d);
+            setDifficulty(wordId, d);
+          } else {
+            setDifficulty(wordId, d);
+          }
+        }} style={{
+          padding:"7px 16px", borderRadius:8, fontSize:13, fontWeight:600,
+          border:`2px solid ${diffColor[d]}`,
+          background: activeDiff===d ? diffColor[d] : "transparent",
+          color: activeDiff===d ? "#fff" : diffColor[d],
+          transition:"all 0.15s"
+        }}>{d}</button>
+      ))}
+    </div>
+  );
+}
+
+// ── Flashcards ─────────────────────────────────────────────────────────────
+function Flashcards({ words, progress, settings, setDifficulty, markCorrect, markWrong, markIntroduced, incrementTaughtToday, incrementDailyReview, setView, introducedWords, lastNewWordId, setLastNewWordId }) {
+  const isReview = settings.sessionType === "review";
+  const isWriting = settings.activeSessionMode === "writing";
+
+  function buildQueue() {
+    const isRev = settings.sessionType === "review";
+    const fm = isRev ? settings.reviewFilterMode : settings.learnFilterMode;
+    const fc = isRev ? settings.reviewFilterCategory : settings.learnFilterCategory;
+    const cnt = isRev ? settings.reviewCount : settings.sessionCount;
+
+    if (isRev) {
+      // Review: Hard first, then wrong last time, then due, then random
+      // Words already shown today go to the end of the queue
+      const fl = settings.reviewFilterLevel || "All";
+      let pool = [...introducedWords];
+      if (fm === "topic" && fc !== "All") pool = pool.filter(w => w.category === fc);
+      if (fm === "level" && fl !== "All") pool = pool.filter(w => w.level === fl);
+      const reviewedTodayIds = new Set(loadReviewedToday().ids);
+      const notYetToday = pool.filter(w => !reviewedTodayIds.has(w.id));
+      const alreadyToday = pool.filter(w => reviewedTodayIds.has(w.id));
+      function sortPool(p) {
+        return p.sort((a, b) => {
+          const pa = progress[a.id] || {};
+          const pb = progress[b.id] || {};
+          const aHard = pa.difficulty === "Hard" ? 0 : 1;
+          const bHard = pb.difficulty === "Hard" ? 0 : 1;
+          const aWrong = pa.lastWrong ? 0 : 1;
+          const bWrong = pb.lastWrong ? 0 : 1;
+          const aDue = isDue({...a, ...pa}) ? 0 : 1;
+          const bDue = isDue({...b, ...pb}) ? 0 : 1;
+          return (aHard - bHard) || (aWrong - bWrong) || (aDue - bDue) || Math.random() - 0.5;
+        });
+      }
+      return [...sortPool(notYetToday), ...sortPool(alreadyToday)]; // no limit - infinite cycling
+    } else if (fm === "topic" && fc !== "All") {
+      // By Topic: ONLY taught words in topic (words that went through New Words → By Frequency)
+      // Does NOT count towards taught — purely a filter/review of already taught words
+      const taught = words.filter(w => w.category === fc && progress[w.id]).sort((a,b) => a.id - b.id);
+      return taught;
+    } else {
+      // By Frequency: ALL unseen words sorted by ID, continue from lastNewWordId
+      // Completely ignores topic filter — topic never affects this queue
+      const lastId = loadLastNewWordId(); // always fresh from localStorage
+      const pool = words.filter(w => !progress[w.id]).sort((a, b) => a.id - b.id);
+      if (pool.length === 0) return [];
+      if (lastId === 0) return pool;
+      const startIdx = pool.findIndex(w => w.id > lastId);
+      return startIdx === -1 ? [] : pool.slice(startIdx);
+    }
+  }
+
+  const queue = React.useMemo(() => buildQueue(), [words.length]);
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.target.tagName === "INPUT") return; // don't intercept when typing
+      if (e.key === "Tab") { e.preventDefault(); if (isReview) { if (flipped) next(); } else if (isWriting) { next(); } else { if (flipped) next(); else setFlipped(true); } }
+      if (e.key === "Enter") { if (!flipped && !isWriting) setFlipped(true); }
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  });
+  const [tooFewWarning] = useState(null);
+  const [idx, setIdx] = useState(0);
+  const [reviewedIds, setReviewedIds] = useState(new Set());
+  const [flipped, setFlipped] = useState(false);
+  const [done, setDone] = useState(false);
+
+  // Load taughtToday count from localStorage to stay in sync across sessions
+  const taughtTodayFromStorage = (() => {
+    try {
+      const data = JSON.parse(localStorage.getItem("frTaughtToday")||"{}");
+      const today = new Date().toDateString();
+      return data.date === today ? data.count : 0;
+    } catch { return 0; }
+  })();
+
+  const word = queue[idx];
+  const prog = word ? progress[word.id]||{} : {};
+  const pm = settings.sessionType==="review" ? settings.reviewPairMode : settings.learnPairMode;
+  const isFR_first = pm==="FR → EN";
+  const diffColor = { Hard:"var(--hard)", Default:"var(--default)", Easy:"var(--easy)" };
+  const curDiff = prog.difficulty||"Default";
+  const sessionLabel = isReview ? "Review" : "New Words";
+  const sessionIcon = isReview ? "↺" : "✦";
+  const filterLabel = !isReview
+    ? (settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All"
+        ? `By Topic · ${settings.learnFilterCategory}`
+        : "By Frequency")
+    : settings.reviewFilterMode === "topic" && settings.reviewFilterCategory !== "All"
+        ? `By Topic · ${settings.reviewFilterCategory}`
+        : settings.reviewFilterMode === "level"
+          ? `By Level · ${settings.reviewFilterLevel || "All"}`
+          : "By Frequency";
+
+  const isByTopicDone = !isReview && settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All";
+  const isByLevelDone = isReview && settings.reviewFilterMode === "level";
+  const topicName = settings.learnFilterCategory;
+  const levelName = settings.reviewFilterLevel || "All";
+  const topicHasTaught = isByTopicDone && queue.length > 0;
+
+  if (done||!word) return (
+    <div style={{ textAlign:"center", padding:"80px 20px" }}>
+      <div style={{ fontSize:48, marginBottom:16 }}>{isByTopicDone && !topicHasTaught ? "📭" : "🎉"}</div>
+      <h2 style={{ fontSize:26, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
+        {isReview ? "Session complete!" : isByTopicDone ? `Topic: ${topicName}` : "All words taught! 🎓"}
+      </h2>
+      <p style={{ color:"var(--text2)", marginTop:8 }}>
+        {isReview
+          ? isByLevelDone && queue.length === 0
+            ? `No taught words found at level ${levelName}. Try studying some ${levelName} words first in New Words.`
+            : `You reviewed ${reviewedIds.size} words.`
+          : isByTopicDone && !topicHasTaught
+            ? `None of the words from topic "${topicName}" have been taught yet. Study them first in New Words → By Frequency.`
+            : isByTopicDone && topicHasTaught
+              ? `These are all the words from topic "${topicName}" which have been taught so far.`
+              : "You have gone through all available words in the dictionary. Congratulations! 🎉"}
+      </p>
+      <div style={{ display:"flex", gap:12, justifyContent:"center", marginTop:24 }}>
+        <button onClick={() => setView("dashboard")} style={{ padding:"11px 24px", background:"var(--surface2)", color:"var(--text)", border:"1px solid var(--border)", borderRadius:10, fontSize:14 }}>← Back</button>
+      </div>
+    </div>
+  );
+
+  const isByTopic = !isReview && settings.learnFilterMode === "topic" && settings.learnFilterCategory !== "All";
+
+  function next() {
+    if (isReview) {
+      setReviewedIds(ids => new Set([...ids, word.id]));
+      const rt = loadReviewedToday();
+      if (!rt.ids.includes(word.id)) {
+        saveReviewedToday({ date: rt.date, ids: [...rt.ids, word.id] });
+      }
+    } else if (!isByTopic) {
+      markIntroduced(word.id);
+      saveLastNewWordId(word.id);
+      if (setLastNewWordId) setLastNewWordId(word.id);
+      incrementTaughtToday();
+    }
+    if (isReview) {
+      // cycling - never done
+      setIdx(i => (i+1) % queue.length);
+      setFlipped(false);
+    } else {
+      if (idx+1>=queue.length) setDone(true);
+      else { setIdx(i=>i+1); setFlipped(false); }
+    }
+  }
+
+  const frontText = isFR_first ? word.fr : word.en;
+  const backText  = isFR_first ? word.en : word.fr;
+  const frontSentence = isFR_first ? word.frSentence : word.enSentence;
+  const backSentence  = isFR_first ? word.enSentence : word.frSentence;
+
+  if (isWriting && isReview) return (
+    <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
+      prog={prog} curDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor}
+      onNext={next} onBack={() => setView("dashboard")} setDifficulty={setDifficulty} markCorrect={markCorrect} markWrong={markWrong}
+      isLearn={false} sessionLabel={sessionLabel} sessionIcon={sessionIcon} pairMode={pm} tooFewWarning={tooFewWarning} filterLabel={filterLabel} reviewedCount={reviewedIds.size} incrementDailyReview={incrementDailyReview} />
+  );
+
+  // New Words Writing: show both sides immediately + PracticeField (no input step)
+  if (isWriting && !isReview) {
+    const frontT = isFR_first ? word.fr : word.en;
+    const backT  = isFR_first ? word.en : word.fr;
+    const frontS = isFR_first ? word.frSentence : word.enSentence;
+    const backS  = isFR_first ? word.enSentence : word.frSentence;
+    return (
+      <div style={{ maxWidth:620, margin:"0 auto" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
+          <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+          <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pm} · {filterLabel}</span>
+          <div style={{ flex:1 }} />
+          <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
+        </div>
+        <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
+          {/* Front */}
+          <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "Français" : "English"}</div>
+          <div style={{ fontSize:30, fontWeight:600, color:"var(--accent)", marginBottom:4, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+            {frontT}{isFR_first && <SpeakBtn text={frontT} style={{ fontSize:18 }} />}
+          </div>
+          {isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
+          {word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginBottom:6 }}>{word.info}</div>}
+          <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:20 }}>{frontS}</div>
+          {/* Back */}
+          <div style={{ borderTop:"1px solid var(--border)", paddingTop:20, marginBottom:4 }}>
+            <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "English" : "Français"}</div>
+            <div style={{ fontSize:26, fontWeight:600, color:"var(--text)", marginBottom:4, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+              {backT}{!isFR_first && <SpeakBtn text={backT} style={{ fontSize:18 }} />}
+            </div>
+            {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
+            <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
+          </div>
+          {/* Practice */}
+          <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+          {/* Buttons */}
+          <div style={{ marginTop:16 }}>
+            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
+            <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
+              Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ maxWidth:620, margin:"0 auto" }}>
+      {/* Warning */}
+      {tooFewWarning && idx === 0 && (
+        <div style={{ background:"#fffbea", border:"1px solid var(--accent2)", borderRadius:8, padding:"8px 14px", fontSize:13, color:"var(--text2)", marginBottom:16 }}>
+          ⚠️ Only {tooFewWarning} words have been introduced. Session will include all of them.
+        </div>
+      )}
+      {/* Header */}
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
+        <button onClick={() => setView("dashboard")} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · {isWriting ? "Writing" : "Flashcards"} · {pm} · {filterLabel}</span>
+        <div style={{ flex:1 }} />
+        {isReview
+          ? <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedIds.size} reviewed</span>
+          : <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
+        }
+      </div>
+
+      <div onClick={() => setFlipped(true)} style={{
+        background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16,
+        boxShadow:"var(--shadow)", minHeight:260, padding:"40px 36px",
+        cursor:flipped?"default":"pointer", display:"flex", flexDirection:"column", justifyContent:"center"
+      }}>
+        <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:12 }}>
+          {isFR_first ? "Français" : "English"}
+        </div>
+        <div style={{ fontSize:34, fontWeight:600, color:"var(--accent)", marginBottom:8, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+          {frontText}
+          {isFR_first && <SpeakBtn text={frontText} style={{ fontSize:20 }} />}
+        </div>
+        {isFR_first && <div style={{ fontSize:16, color:"var(--text2)", fontStyle:"italic", marginBottom:16 }}>[{word.pron}]</div>}
+        <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic" }}>{frontSentence}</div>
+
+        {!flipped && (
+          <div style={{ marginTop:32, fontSize:13, color:"var(--text2)", textAlign:"center", borderTop:"1px dashed var(--border)", paddingTop:16 }}>
+            Tap to reveal →
+          </div>
+        )}
+        {flipped && (
+          <div style={{ marginTop:28, paddingTop:24, borderTop:"1px solid var(--border)" }}>
+            <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:10 }}>
+              {isFR_first ? "English" : "Français"}
+            </div>
+            <div style={{ fontSize:28, fontWeight:600, color:"var(--text)", marginBottom:6, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+              {backText}
+              {!isFR_first && <SpeakBtn text={backText} style={{ fontSize:18 }} />}
+            </div>
+            {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:12 }}>[{word.pron}]</div>}
+            {word.info&&word.info!=="-" && <div style={{ fontSize:13, color:"var(--text2)", marginBottom:10 }}>{word.info}</div>}
+            <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic" }}>{backSentence}</div>
+          </div>
+        )}
+      </div>
+
+      {isWriting && !isReview && !flipped && (
+        <div style={{ marginTop:16 }}>
+          <PracticeField correctAnswer={isFR_first ? word.fr : word.en} isFR={isFR_first} onCorrect={() => setFlipped(true)} onNext={next} />
+        </div>
+      )}
+      {flipped && !isReview && (
+        <PracticeField correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
+      )}
+      {flipped && (
+        <div style={{ marginTop:16 }}>
+          <DifficultyButtons
+            isLearn={!isReview}
+            wordId={word.id}
+            savedDiff={progress[word.id]?.difficulty || "Default"}
+            diffColor={diffColor}
+            setDifficulty={setDifficulty}
+          />
+          <button onClick={next} style={{
+            width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
+            background:"var(--accent)", color:"#fff", border:"none", letterSpacing:"0.02em"
+          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Dictionary ─────────────────────────────────────────────────────────────
+function Dictionary({ words, progress, setDifficulty }) {
+  const [search, setSearch] = useState("");
+  const [filterCat, setFilterCat] = useState("All");
+  const [filterLvl, setFilterLvl] = useState("All");
+
+  const filtered = words.filter(w => {
+    const q = search.toLowerCase().trim();
+    const idMatch = /^\d+$/.test(q) && w.id === parseInt(q);
+    return (!q || idMatch || w.fr.toLowerCase().includes(q) || w.en.toLowerCase().includes(q))
+      && (filterCat==="All" || w.category===filterCat)
+      && (filterLvl==="All" || w.level===filterLvl);
+  });
+
+  return (
+    <div style={{ height:"calc(100vh - 120px)", display:"flex", flexDirection:"column" }}>
+      <h2 style={{ fontSize:22, marginBottom:16, color:"var(--text)", fontFamily:"'Lora',serif", flexShrink:0 }}>Dictionary</h2>
+      <FrenchVoiceHint />
+      <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap", flexShrink:0 }}>
+        <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search FR, EN or #id…"
+          style={{ padding:"8px 14px", borderRadius:8, border:"1px solid var(--border)", background:"var(--surface)", fontSize:14, minWidth:200, outline:"none" }} />
+        <select value={filterCat} onChange={e => setFilterCat(e.target.value)}
+          style={{ padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", background:"var(--surface)", fontSize:14, outline:"none" }}>
+          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+        </select>
+        <select value={filterLvl} onChange={e => setFilterLvl(e.target.value)}
+          style={{ padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", background:"var(--surface)", fontSize:14, outline:"none" }}>
+          {LEVELS.map(l => <option key={l}>{l}</option>)}
+        </select>
+        <span style={{ fontSize:13, color:"var(--text2)", alignSelf:"center" }}>{filtered.length} words</span>
+      </div>
+      <div style={{ flex:1, overflowY:"auto", overflowX:"auto", background:"var(--surface)", borderRadius:12, border:"1px solid var(--border)", boxShadow:"var(--shadow)" }}>
+        <table style={{ width:"100%", borderCollapse:"collapse", fontSize:14 }}>
+          <thead style={{ position:"sticky", top:0, zIndex:10 }}>
+            <tr style={{ background:"var(--surface2)", borderBottom:"2px solid var(--border)" }}>
+              {["#","FR","Pronunciation","Info","EN","Sentence (FR)","Level","Category"].map(h => (
+                <th key={h} style={{ padding:"10px 14px", textAlign:"left", fontWeight:600, color:"var(--text2)", whiteSpace:"nowrap", fontSize:12, background:"var(--surface2)" }}>
+                  {h}{(h==="Level"||h==="Category") && <span style={{ fontSize:10, opacity:0.5, marginLeft:4 }}>▼</span>}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((w,i) => (
+              <tr key={w.id} style={{ borderBottom:"1px solid var(--border)", background: i%2===0?"var(--surface)":"var(--surface2)" }}>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12, fontWeight:500 }}>{w.id}</td>
+                <td style={{ padding:"10px 14px", fontWeight:600, color:"var(--accent)", fontFamily:"'Lora',serif" }}>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}>
+                    {w.fr}<SpeakBtn text={w.fr} />
+                  </span>
+                </td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic" }}>[{w.pron}]</td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12 }}>{w.info}</td>
+                <td style={{ padding:"10px 14px" }}>{w.en}</td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.frSentence}</td>
+                <td style={{ padding:"10px 14px" }}><span style={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:4, padding:"2px 8px", fontSize:11 }}>{w.level}</span></td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:13 }}>{w.category}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ── UpdateProgress ────────────────────────────────────────────────────────
+function UpdateProgress({ introducedCount, taughtTodayCount, streak, onUpdateProgress, streakThreshold, onSaveStreakThreshold, intervals, onSaveIntervals }) {
+  const iv = intervals || { Hard:1, Default:3, Easy:7 };
+  const [pTaught, setPTaught] = useState(String(introducedCount));
+  const [pToday, setPToday] = useState(String(taughtTodayCount));
+  const [pStreak, setPStreak] = useState(String(streak));
+  const [pStreakThreshold, setPStreakThreshold] = useState(String(streakThreshold));
+  const [pHard, setPHard] = useState(String(iv.Hard));
+  const [pDefault, setPDefault] = useState(String(iv.Default));
+  const [pEasy, setPEasy] = useState(String(iv.Easy));
+  const [saved, setSaved] = useState(false);
+
+  function handleSave() {
+    const taught = Math.max(0, parseInt(pTaught) || 0);
+    const today = Math.max(0, parseInt(pToday) || 0);
+    const s = Math.max(0, parseInt(pStreak) || 0);
+    const streakThr = Math.max(1, parseInt(pStreakThreshold) || 10);
+    setPStreakThreshold(String(streakThr));
+    onSaveStreakThreshold(streakThr);
+    onUpdateProgress(taught, today, 0, s);
+    const newIntervals = { Hard: Math.max(1, parseInt(pHard) || 1), Default: Math.max(1, parseInt(pDefault) || 3), Easy: Math.max(1, parseInt(pEasy) || 7) };
+    onSaveIntervals(newIntervals);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
+
+  return (
+    <div style={{ maxWidth:500 }}>
+      <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Update Progress</h2>
+      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:20, lineHeight:1.6 }}>
+        Manually set your progress — useful for advanced learners or after an accidental reset.
+        <br/><em style={{fontSize:12}}>Note: "Words taught today" cannot exceed "Words taught total".</em>
+      </p>
+      <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:12, padding:"20px 24px", marginBottom:20 }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
+          {[
+            { label:"Words taught total", val:pTaught, set:setPTaught, desc:"Words studied in New Words → By Frequency (Flashcard or Writing). By Topic sessions do not count." },
+            { label:"Words taught today", val:pToday, set:setPToday, desc:"Same as above, but only for today. Resets at midnight." },
+            { label:"Current streak (days)", val:pStreak, set:setPStreak, desc:"Increases by 1 when you reach your daily target (see threshold below) in a single day." },
+          ].map(f => (
+            <div key={f.label} style={{ display:"flex", alignItems:"flex-start", gap:12 }}>
+              <input type="number" min={f.min ?? 0} max={f.max ?? undefined} value={f.val} onChange={e => f.set(e.target.value)}
+                style={{ width:90, padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)", flexShrink:0, marginTop:2 }} />
+              <div>
+                <div style={{ fontSize:13, color:"var(--text)", fontWeight:500 }}>{f.label}</div>
+                {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, lineHeight:1.4, marginTop:2 }}>{f.desc}</div>}
+                {f.label === "Words taught today" && parseInt(pToday) > parseInt(pTaught) && (
+                  <div style={{ fontSize:11, color:"var(--hard)", marginTop:3 }}>⚠️ Words taught today exceeds total — is that intentional?</div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Learning Rules */}
+        <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", margin:"16px 0 8px" }}>Learning Rules</div>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
+          {[
+            { label:"Taught words per day to increase streak", val:pStreakThreshold, set:setPStreakThreshold, desc:"How many New Words (By Frequency only) you must study in a day for your streak to go up by 1. Default: 10", min:1 },
+          ].map(f => (
+            <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
+              <input type="number" min={f.min ?? 1} value={f.val} onChange={e => f.set(e.target.value)}
+                style={{ width:90, padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)", flexShrink:0 }} />
+              <div>
+                <div style={{ fontSize:13, color:"var(--text)", fontWeight:500 }}>{f.label}</div>
+                {f.desc && <div style={{ fontSize:11, color:"var(--text2)", opacity:0.7, lineHeight:1.4, marginTop:2 }}>{f.desc}</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Review intervals */}
+        <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", margin:"16px 0 8px" }}>Review intervals (days)</div>
+        <p style={{ fontSize:11, color:"var(--text2)", marginBottom:10, lineHeight:1.5 }}>
+          How many days after marking a word Easy / Default / Hard it will appear again in Review. If you answer incorrectly in a Writing session, the word is moved to the top of the next Review queue regardless of its interval.
+        </p>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
+          {[
+            { label:"Easy", val:pEasy, set:setPEasy, color:"var(--easy)" },
+            { label:"Default", val:pDefault, set:setPDefault, color:"var(--text2)" },
+            { label:"Hard", val:pHard, set:setPHard, color:"var(--hard)" },
+          ].map(f => (
+            <div key={f.label} style={{ display:"flex", alignItems:"center", gap:12 }}>
+              <input type="number" min={1} value={f.val} onChange={e => f.set(e.target.value)}
+                style={{ width:90, padding:"8px 12px", borderRadius:8, border:"1px solid var(--border)", fontSize:14, outline:"none", color:"var(--text)", background:"var(--surface2)", flexShrink:0 }} />
+              <div style={{ fontSize:13, fontWeight:600, color:f.color }}>{f.label}</div>
+            </div>
+          ))}
+        </div>
+        <button onClick={handleSave} style={{
+          padding:"10px 24px", background: saved ? "var(--easy)" : "var(--accent)",
+          color:"#fff", border:"none", borderRadius:8, fontSize:14, fontWeight:600, transition:"background 0.2s"
+        }}>
+          {saved ? "✓ Saved!" : "Save progress"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── WebPages ───────────────────────────────────────────────────────────────
+function WebPages({ webPages, saveWebPages }) {
+  const [editingId, setEditingId] = useState(null);
+  const [editName, setEditName] = useState("");
+  const [editUrl, setEditUrl] = useState("");
+  const [dragIdx, setDragIdx] = useState(null);
+  const [dragOverIdx, setDragOverIdx] = useState(null);
+  const SOFT_LIMIT = 10;
+
+  function startEdit(page) {
+    setEditingId(page.id);
+    setEditName(page.name);
+    setEditUrl(page.url);
+  }
+
+  function saveEdit() {
+    if (!editName.trim() || !editUrl.trim()) return;
+    const url = editUrl.trim().startsWith("http") ? editUrl.trim() : "https://" + editUrl.trim();
+    saveWebPages(webPages.map(p => p.id === editingId ? { ...p, name: editName.trim(), url } : p));
+    setEditingId(null);
+  }
+
+  function deleteLink(id) {
+    saveWebPages(webPages.filter(p => p.id !== id));
+  }
+
+  function addLink() {
+    if (webPages.length >= SOFT_LIMIT) return;
+    const newId = Date.now();
+    const newPages = [...webPages, { id: newId, name: "New link", url: "https://" }];
+    saveWebPages(newPages);
+    setEditingId(newId);
+    setEditName("New link");
+    setEditUrl("https://");
+  }
+
+  function onDragStart(idx) { setDragIdx(idx); }
+  function onDragOver(e, idx) { e.preventDefault(); setDragOverIdx(idx); }
+  function onDrop(idx) {
+    if (dragIdx === null || dragIdx === idx) { setDragIdx(null); setDragOverIdx(null); return; }
+    const reordered = [...webPages];
+    const [moved] = reordered.splice(dragIdx, 1);
+    reordered.splice(idx, 0, moved);
+    saveWebPages(reordered);
+    setDragIdx(null);
+    setDragOverIdx(null);
+  }
+
+  return (
+    <div style={{ maxWidth:520 }}>
+      <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Web Pages</h2>
+      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:20, lineHeight:1.6 }}>
+        Manage your favourite French learning links. They appear as buttons in the bottom bar.
+        Drag to reorder. {webPages.length >= SOFT_LIMIT && <span style={{ color:"var(--hard)" }}>Maximum {SOFT_LIMIT} links reached.</span>}
+      </p>
+
+      <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:16 }}>
+        {webPages.map((page, idx) => (
+          <div key={page.id}
+            draggable
+            onDragStart={() => onDragStart(idx)}
+            onDragOver={e => onDragOver(e, idx)}
+            onDrop={() => onDrop(idx)}
+            onDragEnd={() => { setDragIdx(null); setDragOverIdx(null); }}
+            style={{
+              background: dragOverIdx === idx ? "var(--surface2)" : "var(--surface)",
+              border: `1px solid ${dragOverIdx === idx ? "var(--accent)" : "var(--border)"}`,
+              borderRadius:10, padding:"10px 14px",
+              display:"flex", alignItems:"center", gap:10,
+              cursor:"grab", transition:"border-color 0.15s",
+              opacity: dragIdx === idx ? 0.5 : 1,
+            }}>
+            <span style={{ color:"var(--text2)", fontSize:16, cursor:"grab" }}>⠿</span>
+
+            {editingId === page.id ? (
+              <div style={{ flex:1, display:"flex", flexDirection:"column", gap:6 }}>
+                <input value={editName} onChange={e => setEditName(e.target.value)}
+                  placeholder="Name" style={{ padding:"5px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none", background:"var(--surface2)", color:"var(--text)" }} />
+                <input value={editUrl} onChange={e => setEditUrl(e.target.value)}
+                  placeholder="https://..." style={{ padding:"5px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none", background:"var(--surface2)", color:"var(--text)" }} />
+                <div style={{ display:"flex", gap:8 }}>
+                  <button onClick={saveEdit} style={{ padding:"4px 14px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12, fontWeight:600 }}>Save</button>
+                  <button onClick={() => setEditingId(null)} style={{ padding:"4px 14px", background:"var(--surface2)", color:"var(--text2)", border:"1px solid var(--border)", borderRadius:6, fontSize:12 }}>Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ fontWeight:600, fontSize:14, color:"var(--text)", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{page.name}</div>
+                <div style={{ fontSize:12, color:"var(--text2)", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{page.url}</div>
+              </div>
+            )}
+
+            {editingId !== page.id && (
+              <div style={{ display:"flex", gap:6, flexShrink:0 }}>
+                <button onClick={() => startEdit(page)} title="Edit" style={{ background:"none", border:"none", cursor:"pointer", fontSize:16, padding:"2px 6px", color:"var(--text2)" }}>✎</button>
+                <button onClick={() => deleteLink(page.id)} title="Delete" style={{ background:"none", border:"none", cursor:"pointer", fontSize:16, padding:"2px 6px", color:"var(--hard)" }}>✕</button>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {webPages.length < SOFT_LIMIT && (
+        <button onClick={addLink} style={{
+          padding:"9px 20px", background:"var(--surface)", border:"1px dashed var(--border)",
+          borderRadius:10, fontSize:14, color:"var(--text2)", cursor:"pointer", width:"100%"
+        }}>+ Add link</button>
+      )}
+    </div>
+  );
+}
+
+// ── VocabSettings ──────────────────────────────────────────────────────────
+function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount }) {
+  const meta = loadVocabMeta();
+  const [url, setUrl] = useState(meta.url || DEFAULT_VOCAB_URL);
+
+
+
+  function handleLoad() {
+    const trimmed = url.trim();
+    if (!trimmed) return;
+    loadVocabFromUrl(trimmed);
+  }
+
+  const statusColor = { loaded:"var(--easy)", loading:"var(--default)", error:"var(--hard)", empty:"var(--text2)" };
+  const statusText  = { loaded:`✓ ${wordCount} words loaded`, loading:"Uploading…", error:`Error: ${vocabError}`, empty:"No vocabulary loaded yet" };
+
+  return (
+    <div style={{ maxWidth:600 }}>
+      <h2 style={{ fontSize:22, marginBottom:6, color:"var(--text)", fontFamily:"'Lora',serif" }}>Upload Vocabulary</h2>
+
+
+
+      <div style={{ fontSize:15, fontWeight:600, color:"var(--text)", marginBottom:6 }}>Upload vocabulary</div>
+      <p style={{ color:"var(--text2)", fontSize:14, marginBottom:16, lineHeight:1.6 }}>
+        Enter the URL of your CSV vocabulary file (e.g. a GitHub raw file link). The vocabulary will be downloaded and stored locally — internet is only needed when reloading.
+      </p>
+
+      {/* Status */}
+      <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:20, padding:"10px 14px", background:"var(--surface)", border:"1px solid var(--border)", borderRadius:10 }}>
+        <span style={{ width:8, height:8, borderRadius:"50%", background:statusColor[vocabStatus], flexShrink:0, display:"inline-block" }} />
+        <span style={{ fontSize:13, color:statusColor[vocabStatus], fontWeight:500 }}>{statusText[vocabStatus]}</span>
+        {meta.loaded && vocabStatus==="loaded" && (
+          <span style={{ fontSize:12, color:"var(--text2)", marginLeft:"auto" }}>Last loaded: {new Date(meta.loaded).toLocaleDateString()}</span>
+        )}
+      </div>
+
+      {/* URL input */}
+      <div style={{ marginBottom:12 }}>
+        <label style={{ fontSize:13, color:"var(--text2)", display:"block", marginBottom:6 }}>CSV file URL</label>
+        <input value={url} onChange={e => setUrl(e.target.value)}
+          placeholder="https://raw.githubusercontent.com/yourname/repo/main/vocab.csv"
+          style={{ width:"100%", padding:"10px 14px", borderRadius:8, border:"1px solid var(--border)", fontSize:13, outline:"none", color:"var(--text)", background:"var(--surface)" }} />
+      </div>
+
+      <button onClick={handleLoad} disabled={!url.trim() || vocabStatus==="loading"}
+        style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:14, fontWeight:600,
+          background: url.trim() ? "var(--accent)" : "var(--border)", color:"#fff", border:"none" }}>
+        {vocabStatus==="loading" ? "Loading…" : "Upload vocabulary"}
+      </button>
+
+      {/* CSV format hint */}
+      <div style={{ marginTop:28, background:"var(--surface2)", borderRadius:10, padding:"16px 20px" }}>
+        <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", marginBottom:8 }}>CSV format</div>
+        <code style={{ fontSize:11, color:"var(--text2)", lineHeight:1.8, display:"block", whiteSpace:"pre-wrap" }}>
+{`id,fr,pron,info,en,frSentence,enSentence,level,category,difficulty
+1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,2.5`}
+        </code>
+        <div style={{ fontSize:12, color:"var(--text2)", marginTop:10, lineHeight:1.6 }}>
+          Columns <strong>difficulty</strong> and <strong>category</strong> are optional — defaults to 2.5 and "General". Encoding must be UTF-8.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── PracticeField ─────────────────────────────────────────────────────────
+const FR_CHARS_PRACTICE = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
+function PracticeField({ correctAnswer, isFR, onCorrect, onNext }) {
+  const [val, setVal] = useState("");
+  const [lastAttempt, setLastAttempt] = useState(null); // { text, ok }
+  const inputRef = useRef(null);
+  useEffect(() => {
+    setVal("");
+    setLastAttempt(null);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }, [correctAnswer]);
+
+  function check() {
+    if (!val.trim()) return;
+    const ok = val.trim().toLowerCase() === correctAnswer.toLowerCase();
+    setLastAttempt({ text: val, ok });
+    setVal("");
+    if (ok && onCorrect) onCorrect();
+    inputRef.current?.focus();
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      check();
+    } else if (e.key === "Tab" && onNext) {
+      e.preventDefault();
+      onNext();
+    }
+  }
+
+  return (
+    <div style={{ marginTop:12, padding:"10px 12px", background:"rgba(0,0,0,0.04)", borderRadius:8 }}>
+      <div style={{ fontSize:12, color:"var(--text2)", marginBottom:6 }}>
+        Practice writing it:
+      </div>
+      {lastAttempt && (
+        <div style={{ fontSize:13, marginBottom:6, color: lastAttempt.ok ? "var(--easy)" : "var(--hard)", fontWeight:500 }}>
+          {lastAttempt.ok ? "✓" : "✗"} {lastAttempt.text}
+        </div>
+      )}
+      <div style={{ display:"flex", gap:6, alignItems:"center" }}>
+        <input ref={inputRef} value={val} onChange={e => setVal(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={lastAttempt?.ok ? "Keep practising…" : `Type "${correctAnswer}"…`}
+          style={{ flex:1, padding:"6px 10px", borderRadius:6, border:"1px solid var(--border)", fontSize:13, outline:"none" }} />
+        <button onClick={check} style={{ padding:"6px 12px", background:"var(--accent)", color:"#fff", border:"none", borderRadius:6, fontSize:12 }}>Check</button>
+      </div>
+      {isFR && (
+        <div style={{ display:"flex", gap:3, flexWrap:"wrap", marginTop:6 }}>
+          {FR_CHARS_PRACTICE.map(c => (
+            <button key={c} onClick={() => { setVal(v => v + c); inputRef.current?.focus(); }}
+              style={{ padding:"2px 7px", fontSize:13, borderRadius:4, border:"1px solid var(--border)", background:"var(--surface)", color:"var(--text)" }}>{c}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── WritingCard ────────────────────────────────────────────────────────────
+const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
+
+function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, onNext, onBack, setDifficulty, markCorrect, markWrong, isLearn, sessionLabel, sessionIcon, pairMode, tooFewWarning, filterLabel, reviewedCount, incrementDailyReview }) {
+  const [input, setInput] = useState("");
+  const [checked, setChecked] = useState(false);
+  const [correct, setCorrect] = useState(false);
+  const [curDiffLocal, setCurDiffLocal] = useState(curDiff);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setInput(""); setChecked(false); setCorrect(false);
+    setCurDiffLocal(curDiff); // reset to saved difficulty (or Default) for each new word
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }, [word.id]);
+
+  const promptText = isFR_first ? word.fr : word.en;
+  const promptSentence = isFR_first ? word.frSentence : word.enSentence;
+  const answerText = isFR_first ? word.en : word.fr;
+  const answerSentence = isFR_first ? word.enSentence : word.frSentence;
+  const promptLang = isFR_first ? "Français" : "English";
+  const answerLang = isFR_first ? "English" : "Français";
+
+  function check() {
+    if (!input.trim() && !isLearn) return;
+    const isCorrect = input.trim().toLowerCase() === answerText.toLowerCase();
+    setCorrect(isCorrect);
+    setChecked(true);
+    if (isCorrect && !isLearn) markCorrect(word.id);
+    if (!isCorrect && !isLearn && markWrong) markWrong(word.id);
+    if (!isLearn && incrementDailyReview) incrementDailyReview(isCorrect);
+  }
+
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.target.tagName === "INPUT") return;
+      if (e.key === "Tab" && checked) { e.preventDefault(); handleNext(null); }
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  });
+
+  function handleNext(diff) {
+    if (diff) setDifficulty(word.id, diff);
+    else if (!isLearn) {
+      // In review mode, always save the current difficulty selection (even if unchanged)
+      setDifficulty(word.id, curDiffLocal);
+    }
+    onNext();
+  }
+
+  return (
+    <div style={{ maxWidth:620, margin:"0 auto" }}>
+      {/* Warning */}
+      {tooFewWarning && idx === 0 && (
+        <div style={{ background:"#fffbea", border:"1px solid var(--accent2)", borderRadius:8, padding:"8px 14px", fontSize:13, color:"var(--text2)", marginBottom:16 }}>
+          ⚠️ Only {tooFewWarning} words have been introduced. Session will include all of them.
+        </div>
+      )}
+      {/* Progress bar */}
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
+        <button onClick={onBack} style={{ background:"none", border:"none", color:"var(--text2)", fontSize:13, padding:0 }}>← Back</button>
+        <span style={{ fontSize:14, fontWeight:600, color:"var(--accent)" }}>{sessionIcon} {sessionLabel} · Writing · {pairMode}{filterLabel ? ` · ${filterLabel}` : ""}</span>
+        <div style={{ flex:1 }} />
+        <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedCount || 0} reviewed</span>
+      </div>
+
+      <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
+        {/* Prompt */}
+        <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:10 }}>{promptLang}</div>
+        <div style={{ fontSize:30, fontWeight:600, color:"var(--accent)", marginBottom:6, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+          {promptText}
+          {isFR_first && <SpeakBtn text={promptText} style={{ fontSize:18 }} />}
+        </div>
+        {isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>[{word.pron}]</div>}
+        <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:16 }}>{promptSentence}</div>
+
+        {/* Translation shown immediately in learn mode */}
+        {isLearn && (
+          <div style={{ background:"var(--accent-light)", border:"1px solid var(--accent)", borderRadius:10, padding:"10px 16px", marginBottom:20 }}>
+            <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:4 }}>{answerLang}</div>
+            <div style={{ fontSize:20, fontWeight:600, color:"var(--accent)", fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
+              {answerText}
+              {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
+            </div>
+            <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>{answerSentence}</div>
+          </div>
+        )}
+
+        {/* Input */}
+        <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>
+          {isLearn ? "Now try writing it" : answerLang}
+        </div>
+        <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)}
+          onKeyDown={e => { if (e.key==="Enter" && !checked) check(); else if (e.key==="Enter" && checked) handleNext(null); }}
+          disabled={checked}
+          placeholder={`Type the ${answerLang === "Français" ? "French" : "English"} translation…`}
+          style={{
+            width:"100%", padding:"12px 16px", fontSize:18, borderRadius:10, outline:"none",
+            border: checked && !isLearn ? `2px solid ${correct ? "var(--easy)" : "var(--hard)"}` : "2px solid var(--border)",
+            background: checked && !isLearn ? (correct ? "#f0faf4" : "#fff5f5") : "var(--surface2)",
+            color:"var(--text)", fontFamily:"'Lora',serif", transition:"border 0.2s, background 0.2s"
+          }} />
+
+        {/* FR character buttons — show when typing French */}
+        {(!isFR_first || isLearn) && (
+          <div style={{ display:"flex", gap:4, flexWrap:"wrap", marginTop:10 }}>
+            {FR_CHARS.map(c => (
+              <button key={c} onClick={() => { setInput(v => v + c); inputRef.current?.focus(); }}
+                disabled={checked && !isLearn}
+                style={{ padding:"3px 9px", fontSize:14, borderRadius:6, border:"1px solid var(--border)", background:"var(--surface2)", color:"var(--text)", fontFamily:"serif" }}>{c}</button>
+            ))}
+          </div>
+        )}
+
+        {/* Result — only in review mode */}
+        {checked && !isLearn && (
+          <div style={{ marginTop:16, padding:"12px 16px", borderRadius:10, background: correct ? "#f0faf4" : "#fff5f5", border:`1px solid ${correct ? "var(--easy)" : "var(--hard)"}` }}>
+            {correct ? (
+              <div>
+                <div style={{ color:"var(--easy)", fontWeight:600, fontSize:15 }}>✓ Correct!</div>
+                {!isFR_first && (
+                  <div style={{ display:"flex", alignItems:"center", gap:6, marginTop:4 }}>
+                    <span style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic" }}>[{word.pron}]</span>
+                    <SpeakBtn text={answerText} style={{ fontSize:14 }} />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div style={{ color:"var(--hard)", fontWeight:600, fontSize:15, marginBottom:4 }}>✗ Not quite</div>
+                <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:15, color:"var(--text)" }}>
+                  Correct answer: <strong style={{ fontFamily:"'Lora',serif" }}>{answerText}</strong>
+                  {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
+                </div>
+                {!isFR_first && <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>[{word.pron}]</div>}
+                <PracticeField correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
+              </div>
+            )}
+            <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
+          </div>
+        )}
+
+        {/* Buttons */}
+        {/* Difficulty buttons — always visible */}
+        <div style={{ display:"flex", gap:8, justifyContent:"center", marginTop:16, marginBottom:10, alignItems:"center" }}>
+          <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
+          {["Easy","Default","Hard"].map(d => (
+            <button key={d} onClick={() => {
+              setCurDiffLocal(d);
+              if (!isLearn) setDifficulty(word.id, d);
+            }} style={{
+              padding:"7px 16px", borderRadius:8, fontSize:13, fontWeight:600,
+              border:`2px solid ${diffColor[d]}`,
+              background: curDiffLocal===d ? diffColor[d] : "transparent",
+              color: curDiffLocal===d ? "#fff" : diffColor[d], transition:"all 0.15s"
+            }}>{d}</button>
+          ))}
+        </div>
+
+        <div style={{ marginTop:8 }}>
+          {isLearn ? (
+            <button onClick={() => { if (curDiffLocal !== "Default") setDifficulty(word.id, curDiffLocal); onNext(); }} style={{
+              width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
+              background:"var(--accent)", color:"#fff", border:"none"
+            }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
+          ) : !checked ? (
+            <button onClick={check} disabled={!input.trim()} style={{
+              width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
+              background: input.trim() ? "var(--accent)" : "var(--border)", color:"#fff", border:"none"
+            }}>Check →</button>
+          ) : (
+            <button onClick={() => handleNext(null)} style={{
+              width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
+              background:"var(--accent)", color:"#fff", border:"none"
+            }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
