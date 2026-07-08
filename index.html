@@ -179,8 +179,8 @@ function parseCSV(text) {
       pron: obj.pron || "",
       info: obj.info || "-",
       en: obj.en || obj["EN translation"] || "",
-      frSentence: obj.frSentence || obj["Fr sentence"] || "",
-      enSentence: obj.enSentence || obj["EN sentence"] || "",
+      fr_sentence: obj.fr_sentence || obj["Fr sentence"] || "",
+      en_sentence: obj.en_sentence || obj["EN sentence"] || "",
       level: obj.level || "A1",
       category: obj.category || "General",
       difficulty: parseFloat(obj.difficulty) || 2.5,
@@ -990,8 +990,8 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
 
   const frontText = isFR_first ? word.fr : word.en;
   const backText  = isFR_first ? word.en : word.fr;
-  const frontSentence = isFR_first ? word.frSentence : word.enSentence;
-  const backSentence  = isFR_first ? word.enSentence : word.frSentence;
+  const frontSentence = isFR_first ? word.fr_sentence : word.en_sentence;
+  const backSentence  = isFR_first ? word.en_sentence : word.fr_sentence;
 
   if (isWriting && isReview) return (
     <WritingCard word={word} idx={idx} total={queue.length} isFR_first={isFR_first}
@@ -1004,8 +1004,8 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
   if (isWriting && !isReview) {
     const frontT = isFR_first ? word.fr : word.en;
     const backT  = isFR_first ? word.en : word.fr;
-    const frontS = isFR_first ? word.frSentence : word.enSentence;
-    const backS  = isFR_first ? word.enSentence : word.frSentence;
+    const frontS = isFR_first ? word.fr_sentence : word.en_sentence;
+    const backS  = isFR_first ? word.en_sentence : word.fr_sentence;
     return (
       <div style={{ maxWidth:620, margin:"0 auto" }}>
         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20 }}>
@@ -1182,7 +1182,7 @@ function Dictionary({ words, progress, setDifficulty }) {
                 <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic" }}>[{w.pron}]</td>
                 <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:12 }}>{w.info}</td>
                 <td style={{ padding:"10px 14px" }}>{w.en}</td>
-                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.frSentence}</td>
+                <td style={{ padding:"10px 14px", color:"var(--text2)", fontStyle:"italic", maxWidth:220, fontSize:13 }}>{w.fr_sentence}</td>
                 <td style={{ padding:"10px 14px" }}><span style={{ background:"var(--surface2)", border:"1px solid var(--border)", borderRadius:4, padding:"2px 8px", fontSize:11 }}>{w.level}</span></td>
                 <td style={{ padding:"10px 14px", color:"var(--text2)", fontSize:13 }}>{w.category}</td>
               </tr>
@@ -1458,7 +1458,7 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
       <div style={{ marginTop:28, background:"var(--surface2)", borderRadius:10, padding:"16px 20px" }}>
         <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", marginBottom:8 }}>CSV format</div>
         <code style={{ fontSize:11, color:"var(--text2)", lineHeight:1.8, display:"block", whiteSpace:"pre-wrap" }}>
-{`id,fr,pron,info,en,frSentence,enSentence,level,category,difficulty
+{`id,fr,pron,info,en,fr_sentence,en_sentence,level,category,difficulty
 1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,2.5`}
         </code>
         <div style={{ fontSize:12, color:"var(--text2)", marginTop:10, lineHeight:1.6 }}>
@@ -1545,9 +1545,9 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
   }, [word.id]);
 
   const promptText = isFR_first ? word.fr : word.en;
-  const promptSentence = isFR_first ? word.frSentence : word.enSentence;
+  const promptSentence = isFR_first ? word.fr_sentence : word.en_sentence;
   const answerText = isFR_first ? word.en : word.fr;
-  const answerSentence = isFR_first ? word.enSentence : word.frSentence;
+  const answerSentence = isFR_first ? word.en_sentence : word.fr_sentence;
   const promptLang = isFR_first ? "Français" : "English";
   const answerLang = isFR_first ? "English" : "Français";
 
