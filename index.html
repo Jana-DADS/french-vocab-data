@@ -92,6 +92,7 @@ const CATEGORIES = ["All","Greetings","Family","Food & Drink","Time","Travel","S
 const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
+const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/version.json";
 const APP_VERSION = "2.4.7";
 // Reset stats on new version
 (function() {
@@ -116,6 +117,8 @@ function loadVocab() { try { return JSON.parse(localStorage.getItem("frVocab")||
 function saveVocab(v) { try { localStorage.setItem("frVocab",JSON.stringify(v)); localStorage.setItem("frVocabLoaded", new Date().toISOString()); } catch {} }
 function loadVocabMeta() { return { url: localStorage.getItem("frVocabUrl")||"", loaded: localStorage.getItem("frVocabLoaded")||"" }; }
 function saveVocabUrl(url) { localStorage.setItem("frVocabUrl", url); }
+function loadVocabVersion() { return localStorage.getItem("frVocabVersion") || ""; }
+function saveVocabVersion(v) { localStorage.setItem("frVocabVersion", v); }
 function loadLastNewWordId() { try { return parseInt(localStorage.getItem("frLastNewWordId")||"0"); } catch { return 0; } }
 function saveLastNewWordId(id) { try { localStorage.setItem("frLastNewWordId", String(id)); } catch {} }
 function loadTaughtToday() {
@@ -210,6 +213,8 @@ function App() {
   const [words, setWords] = useState(() => loadVocab() || []);
   const [vocabStatus, setVocabStatus] = useState(() => loadVocab() ? "loaded" : "empty"); // empty | loading | loaded | error
   const [vocabError, setVocabError] = useState("");
+  const [vocabUpdateAvailable, setVocabUpdateAvailable] = useState(false);
+  const [latestVersion, setLatestVersion] = useState("");
 
   async function loadVocabFromUrl(url) {
     if (!url) { setVocabStatus("empty"); return; }
@@ -221,6 +226,8 @@ function App() {
       saveVocab(parsed);
       saveVocabUrl(url);
       setVocabStatus("loaded");
+      if (latestVersion) saveVocabVersion(latestVersion);
+      setVocabUpdateAvailable(false);
     } catch(e) {
       setVocabError(e.message);
       setVocabStatus("error");
@@ -233,6 +240,22 @@ function App() {
     if (cached) { setVocabStatus("loaded"); return; }
     const savedUrl = loadVocabMeta().url || DEFAULT_VOCAB_URL;
     if (savedUrl) loadVocabFromUrl(savedUrl);
+  }, []);
+
+  // Version check
+  useEffect(() => {
+    async function checkVersion() {
+      try {
+        const res = await fetch(VERSION_JSON_URL + "?t=" + Date.now());
+        if (!res.ok) return;
+        const data = await res.json();
+        setLatestVersion(data.version);
+        const stored = loadVocabVersion();
+        if (!stored) { saveVocabVersion(data.version); return; }
+        if (data.version !== stored) setVocabUpdateAvailable(true);
+      } catch(e) {}
+    }
+    checkVersion();
   }, []);
 
   useEffect(() => { saveProgress(progress); }, [progress]);
@@ -398,6 +421,14 @@ function App() {
             userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
             onUpdateProgress={handleUpdateProgress} />
           <div style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
+            {vocabUpdateAvailable && (
+              <div style={{ background:"var(--accent)", color:"#fff", padding:"10px 18px", display:"flex", alignItems:"center", justifyContent:"space-between", borderRadius:10, marginBottom:16, fontSize:14, gap:12 }}>
+                <span>📦 Nová verze slovníku je k dispozici!</span>
+                <button onClick={() => loadVocabFromUrl(loadVocabMeta().url || DEFAULT_VOCAB_URL)} style={{ background:"#fff", color:"var(--accent)", border:"none", borderRadius:8, padding:"6px 16px", fontWeight:600, cursor:"pointer", fontSize:13, whiteSpace:"nowrap" }}>
+                  Aktualizovat
+                </button>
+              </div>
+            )}
             {view==="dashboard"  && words.length === 0 && (
             <div style={{ textAlign:"center", padding:"60px 20px" }}>
               <div style={{ fontSize:48, marginBottom:16 }}>📚</div>
