@@ -93,7 +93,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/version.json";
-const APP_VERSION = "2.5.0";
+const APP_VERSION = "2.5.1";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -266,11 +266,11 @@ function App() {
         else if (vocabVer !== storedVocab) { setVocabUpdateAvailable(true); }
         // App version check (what's new)
         const lastSeen = loadLastSeenAppVersion();
-        if (lastSeen && lastSeen !== APP_VERSION && data.app?.changes?.length) {
+        if (lastSeen !== APP_VERSION && data.app?.changes?.length) {
           setWhatsNew(data.app.changes);
           setShowWhatsNew(true);
         }
-        if (!lastSeen) saveLastSeenAppVersion(APP_VERSION);
+        saveLastSeenAppVersion(APP_VERSION);
       } catch(e) {}
     }
     checkVersion();

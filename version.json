@@ -1,12 +1,12 @@
 {
   "vocab": {
-    "version": "3.0",
+    "version": "3.1",
     "date": "2026-07-08",
     "wordCount": 5000,
     "description": "Vyčištěný slovník s 5000 slovy"
   },
   "app": {
-    "version": "2.5.0",
+    "version": "2.5.1",
     "date": "2026-07-08",
     "changes": [
       "Automatická kontrola nové verze slovníku s tlačítkem Aktualizovat",
