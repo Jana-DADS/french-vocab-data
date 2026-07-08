@@ -71,11 +71,9 @@ Frekvenční pořadí slov vychází z *A Frequency Dictionary of French* (Routl
 **CEFR úrovně**
 Přiřazení slov k úrovním A1–B2 vychází z pedagogických slovních seznamů Společného evropského referenčního rámce pro jazyky (SERR/CEFR).
 
-**Příkladové věty**
-Příkladové věty (francouzsky i anglicky) byly generovány pomocí AI (Claude, Anthropic). Věty jsou záměrně krátké a přirozené, aby ilustrovaly použití slova v kontextu.
+**Claude (Anthropic)**
+Příkladové věty, čištění a doplnění slovníku, opravy překladů i vývoj celé aplikace provedl [Claude](https://claude.ai) (Anthropic) ve spolupráci s autorkou projektu.
 
-**Ruční doplnění a opravy**
-V průběhu čištění bylo ručně doplněno nebo opraveno přibližně 100 slov — zejména základní číslovky (80, 100, 1 000 …), rodinné vztahy, praktická slovní zásoba pro cestování, nakupování a návštěvy muzeí, a opraveny chybné překlady.
 
 ---
 
