@@ -93,7 +93,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/version.json";
-const APP_VERSION = "2.4.7";
+const APP_VERSION = "2.5.0";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -119,6 +119,8 @@ function loadVocabMeta() { return { url: localStorage.getItem("frVocabUrl")||"",
 function saveVocabUrl(url) { localStorage.setItem("frVocabUrl", url); }
 function loadVocabVersion() { return localStorage.getItem("frVocabVersion") || ""; }
 function saveVocabVersion(v) { localStorage.setItem("frVocabVersion", v); }
+function loadLastSeenAppVersion() { return localStorage.getItem("frLastSeenAppVersion") || ""; }
+function saveLastSeenAppVersion(v) { localStorage.setItem("frLastSeenAppVersion", v); }
 function loadLastNewWordId() { try { return parseInt(localStorage.getItem("frLastNewWordId")||"0"); } catch { return 0; } }
 function saveLastNewWordId(id) { try { localStorage.setItem("frLastNewWordId", String(id)); } catch {} }
 function loadTaughtToday() {
@@ -215,6 +217,13 @@ function App() {
   const [vocabError, setVocabError] = useState("");
   const [vocabUpdateAvailable, setVocabUpdateAvailable] = useState(false);
   const [latestVersion, setLatestVersion] = useState("");
+  const [whatsNew, setWhatsNew] = useState([]);
+  const [showWhatsNew, setShowWhatsNew] = useState(false);
+
+  function dismissWhatsNew() {
+    saveLastSeenAppVersion(APP_VERSION);
+    setShowWhatsNew(false);
+  }
 
   async function loadVocabFromUrl(url) {
     if (!url) { setVocabStatus("empty"); return; }
@@ -249,10 +258,19 @@ function App() {
         const res = await fetch(VERSION_JSON_URL + "?t=" + Date.now());
         if (!res.ok) return;
         const data = await res.json();
-        setLatestVersion(data.version);
-        const stored = loadVocabVersion();
-        if (!stored) { saveVocabVersion(data.version); return; }
-        if (data.version !== stored) setVocabUpdateAvailable(true);
+        // Vocab version check
+        const vocabVer = data.vocab?.version || data.version;
+        setLatestVersion(vocabVer);
+        const storedVocab = loadVocabVersion();
+        if (!storedVocab) { saveVocabVersion(vocabVer); }
+        else if (vocabVer !== storedVocab) { setVocabUpdateAvailable(true); }
+        // App version check (what's new)
+        const lastSeen = loadLastSeenAppVersion();
+        if (lastSeen && lastSeen !== APP_VERSION && data.app?.changes?.length) {
+          setWhatsNew(data.app.changes);
+          setShowWhatsNew(true);
+        }
+        if (!lastSeen) saveLastSeenAppVersion(APP_VERSION);
       } catch(e) {}
     }
     checkVersion();
@@ -427,6 +445,17 @@ function App() {
                 <button onClick={() => loadVocabFromUrl(loadVocabMeta().url || DEFAULT_VOCAB_URL)} style={{ background:"#fff", color:"var(--accent)", border:"none", borderRadius:8, padding:"6px 16px", fontWeight:600, cursor:"pointer", fontSize:13, whiteSpace:"nowrap" }}>
                   Aktualizovat
                 </button>
+              </div>
+            )}
+            {showWhatsNew && (
+              <div style={{ background:"var(--surface)", border:"2px solid var(--accent)", borderRadius:12, padding:"16px 20px", marginBottom:16, fontSize:14 }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10 }}>
+                  <span style={{ fontWeight:700, color:"var(--accent)", fontSize:15 }}>🆕 Novinky ve verzi {APP_VERSION}</span>
+                  <button onClick={dismissWhatsNew} style={{ background:"none", border:"none", cursor:"pointer", color:"var(--text2)", fontSize:18, lineHeight:1, padding:"0 4px" }}>×</button>
+                </div>
+                <ul style={{ margin:0, paddingLeft:18, color:"var(--text)", lineHeight:1.7 }}>
+                  {whatsNew.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
               </div>
             )}
             {view==="dashboard"  && words.length === 0 && (
