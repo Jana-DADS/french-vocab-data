@@ -1,85 +1,82 @@
 # 🇫🇷 Mon Vocab
 
-Webová aplikace pro učení francouzské slovní zásoby pomocí flashkaret s prostorovaným opakováním (spaced repetition). Slovník obsahuje 5 000 nejfrekventovanějších francouzských slov seřazených podle frekvence výskytu v jazyce.
+A web app for learning French vocabulary using flashcards with spaced repetition. The dictionary contains 5,000 of the most frequently used French words, ordered by frequency of occurrence in the language.
 
-**Produkční verze:** https://jana-dads.github.io/french-vocab-data/
-**Testovací verze (DEV):** https://jana-dads.github.io/french-vocab-data/dev/
-
----
-
-## Funkce
-
-- **Flashkarty** – procvičování francouzsky → anglicky nebo anglicky → francouzsky
-- **Psaní (Practice)** – opisování francouzského slova pro posílení paměti
-- **Prostorované opakování** – intervaly se přizpůsobují obtížnosti slova
-- **Obtížnost je subjektivní** – každý uživatel si sám označuje, jak obtížné mu slovo přijde (Default / Easy / Medium / Hard), a může si přizpůsobit frekvenci opakování pro každou úroveň obtížnosti v nastavení
-- **Filtry** – procvičování dle CEFR úrovně (A1–B2), kategorie nebo slovního druhu
-- **Výslovnost** – IPA transkripce pro každé slovo
-- **Příkladové věty** – francouzsky i anglicky
-- **Automatická aktualizace slovníku** – aplikace upozorní na novou verzi slovníku a nabídne tlačítko Aktualizovat
-- **Novinky** – při každé aktualizaci aplikace se zobrazí přehled změn
-- **Offline podpora** – slovník je uložen v localStorage, funguje i bez připojení
+**Production:** https://jana-dads.github.io/french-vocab-data/
+**Testing (DEV):** https://jana-dads.github.io/french-vocab-data/dev/
 
 ---
 
-## Struktura CSV (`french_vocab.csv`)
+## Features
 
-| Sloupec | Popis |
+- **Flashcards** — practice French → English or English → French
+- **Practice mode** — type the French word to reinforce memory
+- **Spaced repetition** — review intervals adapt based on word difficulty
+- **Subjective difficulty** — each user marks words as Default / Easy / Medium / Hard and can customize the review frequency for each difficulty level in settings
+- **Filters** — practice by CEFR level (A1–B2), category, or word class
+- **Pronunciation** — IPA transcription for every word
+- **Example sentences** — in both French and English
+- **Automatic vocabulary updates** — the app detects a new vocabulary version and offers an Update button
+- **What's New** — a changelog is shown whenever the app is updated
+- **Offline support** — vocabulary is cached in localStorage and works without an internet connection
+
+---
+
+## CSV Structure (`french_vocab.csv`)
+
+| Column | Description |
 |---|---|
-| `id` | Unikátní ID slova |
-| `fr` | Francouzské slovo (lemma) |
-| `pronunciation` | IPA výslovnost |
-| `info` | Slovní druh a tvar (např. `n.m.`, `v. — je chante`) |
-| `en` | Anglický překlad |
-| `frSentence` | Příkladová věta francouzsky |
-| `enSentence` | Příkladová věta anglicky (volitelné) |
-| `level` | CEFR úroveň: A1, A2, B1, B2 |
-| `category` | Tematická kategorie (General, Verbs, Colors, Family, …) |
-| `version` | Verze záznamu (interní) |
+| `id` | Unique word ID |
+| `fr` | French word (lemma) |
+| `pronunciation` | IPA transcription |
+| `info` | Word class and form (e.g. `n.m.`, `v. — je chante`) |
+| `en` | English translation |
+| `frSentence` | Example sentence in French |
+| `enSentence` | Example sentence in English (optional) |
+| `level` | CEFR level: A1, A2, B1, B2 |
+| `category` | Thematic category (General, Verbs, Colors, Family, …) |
+| `version` | Record version (internal) |
 
 ---
 
-## Verzování
+## Versioning
 
-Verze jsou sledovány v souboru `version.json`, který obsahuje dvě sekce:
+Versions are tracked in `version.json`, which contains two sections:
 
-- **`vocab`** – verze slovníku (CSV souboru)
-- **`app`** – verze aplikace (HTML souboru) + changelog změn
+- **`vocab`** — vocabulary version (CSV file)
+- **`app`** — application version (HTML file) + changelog
 
-Aplikace při spuštění porovná lokálně uloženou verzi s aktuální verzí na GitHubu. Pokud se liší, zobrazí upozornění.
-
----
-
-## Vývojové prostředí (DEV)
-
-Nové funkce se vyvíjí a testují ve složce `dev/`:
-
-- `dev/index.html` – testovací verze aplikace
-- `dev/version.json` – oddělené verzování pro DEV
-
-Záložka prohlížeče v DEV verzi ukazuje `🇫🇷 Mon Vocab [DEV]`. Když je funkce otestována, zkopíruje se do produkce (root `index.html`).
+On startup, the app compares the locally stored version with the current version on GitHub and notifies the user if an update is available.
 
 ---
 
-## Zdroje slovníku
+## Development Environment (DEV)
 
-Slovník vznikl kombinací několika zdrojů:
+New features are developed and tested in the `dev/` folder:
 
-**Základní slovní zásoba**
-Frekvenční pořadí slov vychází z *A Frequency Dictionary of French* (Routledge). Překlady a jazykové informace (slovní druh, výslovnost) byly čerpány z [Wiktionary](https://fr.wiktionary.org/).
+- `dev/index.html` — test version of the app
+- `dev/version.json` — separate versioning for DEV
 
-**CEFR úrovně**
-Přiřazení slov k úrovním A1–B2 vychází z pedagogických slovních seznamů Společného evropského referenčního rámce pro jazyky (SERR/CEFR).
+The browser tab in the DEV version shows `🇫🇷 Mon Vocab [DEV]`. Once a feature is tested, it is copied to the production root `index.html`.
+
+---
+
+## Sources
+
+**Base vocabulary**
+Word frequency order is based on *A Frequency Dictionary of French* (Routledge). Translations and linguistic information (word class, pronunciation) were sourced from [Wiktionary](https://fr.wiktionary.org/).
+
+**CEFR levels**
+Word assignments to levels A1–B2 follow the pedagogical word lists of the Common European Framework of Reference for Languages (CEFR).
 
 **Claude (Anthropic)**
-Příkladové věty, čištění a doplnění slovníku, opravy překladů i vývoj celé aplikace provedl [Claude](https://claude.ai) (Anthropic) ve spolupráci s autorkou projektu.
-
+Example sentences, vocabulary cleanup and additions, translation fixes, and the development of the entire application were carried out by [Claude](https://claude.ai) (Anthropic) in collaboration with the project author.
 
 ---
 
-## Technologie
+## Tech Stack
 
-- **Frontend:** React 18 (funkcionální komponenty, hooky) — single HTML file, bez build procesu
-- **Data:** CSV soubor načítaný z GitHubu, cachovaný v `localStorage`
+- **Frontend:** React 18 (functional components, hooks) — single HTML file, no build process
+- **Data:** CSV file fetched from GitHub, cached in `localStorage`
 - **Hosting:** GitHub Pages
-- **Verzování dat:** `version.json` na GitHubu
+- **Version tracking:** `version.json` on GitHub
