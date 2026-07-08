@@ -66,7 +66,7 @@ Záložka prohlížeče v DEV verzi ukazuje `🇫🇷 Mon Vocab [DEV]`. Když je
 Slovník vznikl kombinací několika zdrojů:
 
 **Základní slovní zásoba**
-Nejpravděpodobnějším zdrojem frekvenčního pořadí je *A Frequency Dictionary of French* (Routledge) — 5 000 nejfrekventovanějších lemmatizovaných slov sestavených z 23milionového korpusu zahrnujícího psaný i mluvený jazyk. Překlady a jazykové informace (slovní druh, výslovnost) byly čerpány také z [Wiktionary](https://fr.wiktionary.org/). Jako základ mohly posloužit také korpusy [Lexique](http://www.lexique.org/) nebo [SUBTLEX-FR](https://link.springer.com/article/10.3758/s13428-010-0003-1) (frekvenční analýza filmových titulků).
+Frekvenční pořadí slov vychází z *A Frequency Dictionary of French* (Routledge). Překlady a jazykové informace (slovní druh, výslovnost) byly čerpány z [Wiktionary](https://fr.wiktionary.org/).
 
 **CEFR úrovně**
 Přiřazení slov k úrovním A1–B2 vychází z pedagogických slovních seznamů Společného evropského referenčního rámce pro jazyky (SERR/CEFR).
