@@ -3,13 +3,13 @@
     "version": "3.1",
     "date": "2026-07-08",
     "wordCount": 5000,
-    "description": "DEV — Vyčištěný slovník s 5000 slovy"
+    "description": "DEV — Cleaned vocabulary with 5000 words"
   },
   "app": {
     "version": "2.5.1-dev",
     "date": "2026-07-08",
     "changes": [
-      "Testovací prostředí — DEV větev"
+      "Testing environment — DEV branch"
     ]
   }
 }

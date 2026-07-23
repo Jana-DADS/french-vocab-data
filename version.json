@@ -3,14 +3,14 @@
     "version": "3.2",
     "date": "2026-07-08",
     "wordCount": 5000,
-    "description": "Vyčištěný slovník s 5000 slovy"
+    "description": "Cleaned vocabulary with 5000 words"
   },
   "app": {
     "version": "2.5.1",
     "date": "2026-07-08",
     "changes": [
-      "Automatická kontrola nové verze slovníku s tlačítkem Aktualizovat",
-      "Upozornění na novinky při každé aktualizaci aplikace"
+      "Automatic check for new vocabulary version with an Update button",
+      "Notification about what's new on every app update"
     ]
   }
 }
