@@ -6,11 +6,12 @@
     "description": "Cleaned vocabulary with 5000 words"
   },
   "app": {
-    "version": "2.5.1",
-    "date": "2026-07-08",
+    "version": "2.6.0",
+    "date": "2026-11-17",
     "changes": [
-      "Automatic check for new vocabulary version with an Update button",
-      "Notification about what's new on every app update"
+      "Phone layout: on a narrow screen the menu slides in with the ☰ button and closes with ✕, a tap outside or by choosing a page",
+      "Phone layout: bigger buttons, the dictionary shows each word as a card, the app can be added to the home screen",
+      "Update Progress page: note that progress is saved per device and is not shared between phone and computer"
     ]
   }
 }

@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a4b3c" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Mon Vocab" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <title>&#127467;&#127479; Mon Vocab [DEV]</title>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -93,7 +100,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/dev/version.json";
-const APP_VERSION = "2.5.1";
+const APP_VERSION = "2.6.0";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -199,6 +206,7 @@ async function fetchVocabFromUrl(url) {
 // ── App ────────────────────────────────────────────────────────────────────
 function App() {
   const [view, setView] = useState("dashboard");
+  const [menuOpen, setMenuOpen] = useState(false);   // phone only: is the sidebar slid in?
   const [progress, setProgress] = useState(loadProgress);
   const [dailyReview, setDailyReview] = useState(loadDailyReview);
   const [settings, setSettings] = useState(() => ({
@@ -413,7 +421,7 @@ function App() {
   }
 
   return (
-    <div style={{ display:"flex", flexDirection:"column", height:"100vh", background:"var(--bg)", color:"var(--text)", fontFamily:"'DM Sans',sans-serif" }}>
+    <div className={"mw-root" + (menuOpen ? " mw-menu-open" : "")} style={{ display:"flex", flexDirection:"column", height:"100vh", background:"var(--bg)", color:"var(--text)", fontFamily:"'DM Sans',sans-serif" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
         :root {
@@ -431,14 +439,47 @@ function App() {
         ::-webkit-scrollbar { width:5px; }
         ::-webkit-scrollbar-track { background:transparent; }
         ::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+        .mw-topbar, .mw-overlay, .mw-close { display:none; }
+        @media (max-width: 760px) {
+          .mw-root { height:100dvh !important; }
+          .mw-topbar { display:flex; align-items:center; gap:12px; background:var(--sidebar); color:#fff; padding:8px 12px; flex-shrink:0; }
+          .mw-topbar button { background:rgba(255,255,255,0.15); color:#fff; border:none; border-radius:8px; width:42px; height:42px; font-size:22px; line-height:1; }
+          .mw-topbar span { font-family:'Lora',serif; font-size:18px; font-weight:600; }
+          .mw-shell { padding:0 !important; height:auto !important; flex:1; min-height:0; }
+          .mw-main { padding:14px 12px 24px !important; }
+          .mw-sidebar { position:fixed; top:0; left:0; bottom:0; width:260px !important; z-index:1001; border-radius:0 !important; transform:translateX(-105%); transition:transform 0.22s ease; }
+          .mw-sidebar button { padding-top:11px !important; padding-bottom:11px !important; font-size:15px !important; }
+          .mw-menu-open .mw-sidebar { transform:none; box-shadow:4px 0 24px rgba(0,0,0,0.35); }
+          .mw-menu-open .mw-overlay { display:block; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:1000; }
+          .mw-menu-open .mw-close { display:block; position:fixed; top:8px; left:212px; z-index:1002; width:40px; height:40px; background:rgba(255,255,255,0.15); color:#fff; border:none; border-radius:8px; font-size:20px; line-height:1; }
+          .mw-links { padding:6px 10px !important; flex-wrap:nowrap !important; overflow-x:auto; }
+          .mw-grid2 { grid-template-columns:1fr !important; }
+          input, select, textarea { font-size:16px !important; min-width:0 !important; }
+          .mw-card { padding:22px 18px !important; }
+          .mw-main code { word-break:break-all; }
+          .mw-dict-page { height:calc(100dvh - 140px) !important; }
+          .mw-dict thead { display:none; }
+          .mw-dict table, .mw-dict tbody, .mw-dict tr { display:block; }
+          .mw-dict tr { position:relative; padding:10px 12px; }
+          .mw-dict td { display:block; padding:1px 0 !important; max-width:none !important; }
+          .mw-dict td:nth-child(1) { position:absolute; top:12px; right:12px; }
+          .mw-dict td:nth-child(2) { font-size:17px; padding-right:48px !important; }
+          .mw-dict td:nth-child(7), .mw-dict td:nth-child(8) { display:inline-block; margin:4px 8px 0 0; }
+        }
       `}</style>
 
+      <div className="mw-topbar">
+        <button onClick={() => setMenuOpen(true)} aria-label="Open menu">☰</button>
+        <span>Mon Vocab</span>
+      </div>
+      <div className="mw-overlay" onClick={() => setMenuOpen(false)} />
+      <button className="mw-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">✕</button>
       <div style={{ display:"flex", flexDirection:"column", flex:1, minHeight:0 }}>
-        <div style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
-          <Sidebar view={view} setView={setView} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} dailyReview={dailyReview} streak={streak} userLevel={userLevel}
+        <div className="mw-shell" style={{ display:"flex", alignItems:"flex-start", padding:"28px 32px 0 0", height:"calc(100vh - 52px)" }}>
+          <Sidebar view={view} setView={v => { setView(v); setMenuOpen(false); }} words={words} progress={progress} introducedCount={introducedCount} taughtTodayCount={taughtTodayCount} dailyReview={dailyReview} streak={streak} userLevel={userLevel}
             userName={settings.userName} onUserNameChange={n => setSettings(s => ({ ...s, userName: n }))}
             onUpdateProgress={handleUpdateProgress} />
-          <div style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
+          <div className="mw-main" style={{ flex:1, minWidth:0, paddingLeft:20, overflowY:"auto", height:"100%" }}>
             {vocabUpdateAvailable && (
               <div style={{ background:"var(--accent)", color:"#fff", padding:"10px 18px", display:"flex", alignItems:"center", justifyContent:"space-between", borderRadius:10, marginBottom:16, fontSize:14, gap:12 }}>
                 <span>📦 New vocabulary version available!</span>
@@ -474,7 +515,7 @@ function App() {
             {view==="upload"     && <VocabSettings loadVocabFromUrl={loadVocabFromUrl} vocabStatus={vocabStatus} vocabError={vocabError} wordCount={words.length} />}
           </div>
         </div>
-        <div style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"8px 24px", display:"flex", alignItems:"center", gap:8, flexShrink:0, flexWrap:"wrap" }}>
+        <div className="mw-links" style={{ borderTop:"1px solid var(--border)", background:"var(--surface)", padding:"8px 24px", display:"flex", alignItems:"center", gap:8, flexShrink:0, flexWrap:"wrap" }}>
           {webPages.map(page => (
             <a key={page.id} href={page.url} target="_blank" rel="noopener noreferrer" style={{
               padding:"6px 14px", background:"var(--accent)", color:"#fff", borderRadius:8,
@@ -525,7 +566,7 @@ function Sidebar({ view, setView, words, progress, introducedCount, taughtTodayC
   }
 
   return (
-    <aside style={{ width:200, background:"var(--sidebar)", display:"flex", flexDirection:"column", padding:"12px 10px 24px", flexShrink:0, alignSelf:"stretch", borderRadius:"0 0 14px 0", overflowY:"auto" }}>
+    <aside className="mw-sidebar" style={{ width:200, background:"var(--sidebar)", display:"flex", flexDirection:"column", padding:"12px 10px 24px", flexShrink:0, alignSelf:"stretch", borderRadius:"0 0 14px 0", overflowY:"auto" }}>
       {/* Logo */}
       <div style={{ padding:"0 6px 10px", borderBottom:"1px solid rgba(255,255,255,0.1)", marginBottom:8 }}>
         <div style={{ color:"#fff", fontFamily:"'Lora',serif", fontSize:16, fontWeight:600 }}>🇫🇷 Mon Vocab</div>
@@ -622,7 +663,7 @@ function Dashboard({ words, progress, settings, setSettings, introducedWords, ne
       <FrenchVoiceHint />
 
       {/* Two tiles */}
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20, marginBottom:28 }}>
+      <div className="mw-grid2" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20, marginBottom:28 }}>
         <NewWordsTile
           pairMode={settings.learnPairMode}
           onPairMode={m => setSettings(s => ({ ...s, learnPairMode: m }))}
@@ -1014,7 +1055,7 @@ function Flashcards({ words, progress, settings, setDifficulty, markCorrect, mar
           <div style={{ flex:1 }} />
           <span style={{ fontSize:13, color:"var(--accent)", fontWeight:600 }}>✦ {taughtTodayFromStorage} today</span>
         </div>
-        <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
+        <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }} className="mw-card">
           {/* Front */}
           <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:8 }}>{isFR_first ? "Français" : "English"}</div>
           <div style={{ fontSize:30, fontWeight:600, color:"var(--accent)", marginBottom:4, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>
@@ -1143,7 +1184,7 @@ function Dictionary({ words, progress, setDifficulty }) {
   });
 
   return (
-    <div style={{ height:"calc(100vh - 120px)", display:"flex", flexDirection:"column" }}>
+    <div className="mw-dict-page" style={{ height:"calc(100vh - 120px)", display:"flex", flexDirection:"column" }}>
       <h2 style={{ fontSize:22, marginBottom:16, color:"var(--text)", fontFamily:"'Lora',serif", flexShrink:0 }}>Dictionary</h2>
       <FrenchVoiceHint />
       <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap", flexShrink:0 }}>
@@ -1159,7 +1200,7 @@ function Dictionary({ words, progress, setDifficulty }) {
         </select>
         <span style={{ fontSize:13, color:"var(--text2)", alignSelf:"center" }}>{filtered.length} words</span>
       </div>
-      <div style={{ flex:1, overflowY:"auto", overflowX:"auto", background:"var(--surface)", borderRadius:12, border:"1px solid var(--border)", boxShadow:"var(--shadow)" }}>
+      <div className="mw-dict" style={{ flex:1, overflowY:"auto", overflowX:"auto", background:"var(--surface)", borderRadius:12, border:"1px solid var(--border)", boxShadow:"var(--shadow)" }}>
         <table style={{ width:"100%", borderCollapse:"collapse", fontSize:14 }}>
           <thead style={{ position:"sticky", top:0, zIndex:10 }}>
             <tr style={{ background:"var(--surface2)", borderBottom:"2px solid var(--border)" }}>
@@ -1227,6 +1268,9 @@ function UpdateProgress({ introducedCount, taughtTodayCount, streak, onUpdatePro
         Manually set your progress — useful for advanced learners or after an accidental reset.
         <br/><em style={{fontSize:12}}>Note: "Words taught today" cannot exceed "Words taught total".</em>
       </p>
+      <div style={{ background:"var(--accent-light)", border:"1px solid var(--accent)", borderRadius:10, padding:"10px 14px", marginBottom:20, fontSize:13, color:"var(--text)", lineHeight:1.5 }}>
+        📱 💻 Your progress is saved in this browser on this device only. It is not shared between your phone and your computer. If you switch to another device, set your progress there by hand on this page.
+      </div>
       <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:12, padding:"20px 24px", marginBottom:20 }}>
         <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:16 }}>
           {[
@@ -1595,7 +1639,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
         <span style={{ fontSize:13, color:"var(--text2)" }}>↺ {reviewedCount || 0} reviewed</span>
       </div>
 
-      <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }}>
+      <div style={{ background:"var(--surface)", border:"1px solid var(--border)", borderRadius:16, boxShadow:"var(--shadow)", padding:"32px 36px" }} className="mw-card">
         {/* Prompt */}
         <div style={{ fontSize:11, textTransform:"uppercase", letterSpacing:"0.1em", color:"var(--accent2)", marginBottom:10 }}>{promptLang}</div>
         <div style={{ fontSize:30, fontWeight:600, color:"var(--accent)", marginBottom:6, fontFamily:"'Lora',serif", display:"flex", alignItems:"center", gap:8 }}>

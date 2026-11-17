@@ -6,8 +6,8 @@
     "description": "DEV — Cleaned vocabulary with 5000 words"
   },
   "app": {
-    "version": "2.5.1-dev",
-    "date": "2026-07-08",
+    "version": "2.6.0-dev",
+    "date": "2026-11-17",
     "changes": [
       "Testing environment — DEV branch"
     ]
