@@ -1,17 +1,23 @@
 {
   "vocab": {
-    "version": "3.2",
-    "date": "2026-07-08",
-    "wordCount": 5000,
-    "description": "Cleaned vocabulary with 5000 words"
+    "version": "4.0",
+    "date": "2026-11-17",
+    "wordCount": 5195,
+    "description": "Vocabulary 4.0: levels A1–C2, added basic words, corrections"
   },
   "app": {
-    "version": "2.6.0",
-    "date": "2026-11-17",
+    "version": "3.1.0",
+    "date": "2026-11-19",
     "changes": [
-      "Phone layout: on a narrow screen the menu slides in with the ☰ button and closes with ✕, a tap outside or by choosing a page",
-      "Phone layout: bigger buttons, the dictionary shows each word as a card, the app can be added to the home screen",
-      "Update Progress page: note that progress is saved per device and is not shared between phone and computer"
+      "Phones: the app's own keyboard (QWERTY or QWERTZ, with the special letters) instead of the phone keyboard, with Check and Next keys",
+      "Phones, while typing: a compact card and a small round menu button, so the whole word stays in view",
+      "New page Preferences: keyboard, dictionary choice, learning rules and review intervals; Update Progress keeps only your progress",
+      "Review: a clear message when the chosen topic or level has no taught words yet, with a button to review all taught words",
+      "Two dictionaries: by frequency or by level A1 → C2, each with its own progress (Update Progress page)",
+      "Vocabulary 4.0: 291 basic words added (articles, pronouns, prepositions, everyday words); they come first in New Words and can be skipped",
+      "Levels A1–C2 from FLELex; grammatical gender for 1,405 nouns; 166 translations corrected; duplicates merged",
+      "Typing French: any of the forms is correct (le / la / les: la, les, le la…), other spellings too (diner, oeuvre)",
+      "New page About & Licence: sources of the vocabulary and the licence (non-commercial use)"
     ]
   }
 }
