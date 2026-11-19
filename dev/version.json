@@ -1,13 +1,13 @@
 {
   "vocab": {
-    "version": "3.1",
-    "date": "2026-07-08",
-    "wordCount": 5000,
-    "description": "DEV — Cleaned vocabulary with 5000 words"
+    "version": "4.0",
+    "date": "2026-11-17",
+    "wordCount": 5195,
+    "description": "DEV — vocabulary 4.0"
   },
   "app": {
-    "version": "2.6.0-dev",
-    "date": "2026-11-17",
+    "version": "3.1.0-dev",
+    "date": "2026-11-19",
     "changes": [
       "Testing environment — DEV branch"
     ]
