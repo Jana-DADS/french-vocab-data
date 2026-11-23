@@ -95,7 +95,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/dev/version.json";
-const APP_VERSION = "3.1.0";
+const APP_VERSION = "3.2.0";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -197,6 +197,7 @@ function parseCSV(text) {
       order_freq: parseInt(obj.order_freq) || 0,
       order_level: parseInt(obj.order_level) || 0,
       added: obj.added || "",                                 // vocabulary version that added the word
+      note: obj.note || "",                                   // usage note, shown only after answering
     });
   }
   return words.filter(w => w.fr && w.en);
@@ -1145,6 +1146,7 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             </div>
             {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
+            <NoteLine note={word.note} style={{ marginBottom:8 }} />
           </div>
           {/* Practice */}
           <PracticeField alt={word.alt} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
@@ -1211,6 +1213,7 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:12 }}>[{word.pron}]</div>}
             {word.info&&word.info!=="-" && <div style={{ fontSize:13, color:"var(--text2)", marginBottom:10 }}>{word.info}</div>}
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic" }}>{backSentence}</div>
+            <NoteLine note={word.note} style={{ marginTop:10 }} />
           </div>
         )}
       </div>
@@ -1643,11 +1646,11 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
       <div style={{ marginTop:28, background:"var(--surface2)", borderRadius:10, padding:"16px 20px" }}>
         <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", marginBottom:8 }}>CSV format</div>
         <code style={{ fontSize:11, color:"var(--text2)", lineHeight:1.8, display:"block", whiteSpace:"pre-wrap" }}>
-{`id,fr,pron,info,en,fr_sentence,en_sentence,level,category,alt,order_freq,order_level,added,difficulty
-1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,2.5`}
+{`id,fr,pron,info,en,fr_sentence,en_sentence,level,category,alt,order_freq,order_level,added,note
+1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,,1,1,,`}
         </code>
         <div style={{ fontSize:12, color:"var(--text2)", marginTop:10, lineHeight:1.6 }}>
-          Columns <strong>difficulty</strong> and <strong>category</strong> are optional — defaults to 2.5 and "General". Encoding must be UTF-8.
+          Columns after <strong>category</strong> are optional; <strong>note</strong> is shown only after answering. Category defaults to "General". Encoding must be UTF-8.
         </div>
       </div>
     </div>
@@ -1657,7 +1660,8 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 // ── Answer checking ───────────────────────────────────────────────────────
 // French: the whole answer, or one or more of its forms in any order ("le / la / les": "la", "les le", "le, la/les"),
 // a form in brackets ("je (j')": "j'") and other accepted spellings (column alt). "oe" counts as "œ".
-// English: the whole answer, as before.
+// English: the whole answer, or any one of its meanings ("to adore, to love": "to love", "love"),
+// with or without "to" and words in brackets ("kid (informal)": "kid").
 function normAns(t) { return t.toLowerCase().replace(/[’`]/g, "'").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/\s+/g, " ").trim(); }
 function answerForms(answer, alt) {
   const forms = new Set();
@@ -1670,11 +1674,21 @@ function answerForms(answer, alt) {
   forms.delete("");
   return forms;
 }
+function enMeanings(answer) {
+  const out = new Set();
+  normAns(answer).split(/\s*[\/,;]\s*/).forEach(m => {
+    const plain = m.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim().replace(/^to /, "");
+    if (plain) out.add(plain);
+    const whole = m.replace(/[()]/g, "").replace(/\s+/g, " ").trim().replace(/^to /, "");
+    if (whole) out.add(whole);
+  });
+  return out;
+}
 function checkAnswer(input, answer, isFrench, alt) {
   const typed = normAns(input);
   if (!typed) return false;
   if (typed === normAns(answer)) return true;
-  if (!isFrench) return false;
+  if (!isFrench) return enMeanings(answer).has(typed.replace(/^to /, ""));
   const forms = answerForms(answer, alt);
   const longest = Math.max(1, ...[...forms].map(f => f.split(" ").length));
   for (const chunk of typed.split(/\s*[\/,;]\s*/).filter(Boolean)) {
@@ -1841,6 +1855,12 @@ function PracticeField({ correctAnswer, isFR, alt, onCorrect, onNext }) {
   );
 }
 
+// ── Note shown after answering ───────────────────────────────────────────
+function NoteLine({ note, style }) {
+  if (!note) return null;
+  return <div style={{ fontSize:13, color:"var(--text2)", marginTop:6, ...style }}>💡 {note}</div>;
+}
+
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
@@ -1926,7 +1946,9 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
               {answerText}
               {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
             </div>
+            {!isFR_first && word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginTop:4 }}>{word.info}</div>}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>{answerSentence}</div>
+            <NoteLine note={word.note} />
           </div>
         )}
 
@@ -1981,7 +2003,9 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
                 <PracticeField alt={word.alt} correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
               </div>
             )}
+            {!isFR_first && word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginTop:6 }}>{word.info}</div>}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
+            <NoteLine note={word.note} />
           </div>
         )}
 
