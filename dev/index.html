@@ -95,7 +95,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/dev/version.json";
-const APP_VERSION = "3.2.0";
+const APP_VERSION = "3.2.1";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -904,9 +904,34 @@ function WordCountPicker({ value, onChange }) {
 }
 
 // ── DifficultyButtons ──────────────────────────────────────────────────────
-function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty }) {
+// Phone with the app keyboard open: Easy / Default / Hard and Next (or Check) in one row,
+// so the whole card stays above the keyboard.
+function CompactDiffRow({ active, diffColor, onPick, action, actionLabel, actionDisabled }) {
+  return (
+    <div style={{ display:"flex", gap:6, alignItems:"stretch", marginTop:8 }}>
+      {["Easy","Default","Hard"].map(d => (
+        <button key={d} onClick={() => onPick(d)} style={{
+          flex:1, minWidth:0, padding:"9px 0", borderRadius:8, fontSize:13, fontWeight:600,
+          border:`2px solid ${diffColor[d]}`,
+          background: active===d ? diffColor[d] : "transparent",
+          color: active===d ? "#fff" : diffColor[d]
+        }}>{d}</button>
+      ))}
+      <button onClick={action} disabled={actionDisabled} style={{
+        flex:1.5, minWidth:0, padding:"9px 0", borderRadius:8, fontSize:14, fontWeight:600, border:"none",
+        background: actionDisabled ? "var(--border)" : "var(--accent)", color:"#fff"
+      }}>{actionLabel}</button>
+    </div>
+  );
+}
+
+function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty, onNext }) {
   const [localDiff, setLocalDiff] = useState("Default");
   const activeDiff = isLearn ? localDiff : savedDiff;
+  if (onNext && appKbActive()) return (
+    <CompactDiffRow active={activeDiff} diffColor={diffColor} action={onNext} actionLabel="Next →"
+      onPick={d => { if (isLearn) setLocalDiff(d); setDifficulty(wordId, d); }} />
+  );
 
   return (
     <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:10, alignItems:"center" }}>
@@ -1152,10 +1177,10 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
           <PracticeField alt={word.alt} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
           {/* Buttons */}
           <div style={{ marginTop:16 }}>
-            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
-            <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
+            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} onNext={next} />
+            {!appKbActive() && <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
               Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span>
-            </button>
+            </button>}
           </div>
         </div>
       </div>
@@ -1234,11 +1259,12 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             savedDiff={progress[word.id]?.difficulty || "Default"}
             diffColor={diffColor}
             setDifficulty={setDifficulty}
+            onNext={isReview ? undefined : next}
           />
-          <button onClick={next} style={{
+          {(isReview || !appKbActive()) && <button onClick={next} style={{
             width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
             background:"var(--accent)", color:"#fff", border:"none", letterSpacing:"0.02em"
-          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
+          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>}
         </div>
       )}
     </div>
@@ -2010,6 +2036,14 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
         )}
 
         {/* Buttons */}
+        {appKbActive() ? (
+          <CompactDiffRow active={curDiffLocal} diffColor={diffColor}
+            onPick={d => { setCurDiffLocal(d); if (!isLearn) setDifficulty(word.id, d); }}
+            action={isLearn ? () => { if (curDiffLocal !== "Default") setDifficulty(word.id, curDiffLocal); onNext(); }
+                            : !checked ? check : () => handleNext(null)}
+            actionLabel={isLearn || checked ? "Next →" : "Check"}
+            actionDisabled={!isLearn && !checked && !input.trim()} />
+        ) : (<>
         {/* Difficulty buttons — always visible */}
         <div style={{ display:"flex", gap:8, justifyContent:"center", marginTop:16, marginBottom:10, alignItems:"center" }}>
           <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
@@ -2044,6 +2078,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
           )}
         </div>
+        </>)}
       </div>
     </div>
   );
