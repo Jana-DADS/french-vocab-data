@@ -95,7 +95,7 @@ const PAIR_MODES = ["EN → FR","FR → EN"];
 
 const DEFAULT_VOCAB_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/french_vocab.csv";
 const VERSION_JSON_URL = "https://raw.githubusercontent.com/Jana-DADS/french-vocab-data/main/version.json";
-const APP_VERSION = "3.1.0";
+const APP_VERSION = "3.2.1";
 // Reset stats on new version
 (function() {
   localStorage.setItem("frAppVersion", APP_VERSION);
@@ -197,6 +197,7 @@ function parseCSV(text) {
       order_freq: parseInt(obj.order_freq) || 0,
       order_level: parseInt(obj.order_level) || 0,
       added: obj.added || "",                                 // vocabulary version that added the word
+      note: obj.note || "",                                   // usage note, shown only after answering
     });
   }
   return words.filter(w => w.fr && w.en);
@@ -903,9 +904,34 @@ function WordCountPicker({ value, onChange }) {
 }
 
 // ── DifficultyButtons ──────────────────────────────────────────────────────
-function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty }) {
+// Phone with the app keyboard open: Easy / Default / Hard and Next (or Check) in one row,
+// so the whole card stays above the keyboard.
+function CompactDiffRow({ active, diffColor, onPick, action, actionLabel, actionDisabled }) {
+  return (
+    <div style={{ display:"flex", gap:6, alignItems:"stretch", marginTop:8 }}>
+      {["Easy","Default","Hard"].map(d => (
+        <button key={d} onClick={() => onPick(d)} style={{
+          flex:1, minWidth:0, padding:"9px 0", borderRadius:8, fontSize:13, fontWeight:600,
+          border:`2px solid ${diffColor[d]}`,
+          background: active===d ? diffColor[d] : "transparent",
+          color: active===d ? "#fff" : diffColor[d]
+        }}>{d}</button>
+      ))}
+      <button onClick={action} disabled={actionDisabled} style={{
+        flex:1.5, minWidth:0, padding:"9px 0", borderRadius:8, fontSize:14, fontWeight:600, border:"none",
+        background: actionDisabled ? "var(--border)" : "var(--accent)", color:"#fff"
+      }}>{actionLabel}</button>
+    </div>
+  );
+}
+
+function DifficultyButtons({ isLearn, wordId, savedDiff, diffColor, setDifficulty, onNext }) {
   const [localDiff, setLocalDiff] = useState("Default");
   const activeDiff = isLearn ? localDiff : savedDiff;
+  if (onNext && appKbActive()) return (
+    <CompactDiffRow active={activeDiff} diffColor={diffColor} action={onNext} actionLabel="Next →"
+      onPick={d => { if (isLearn) setLocalDiff(d); setDifficulty(wordId, d); }} />
+  );
 
   return (
     <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:10, alignItems:"center" }}>
@@ -1145,15 +1171,16 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             </div>
             {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:6 }}>[{word.pron}]</div>}
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic", marginBottom:8 }}>{backS}</div>
+            <NoteLine note={word.note} style={{ marginBottom:8 }} />
           </div>
           {/* Practice */}
           <PracticeField alt={word.alt} correctAnswer={isFR_first ? word.en : word.fr} isFR={!isFR_first} onNext={next} />
           {/* Buttons */}
           <div style={{ marginTop:16 }}>
-            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} />
-            <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
+            <DifficultyButtons isLearn={true} wordId={word.id} savedDiff={progress[word.id]?.difficulty || "Default"} diffColor={diffColor} setDifficulty={setDifficulty} onNext={next} />
+            {!appKbActive() && <button onClick={next} style={{ width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600, background:"var(--accent)", color:"#fff", border:"none", marginTop:8 }}>
               Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span>
-            </button>
+            </button>}
           </div>
         </div>
       </div>
@@ -1211,6 +1238,7 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             {!isFR_first && <div style={{ fontSize:15, color:"var(--text2)", fontStyle:"italic", marginBottom:12 }}>[{word.pron}]</div>}
             {word.info&&word.info!=="-" && <div style={{ fontSize:13, color:"var(--text2)", marginBottom:10 }}>{word.info}</div>}
             <div style={{ fontSize:14, color:"var(--text2)", fontStyle:"italic" }}>{backSentence}</div>
+            <NoteLine note={word.note} style={{ marginTop:10 }} />
           </div>
         )}
       </div>
@@ -1231,11 +1259,12 @@ function Flashcards({ setSettings, words, progress, settings, setDifficulty, mar
             savedDiff={progress[word.id]?.difficulty || "Default"}
             diffColor={diffColor}
             setDifficulty={setDifficulty}
+            onNext={isReview ? undefined : next}
           />
-          <button onClick={next} style={{
+          {(isReview || !appKbActive()) && <button onClick={next} style={{
             width:"100%", padding:"13px 0", borderRadius:10, fontSize:15, fontWeight:600,
             background:"var(--accent)", color:"#fff", border:"none", letterSpacing:"0.02em"
-          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
+          }}>Next <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>}
         </div>
       )}
     </div>
@@ -1643,11 +1672,11 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
       <div style={{ marginTop:28, background:"var(--surface2)", borderRadius:10, padding:"16px 20px" }}>
         <div style={{ fontSize:13, fontWeight:600, color:"var(--text)", marginBottom:8 }}>CSV format</div>
         <code style={{ fontSize:11, color:"var(--text2)", lineHeight:1.8, display:"block", whiteSpace:"pre-wrap" }}>
-{`id,fr,pron,info,en,fr_sentence,en_sentence,level,category,alt,order_freq,order_level,added,difficulty
-1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,2.5`}
+{`id,fr,pron,info,en,fr_sentence,en_sentence,level,category,alt,order_freq,order_level,added,note
+1,bonjour,bɔ̃ʒuʀ,-,hello,"Bonjour, comment allez-vous ?","Hello, how are you?",A1,Greetings,,1,1,,`}
         </code>
         <div style={{ fontSize:12, color:"var(--text2)", marginTop:10, lineHeight:1.6 }}>
-          Columns <strong>difficulty</strong> and <strong>category</strong> are optional — defaults to 2.5 and "General". Encoding must be UTF-8.
+          Columns after <strong>category</strong> are optional; <strong>note</strong> is shown only after answering. Category defaults to "General". Encoding must be UTF-8.
         </div>
       </div>
     </div>
@@ -1657,7 +1686,8 @@ function VocabSettings({ loadVocabFromUrl, vocabStatus, vocabError, wordCount })
 // ── Answer checking ───────────────────────────────────────────────────────
 // French: the whole answer, or one or more of its forms in any order ("le / la / les": "la", "les le", "le, la/les"),
 // a form in brackets ("je (j')": "j'") and other accepted spellings (column alt). "oe" counts as "œ".
-// English: the whole answer, as before.
+// English: the whole answer, or any one of its meanings ("to adore, to love": "to love", "love"),
+// with or without "to" and words in brackets ("kid (informal)": "kid").
 function normAns(t) { return t.toLowerCase().replace(/[’`]/g, "'").replace(/œ/g, "oe").replace(/æ/g, "ae").replace(/\s+/g, " ").trim(); }
 function answerForms(answer, alt) {
   const forms = new Set();
@@ -1670,11 +1700,21 @@ function answerForms(answer, alt) {
   forms.delete("");
   return forms;
 }
+function enMeanings(answer) {
+  const out = new Set();
+  normAns(answer).split(/\s*[\/,;]\s*/).forEach(m => {
+    const plain = m.replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim().replace(/^to /, "");
+    if (plain) out.add(plain);
+    const whole = m.replace(/[()]/g, "").replace(/\s+/g, " ").trim().replace(/^to /, "");
+    if (whole) out.add(whole);
+  });
+  return out;
+}
 function checkAnswer(input, answer, isFrench, alt) {
   const typed = normAns(input);
   if (!typed) return false;
   if (typed === normAns(answer)) return true;
-  if (!isFrench) return false;
+  if (!isFrench) return enMeanings(answer).has(typed.replace(/^to /, ""));
   const forms = answerForms(answer, alt);
   const longest = Math.max(1, ...[...forms].map(f => f.split(" ").length));
   for (const chunk of typed.split(/\s*[\/,;]\s*/).filter(Boolean)) {
@@ -1841,6 +1881,12 @@ function PracticeField({ correctAnswer, isFR, alt, onCorrect, onNext }) {
   );
 }
 
+// ── Note shown after answering ───────────────────────────────────────────
+function NoteLine({ note, style }) {
+  if (!note) return null;
+  return <div style={{ fontSize:13, color:"var(--text2)", marginTop:6, ...style }}>💡 {note}</div>;
+}
+
 // ── WritingCard ────────────────────────────────────────────────────────────
 const FR_CHARS = ["é","è","ê","ë","à","â","ù","û","ü","î","ï","ô","ç","œ","æ"];
 
@@ -1926,7 +1972,9 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
               {answerText}
               {!isFR_first && <SpeakBtn text={answerText} style={{ fontSize:16 }} />}
             </div>
+            {!isFR_first && word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginTop:4 }}>{word.info}</div>}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:4 }}>{answerSentence}</div>
+            <NoteLine note={word.note} />
           </div>
         )}
 
@@ -1981,11 +2029,21 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
                 <PracticeField alt={word.alt} correctAnswer={answerText} isFR={!isFR_first} onNext={onNext} />
               </div>
             )}
+            {!isFR_first && word.info && word.info !== "-" && <div style={{ fontSize:13, color:"var(--text2)", marginTop:6 }}>{word.info}</div>}
             <div style={{ fontSize:13, color:"var(--text2)", fontStyle:"italic", marginTop:6 }}>{answerSentence}</div>
+            <NoteLine note={word.note} />
           </div>
         )}
 
         {/* Buttons */}
+        {appKbActive() ? (
+          <CompactDiffRow active={curDiffLocal} diffColor={diffColor}
+            onPick={d => { setCurDiffLocal(d); if (!isLearn) setDifficulty(word.id, d); }}
+            action={isLearn ? () => { if (curDiffLocal !== "Default") setDifficulty(word.id, curDiffLocal); onNext(); }
+                            : !checked ? check : () => handleNext(null)}
+            actionLabel={isLearn || checked ? "Next →" : "Check"}
+            actionDisabled={!isLearn && !checked && !input.trim()} />
+        ) : (<>
         {/* Difficulty buttons — always visible */}
         <div style={{ display:"flex", gap:8, justifyContent:"center", marginTop:16, marginBottom:10, alignItems:"center" }}>
           <span style={{ fontSize:12, color:"var(--text2)" }}>Difficulty:</span>
@@ -2020,6 +2078,7 @@ function WritingCard({ word, idx, total, isFR_first, prog, curDiff, diffColor, o
             }}>Next → <span style={{fontSize:10,opacity:0.7}}>[Tab]</span></button>
           )}
         </div>
+        </>)}
       </div>
     </div>
   );

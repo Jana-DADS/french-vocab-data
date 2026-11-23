@@ -1,23 +1,20 @@
 {
   "vocab": {
-    "version": "4.0",
-    "date": "2026-11-17",
-    "wordCount": 5195,
-    "description": "Vocabulary 4.0: levels A1–C2, added basic words, corrections"
+    "version": "4.1",
+    "date": "2026-11-23",
+    "wordCount": 5132,
+    "description": "Vocabulary 4.1: full review — split cards, removed duplicates, corrected meanings, new sentences, usage notes"
   },
   "app": {
-    "version": "3.1.0",
-    "date": "2026-11-19",
+    "version": "3.2.1",
+    "date": "2026-11-23",
     "changes": [
-      "Phones: the app's own keyboard (QWERTY or QWERTZ, with the special letters) instead of the phone keyboard, with Check and Next keys",
-      "Phones, while typing: a compact card and a small round menu button, so the whole word stays in view",
-      "New page Preferences: keyboard, dictionary choice, learning rules and review intervals; Update Progress keeps only your progress",
-      "Review: a clear message when the chosen topic or level has no taught words yet, with a button to review all taught words",
-      "Two dictionaries: by frequency or by level A1 → C2, each with its own progress (Update Progress page)",
-      "Vocabulary 4.0: 291 basic words added (articles, pronouns, prepositions, everyday words); they come first in New Words and can be skipped",
-      "Levels A1–C2 from FLELex; grammatical gender for 1,405 nouns; 166 translations corrected; duplicates merged",
-      "Typing French: any of the forms is correct (le / la / les: la, les, le la…), other spellings too (diner, oeuvre)",
-      "New page About & Licence: sources of the vocabulary and the licence (non-commercial use)"
+      "Phones: while typing, Easy / Default / Hard and Next (or Check) share one row, so Next is no longer hidden behind the keyboard",
+      "Vocabulary 4.1: every card reviewed — 69 cards with two meanings split into two cards, 132 junk or duplicate cards removed, 1,127 meanings corrected or completed",
+      "New example sentences for 833 cards, so that the English sentence always contains the word",
+      "Usage notes (e.g. “ne … pas”, “être au courant”) are shown only after you answer, so they no longer give the answer away",
+      "Writing: the French correct answer now shows its gender and article (n.f. — la …) or verb forms",
+      "Writing in English: any one of the meanings is correct (“to adore, to love”: “love”)"
     ]
   }
 }
